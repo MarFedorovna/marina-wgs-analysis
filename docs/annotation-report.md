@@ -1,5 +1,7 @@
 # Offline annotation and evidence report
 
+The Russian [source and consequence map](sources-and-consequences.md) explains the user-supplied Analysis 1/2 lists, actual versus planned resource use, SNV/indel and transcript consequences, and the distinction between pLoF candidates and established LoF/GoF mechanisms.
+
 Workflow stages `annotate` and `report` use `scripts/annotation_stages.py` through the shared stage runtime. Annotation reads **all** normalized, decomposed soft-filtered records from `05_filter/cohort.filtered.vcf.gz`, not just its quality subset. The official VEP 115.2 image runs with `--offline`, the matched 115 cache, the fixed analysis FASTA and Docker networking disabled. The [database installer](databases.md) must have a verified final resource manifest before patient annotation can begin.
 
 Real sequence alleles are annotated across transcripts. Spanning-deletion `*`, symbolic/breakend/nonsequence placeholders are retained in the annotated VCF and master table without being counted as SNVs, independent sequence alleles or small-variant candidates. A one-to-one ordered merge preserves the input sample GT/FT. A skipped real allele or changed genotype causes a stop. Missing/failed FT and partial GT remain unknown/filtered; they never become confidently reference samples.
