@@ -1,90 +1,90 @@
-# WGS analysis automation
+# Анализ геномных вариантов
 
-Private repository for reproducible server setup, data transfer utilities, and a pinned NVIDIA Parabricks workflow. This repository stores code and generic configuration examples. Actual FASTQ, BAM, VCF, database exports, real sample manifests, and connection details live outside Git history.
+Скрипты подготовки сервера, поиска вариантов, аннотации и отчёта. GitHub содержит код и общие примеры. Реальные FASTQ, BAM, VCF, фенотипы, настройки образцов и ключи находятся вне истории Git.
 
-## Selected environment
+## Три независимых процесса
 
-The selected Brev environment uses Lambda `gpu_1x_a100_sxm4`: one NVIDIA A100 with 40 GB VRAM, 30 vCPU, 200 GiB quoted system RAM, and a fixed 512 GiB SSD. The console quoted **$2.39/hour including storage** on 2026-11-05; verify the current quote before any new deployment. Docker, NVIDIA Container Toolkit and the Parabricks image are installed, and hardware/container exposure and tool-version checks passed. See [runtime validation](docs/runtime-validation.md) for observed hardware, installed versions and the immutable image digest. No patient FASTQ alignment or variant calling has been run by these setup checks, and patient-analysis time has not been measured. Synthetic end-to-end validation is recorded separately in the runtime validation report.
+1. **Получение вариантов:** готовые BAM → отдельные gVCF → GenomicsDBImport → GenotypeGVCFs → общий VCF → фильтрация. Базы аннотации для этих этапов не нужны.
+2. **Подготовка баз на сервере:** скачивание, возобновление после обрыва, проверка контрольных сумм, безопасная распаковка и фиксация версий. Базы не скачиваются на рабочий компьютер этой командой.
+3. **Сохранение результатов на компьютере:** только завершённые BAM/индексы, VCF/gVCF, QC, таблицы, отчёты, код и настройки. По умолчанию файлы проверяются по SHA-256. Для выгрузки также есть явно выбранный режим проверки завершения и размера: он помечается как size-only и не выдаётся за SHA-проверку. Понятный `INDEX.html` показывает метод проверки каждой сохранённой копии.
 
-This Brev offering is marked **pre-release** and has **no stop/start**. Charges continue until termination. Brev warns that exhausted organization credits cause the instance and its data to be deleted. Keep original inputs locally, download verified completed outputs during the run, and finish with a budget reserve. A planned budget is not a provider-enforced spending cap.
+## Команды на сервере
 
-## Workflow
-
-1. Prepare the raw Linux VM and verify GPU, driver, Docker GPU access, RAM, CPU and free disk space.
-2. Build a local private transfer manifest. Review its file list before uploading.
-3. Transfer the selected data over SSH/SFTP and verify SHA-256 on the server.
-4. Supply a fixed reference FASTA, indexes, known-sites resources and sample/read-group metadata in local configuration. Do not infer the reference or sample metadata from filenames.
-5. Process each sample through the same pinned pipeline: alignment, coordinate sorting, duplicate marking, BQSR when configured, and HaplotypeCaller gVCF generation.
-6. Subsequent stage (not implemented by this runner): cohort joint genotyping, explicit filtering, annotation and interpretation.
-7. Download outputs and logs, verify their checksums locally, and terminate the paid VM after confirming the retained copies.
-
-One GPU is shared through a controlled queue. Four input samples do not imply that four memory-heavy GPU jobs run simultaneously. The scheduler must account for CPU threads, system RAM, GPU memory and scratch disk together.
-
-## Software and reproducibility
-
-The pinned Parabricks container is `nvcr.io/nvidia/clara/clara-parabricks:4.8.0-1`; the pulled immutable digest is recorded in [runtime validation](docs/runtime-validation.md). Record the resolved image digest, actual driver/tool versions, reference/resource checksums, command lines and QC metrics with each run. Docker packages the analysis tools; Kubernetes is not required for this single-server workload. Follow the [server instructions](docs/server-setup.md) and [verified transfer instructions](transfer/README.md) alongside their respective scripts.
-
-Parabricks 4.8 documents GATK 4.3.0.0 and BWA-MEM 0.7.17 as compatibility baselines. Do not equate this with running an arbitrary newer GATK version on a GPU. Small output differences are documented, so compare normalized variants and genotypes rather than expecting identical compressed files. Technical rerunning cannot replace missing sequencing coverage.
-
-## Server commands
-
-After the first pilot alignment and complete input-transfer verification, prepare the remaining alignment queue with `python3 scripts/configure_remaining_align.py --execute`. With that private configuration prepared, the next command is:
+Из корня установленного кода запустить базы одной командой:
 
 ```bash
-python3 scripts/run_parabricks.py --config /srv/marina/private/remaining-align.json --stage align --execute
+bash publicstages/01_prepare_databases.sh
 ```
 
-This aligns the other three samples against the complete fixed reference, one GPU job at a time, and collects BAM QC. The first verified BAM stays in its pilot directory. This command makes no new variant calls. See [remaining alignment](docs/remaining-alignment.md) for prerequisites, outputs and reruns.
-
-To reproduce preparation on a fresh Ubuntu GPU VM, copy this reviewed checkout and upload the inputs with the [transfer utilities](transfer/README.md). Keep a private eight-column sample TSV based on `config/samples.example.tsv`, together with the expected-source upload manifest. From the checkout, inspect the plan first:
+Инструменты Word/графиков устанавливаются отдельно и воспроизводимо:
 
 ```bash
-bash scripts/setup_project.sh \
-  --samples /srv/marina/private/samples.tsv \
-  --transfer-manifest /srv/marina/.transfer/PLAN_ID.json
+bash scripts/setup_report_env.sh
 ```
 
-Replace `PLAN_ID` with the actual private manifest basename. Repeat with `--execute` to install/verify Docker and GPU tools, install the official Ubuntu BWA package, prepare the locked Broad reference, verify the selected input pair, and create and validate a private technical-pilot plan. This prepares **one first sample** for full-pair alignment followed by diploid chr1 gVCF calling, with BQSR disabled. It does not create the cloud VM or transfer workstation data. Real analysis starts separately:
+После четырёх проверенных BAM создать приватный план даже при незавершённом скачивании баз:
 
 ```bash
-bash scripts/marina.sh status
-bash scripts/marina.sh pilot --wait
+python3 scripts/configure_workflow.py \
+  --resource-manifest /srv/marina/resources/annotation/vep115.2-cache115-clinvar20261025-clingen20261105-publicextras-v2/resource-manifest.json \
+  --allow-pending-resources --execute
 ```
 
-For preparation followed immediately by this pilot, add both `--execute --pilot` to the setup command. The [clean notebook template](notebooks/START_HERE.ipynb) provides separate status and manual pilot cells; keep its executed working copy outside the checkout. A four-sample final WGS/cohort analysis requires a separate reviewed plan. The setup wrapper's syntax and default plan have been checked; its complete sequence has not been rerun on another fresh VM. Individual setup/reference stages and synthetic pipeline checks are recorded in the validation documents.
-
-Copy only the reviewed code to the Linux VM and follow [server setup](docs/server-setup.md). Run the bootstrap once as an administrator, then the preflight before processing:
+Поиск вариантов, объединение и фильтрация выполняются последовательно:
 
 ```bash
-sudo bash scripts/bootstrap-server.sh /srv/marina
-sudo bash scripts/preflight-server.sh /srv/marina
+python3 scripts/workflow.py 3 --execute
+python3 scripts/workflow.py 4 --execute
+python3 scripts/workflow.py 5 --execute
 ```
 
-Create the private run configuration from the generic examples, using `/srv/marina/private/` for real sample details. Inspect generated commands before execution:
+Если очередь уже работает, не дублируйте запуск. Наблюдать текущую очередь:
 
 ```bash
-python3 scripts/run_parabricks.py --config /srv/marina/private/run.json --stage align --sample SAMPLE_01
+python3 scripts/watch_calling.py --follow
 ```
 
-The default is a dry run. Add `--execute` only after supplying and checking the actual reference/resources, data checksums, read groups, explicit call intervals/ploidy, free space and budget. The server guide documents the remaining stages and their ordering.
+После готовности проверенного ресурсного манифеста:
 
-## Repository boundaries
+```bash
+python3 scripts/workflow.py 6 --execute
+python3 scripts/workflow.py 7 --execute
+```
 
-- Publish only reviewed scripts, generic examples, dependency pins and documentation.
-- Keep real manifests and connection settings under ignored `.local/`.
-- Do not put raw reads, aligned reads, patient-level variants, phenotype tables, SQL dumps, SSH keys, tokens or passwords in commits or GitHub Actions artifacts.
-- `.gitignore` applies to Git operations. Browser file uploads require a separate reviewed file allowlist.
-- Do not put the analysis workload on GitHub-hosted runners; the paid GPU VM performs computation.
+Для подготовленного проекта все последующие этапы 3–7 запускаются командой `python3 scripts/workflow.py all --execute`. По умолчанию без `--execute` показывается план. Установочные shell-команды явно выполняют установку. Подробнее: [семь этапов и карта серверных результатов](docs/stages.md), [базы и перезапуск загрузки](docs/databases.md).
 
-## Documentation
+## Область и результаты
 
-- [Server setup and analysis commands](docs/server-setup.md)
-- [Align the remaining samples](docs/remaining-alignment.md)
-- [Pinned Broad GRCh38 reference preparation](docs/reference-setup.md)
-- [Observed runtime validation](docs/runtime-validation.md)
-- [Verified data transfer](transfer/README.md)
-- [Operations and budget](docs/operations.md)
-- [Official Parabricks installation requirements](https://docs.nvidia.com/clara/parabricks/get-started/installation-requirements)
-- [Parabricks compatibility baselines](https://docs.nvidia.com/clara/parabricks/about-parabricks/software-overview/output-accuracy-and-compatible-cpu-software-versions)
-- [Parabricks FQ2BAM](https://docs.nvidia.com/clara/parabricks/tool-reference/tools/fq2bam)
-- [Parabricks HaplotypeCaller](https://docs.nvidia.com/clara/parabricks/tool-reference/tools/haplotypecaller)
+Текущий план по умолчанию: SNV/малые indel на chr1–chr22, диплоидно. Полно-референсное выравнивание BAM не означает готовый вызов вариантов на X/Y/MT. Для X/Y нужны явные интервалы/плоидность; митохондриальные варианты, CNV/SV и повторы требуют отдельных методов. По отсутствующему полу, имени файла или непокрытой позиции референсный генотип не угадывается.
+
+Выход: исходный общий VCF, VCF с качественными флагами сайта и каждого генотипа, качественная выборка, полный аннотированный VCF и транскриптные таблицы; пообразцовые приложения и кандидаты; пересечения аллелей отдельно от генов; топ-10/20 по образцу и когорте без искусственного дополнения; stop-gain/stop-loss/start-loss/frameshift/splice/pLoF-счётчики по уникальным аллелям; графики; HTML/Word; ручной лист критериев ACMG; версии и фактическая доступность баз.
+
+ClinVar/ClinGen и функциональные предсказания сохраняются отдельными полями. Отсутствующие оценки не считаются доброкачественными, неизвестная популяционная частота не становится AF=0. Топ — очередь рассмотрения, не автоматический диагноз. Все 69 позиций из [реестра источников](config/evidence-sources.example.json) сопоставляются с фактической доступностью; лицензируемые/ручные источники не выдаются за установленные. [Матрица требований из видео и курсов](docs/requirements-matrix.md) объясняет происхождение каждого требования. Обогащение KEGG было отменено в исходном обсуждении и по умолчанию выключено.
+
+## Воспроизведение и проверки
+
+Фиксированные контейнеры: Parabricks 4.8.0-1, GATK 4.3.0.0, VEP 115.2/cache115 GRCh38; в конфигурациях и квитанциях сохраняются неизменяемые digest. Вспомогательные Python-зависимости отчёта указаны в `requirements-report.txt`, фактический `pip freeze` сохраняется на сервере. Входы, интервалы, исходные BAM-квитанции и выходы проверяются по SHA-256. Завершённые контрольные точки повторно используются только при совпадении входов, кода и параметров.
+
+Проверки:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Реальные вызовы инструментов на синтетических данных проверяются отдельно от реального анализа: тест HaplotypeCaller → совместный GATK → фильтрация прошёл на изолированных искусственных входах; отчёт и графики проверены на синтетических аннотациях. Это не доказательство клинической валидности, чувствительности на этих образцах или равенства CPU/GPU по всем генотипам. Реальная интеграционная проверка VEP требует полностью скачанного кэша. Отсутствие покрытия нельзя исправить перезапуском программ.
+
+Первый реальный пилот: выравнивание первого образца на полный референс и gVCF только chr1. Все четыре полно-референсных BAM подготовлены отдельно. Не подменяйте новый когортный анализ старым chr1-пилотом.
+
+## Среда и бюджет
+
+Наблюдавшаяся среда Brev: A100 40 GB, 30 vCPU, около 216 GiB фактической RAM, SSD512 GB; цена $2.39/час со storage в консоли на 2026-11-05. Проверяйте новую цену перед другой арендой. Этот экземпляр без stop/start: оплата идёт до удаления. Скрипт ограничивает собственную работу, а не биллинг провайдера; после проверенной локальной выгрузки аренду завершают отдельно. Один GPU обслуживает очередь, тяжёлые GPU-задачи не запускаются одновременно.
+
+Для нового сервера: [установка](docs/server-setup.md), [проверенная передача исходных данных](transfer/README.md), [референс Broad GRCh38](docs/reference-setup.md), [наблюдавшиеся версии и проверки](docs/runtime-validation.md), [операции и бюджет](docs/operations.md). `setup_project.sh` воспроизводит подготовку и отдельный технический пилот; он не создаёт облачную VM.
+
+## Границы репозитория
+
+- Коммитить только проверенный код, общие примеры, зависимости и документацию.
+- Реальные настройки соединения и манифесты хранить в игнорируемой `.local/` и на сервере в `private/`.
+- Пациентские данные, базы, дампы SQL, ключи и токены в GitHub не загружать.
+- Вычисления выполняются на сервере; GitHub Actions не используется для обработки пациентских данных.
+- Browser upload проверяется отдельным списком файлов: `.gitignore` не защищает от ручной загрузки в веб-форму.
