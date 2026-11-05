@@ -1,0 +1,51 @@
+# Human genomic data and sample-level outputs
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.sam
+*.bam
+*.bai
+*.cram
+*.crai
+*.vcf
+*.vcf.gz
+*.bcf
+*.g.vcf
+*.g.vcf.gz
+*.tbi
+*.csi
+*.fasta
+*.fa
+*.fna
+*.fai
+*.dict
+
+# Local data, intermediate files, and results
+/data/
+/raw_data/
+/results/
+/work/
+/reference/
+/clinical/
+/phenotypes/
+/pedigree/
+
+# Credentials and private configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Common temporary files
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.nextflow/
+.nextflow.log*
+.snakemake/
+.DS_Store
+Thumbs.db
