@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "plan": "C:/PRIVATE/ACTIVE_REVIEWED_NATIVE_PLAN.json",
+  "auth_config": "C:/PRIVATE/EXISTING_NATIVE_SFTP_CONFIG.json",
+  "download_directory": "D:/PrivateResearch/Downloads/small-results-v1",
+  "destination": "D:/PrivateResearch/Results",
+  "state_directory": "D:/PrivateResearch/Results/Settings/small-result-sync-v1",
+  "remote_root": "/srv/marina",
+  "wsl_distribution": "Ubuntu-22.04",
+  "max_hours": 8,
+  "interval_seconds": 60,
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "max_file_bytes": 34359738368,
+  "max_total_bytes": 68719476736,
+  "min_free_bytes": 16106127360,
+  "required_completed_roots": [
+    "cohort-sample-views-v1",
+    "combined-annotation-master-v1",
+    "consequence-tables-v1",
+    "population-reference-context-v1",
+    "tissue-protein-context-v1"
+  ],
+  "allow_onedrive": false,
+  "pause_file": "D:/PrivateResearch/Results/Settings/LOCAL_DOWNLOADS_PAUSED.json"
+}
