@@ -79,3 +79,19 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Additional patient/report artifacts and archives.
+*.tbi
+*.csi
+*.gzi
+*.ped
+*.phenopacket*
+*.xlsx
+*.xls
+*.docx
+*.pdf
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
