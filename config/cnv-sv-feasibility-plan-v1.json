@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "plan_id": "cnv-sv-feasibility-v1",
+  "status": "PARALLEL_RESEARCH_FEASIBILITY_PUBLIC_PROOF_AND_READONLY_FITCHECK_COMPLETE",
+  "clinical_whole_genome_claim": false,
+  "primary_annotation_priority": true,
+  "uses_old_vcfs_or_candidates": false,
+  "uses_existing_new_bam_and_coverage_only": true,
+  "absolute_deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "additional_vm_extension_authorized": false,
+  "fit_assessment_required": [
+    "CDS versus broad-genome depth and breadth; capture-like enrichment is not proof of a specific capture kit",
+    "actual vendor target BED/library metadata when available; GENCODE CDS is not a capture-design BED",
+    "insert size/orientation and secondary/supplementary/duplicate behavior",
+    "coverage at both proposed breakpoint locations, not only inside an exon",
+    "matched-platform normal reference availability and sample relatedness",
+    "stage6/7 CPU/memory priority and original remaining money/time"
+  ],
+  "candidate_tool": {
+    "name": "DELLY",
+    "version": "2.7.0",
+    "subcommand": "sr",
+    "role": "paired-end/split-read feasibility only",
+    "license": "BSD-3-Clause",
+    "official_release_url": "https://github.com/dellytools/delly/releases/tag/v2.7.0",
+    "linux_amd64_url": "https://github.com/dellytools/delly/releases/download/v2.7.0/delly-v2.7.0-linux-amd64",
+    "bytes": 9871504,
+    "publisher_sha256": "0a2a29c6b827b130948a0431ecba64942257e187c52d2b58ade014c032dab665",
+    "metadata_verified_utc_date": "2026-11-05",
+    "downloaded_or_installed_by_this_task": true,
+    "public_example_smoke_status": "PASS",
+    "patient_sv_caller_launched": false,
+    "read_depth_cnv_mode_eligible": false,
+    "reason": "Official delly cnv documentation excludes exome/targeted data; uneven coverage must first be resolved"
+  },
+  "proposed_pilot_limits": {
+    "samples": 1,
+    "public_gene_windows_max": 2,
+    "flank_bp_per_gene": 50000,
+    "cpu_threads": 2,
+    "memory_bytes": 4294967296,
+    "wall_time_seconds": 1200,
+    "temporary_output_bytes_ceiling": 1073741824,
+    "network_download_bytes_ceiling": 50000000,
+    "all_four_samples_automatic_expansion": false,
+    "root_execution_review_required": true,
+    "mate_subset_patient_calling_allowed": false,
+    "full_bam_or_validated_target_aware_method_required": true
+  },
+  "cnv_read_depth_alternative": {
+    "name": "CNVkit",
+    "role": "future targeted-CNV design after real capture intervals/reference QC",
+    "official_docs": "https://cnvkit.readthedocs.io/en/master/quickstart.html",
+    "status": "NOT_LAUNCHED",
+    "limitations": [
+      "Four disease samples are not an automatically valid normal reference panel",
+      "Flat reference cannot estimate shared target capture biases; exploratory only",
+      "CDS mean depth alone does not establish exon-level CNV sensitivity"
+    ]
+  },
+  "forbidden_inferences": [
+    "no event implies no CNV/SV",
+    "local pilot certifies whole-genome sensitivity",
+    "high exon depth establishes covered intronic breakpoints",
+    "GATK cohort CNV with four samples is automatically adequate",
+    "research event is clinically validated",
+    "repeat expansion or MT large deletion analysis completed"
+  ]
+}

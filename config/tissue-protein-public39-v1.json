@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "panel_manifest": "/srv/marina/resources/public-hcm-cds-v2/panel-manifest.json",
+  "panel_sha256": "09c518f2659bd2443ee024d65dd83070922864304ed92f705271e250c227fedb",
+  "expected_genes": 39,
+  "root": "/srv/marina/resources/tissue-protein-public39-v1",
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "max_minutes": 30,
+  "max_bytes_per_profile": 100000000,
+  "uniprot_release": "2026_04",
+  "uniprot_license": "CC-BY-4.0 per official UniProt API documentation; attribution retained",
+  "uniprot_license_url": "https://www.uniprot.org/api-documentation/support-data",
+  "gtex_dataset": "gtex_v11",
+  "gtex_gencode": "v47",
+  "gtex_genome": "GRCh38/hg38",
+  "tissues": ["Heart_Left_Ventricle", "Heart_Atrial_Appendage"],
+  "gtex_notice_url": "https://gtexportal.org/home/apiPage",
+  "gtex_source_scope": "Open derived tissue median summaries only; no subjects/samples/raw RNA/QTL/protected data",
+  "patient_queries_allowed": false,
+  "annotation_binding_updated": false
+}

@@ -1,0 +1,1485 @@
+{
+  "receipt": {
+    "schema_version": 1,
+    "status": "PASS",
+    "mode": "public_controls",
+    "network_denied": true,
+    "network_guard_selftest_pass": true,
+    "normalizer_network_attempts": 0,
+    "reference_ids": [
+      "NC_012920.1",
+      "NM_000256.3",
+      "NM_000257.4",
+      "NM_003002.4"
+    ],
+    "rows": [
+      {
+        "control": "mt_public_snv",
+        "input": "NC_012920.1:m.3243A>G",
+        "normalized": "NC_012920.1:m.3243A>G",
+        "error_codes": [],
+        "passed": true,
+        "result": {
+          "input_description": "NC_012920.1:m.3243A>G",
+          "input_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NC_012920.1"
+            },
+            "coordinate_system": "m",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 3243
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NC_012920.1"
+            },
+            "coordinate_system": "m",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 3243
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_description": "NC_012920.1:m.3243A>G",
+          "normalized_description": "NC_012920.1:m.3243A>G",
+          "normalized_model": {
+            "variants": [
+              {
+                "type": "substitution",
+                "location": {
+                  "type": "point",
+                  "position": 3243
+                },
+                "inserted": [
+                  {
+                    "source": "description",
+                    "sequence": "G"
+                  }
+                ],
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ]
+              }
+            ],
+            "reference": {
+              "id": "NC_012920.1"
+            },
+            "coordinate_system": "m"
+          },
+          "equivalent_descriptions": {
+            "n": [
+              {
+                "description": "NC_012920.1(RNR2):n.1559+14A>G"
+              },
+              {
+                "description": "NC_012920.1(TRNL1):n.14A>G"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "control": "transcript_public_deletion",
+        "input": "NM_003002.4:c.274del",
+        "normalized": "NM_003002.4:c.274del",
+        "error_codes": [],
+        "passed": true,
+        "result": {
+          "input_description": "NM_003002.4:c.274del",
+          "input_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_003002.4"
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 274
+                },
+                "type": "deletion",
+                "source": "reference"
+              }
+            ]
+          },
+          "corrected_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_003002.4",
+              "selector": {
+                "id": "NM_003002.4"
+              }
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 274
+                },
+                "type": "deletion",
+                "source": "reference"
+              }
+            ]
+          },
+          "corrected_description": "NM_003002.4:c.274del",
+          "normalized_description": "NM_003002.4:c.274del",
+          "normalized_model": {
+            "variants": [
+              {
+                "type": "deletion",
+                "source": "reference",
+                "location": {
+                  "type": "point",
+                  "position": 274,
+                  "shift": 1
+                }
+              }
+            ],
+            "reference": {
+              "id": "NM_003002.4"
+            },
+            "coordinate_system": "c"
+          },
+          "protein": {
+            "description": "NM_003002.4(NP_002993.1):p.(Asp92ThrfsTer43)",
+            "reference": "MAVLWRLSAVCGALGGRALLLRTPVVRPAHISAFLQDRPIPEWCGVQHIHLSPSHHSGSKAASLHWTSERVVSVLLLGLLPAAYLNPCSAMDYSLAAALTLHGHWGLGQVVTDYVHGDALQKAAKAGLLALSALTFAGLCYFNYHDVGICKAVAMLWKL*",
+            "predicted": "MAVLWRLSAVCGALGGRALLLRTPVVRPAHISAFLQDRPIPEWCGVQHIHLSPSHHSGSKAASLHWTSERVVSVLLLGLLPAAYLNPCSAMTIPWLQPSLFMVTGALDKLLLTMFMGMPCRKLPRQGFWHFQL*",
+            "position_first": 91,
+            "position_last_original": 160,
+            "position_last_predicted": 134
+          },
+          "rna": {
+            "description": "NM_003002.4:r.(274del)"
+          },
+          "infos": [
+            {
+              "code": "IMRNAGENOMICTIP",
+              "details": "An 'mRNA' sequence was used with the 'c.' coordinate system. Make use of a genomic reference sequence if the experiment performed involved measured DNA."
+            }
+          ],
+          "selector_short": {
+            "exon": {
+              "g": [
+                [
+                  "1",
+                  "87"
+                ],
+                [
+                  "88",
+                  "204"
+                ],
+                [
+                  "205",
+                  "349"
+                ],
+                [
+                  "350",
+                  "1339"
+                ]
+              ],
+              "c": [
+                [
+                  "-35",
+                  "52"
+                ],
+                [
+                  "53",
+                  "169"
+                ],
+                [
+                  "170",
+                  "314"
+                ],
+                [
+                  "315",
+                  "*824"
+                ]
+              ]
+            },
+            "cds": {
+              "g": [
+                [
+                  "36",
+                  "515"
+                ]
+              ],
+              "c": [
+                [
+                  "1",
+                  "480"
+                ]
+              ]
+            }
+          }
+        }
+      },
+      {
+        "control": "wrong_reference_base",
+        "input": "NC_012920.1:m.3243C>G",
+        "normalized": null,
+        "error_codes": [
+          "ESEQUENCEMISMATCH"
+        ],
+        "passed": true,
+        "result": {
+          "input_description": "NC_012920.1:m.3243C>G",
+          "input_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NC_012920.1"
+            },
+            "coordinate_system": "m",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 3243
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "C",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NC_012920.1"
+            },
+            "coordinate_system": "m",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 3243
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "C",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_description": "NC_012920.1:m.3243C>G",
+          "errors": [
+            {
+              "code": "ESEQUENCEMISMATCH",
+              "details": "C not found in the reference sequence, found A instead.",
+              "paths": [
+                [
+                  "variants",
+                  0,
+                  "deleted"
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "control": "missing_reference_is_explicit",
+        "input": "NM_999999999.1:c.1A>T",
+        "normalized": null,
+        "error_codes": [
+          "ERETR"
+        ],
+        "passed": true,
+        "result": {
+          "input_description": "NM_999999999.1:c.1A>T",
+          "input_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_999999999.1"
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "T",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_999999999.1"
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "T",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_description": "NM_999999999.1:c.1A>T",
+          "errors": [
+            {
+              "code": "ERETR",
+              "details": "Reference NM_999999999.1 could not be retrieved.",
+              "paths": [
+                [
+                  [
+                    "reference",
+                    "id"
+                  ]
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "control": "mane14_MYBPC3_synthetic_start_substitution",
+        "input": "NM_000256.3:c.1A>G",
+        "normalized": "NM_000256.3:c.1A>G",
+        "error_codes": [],
+        "passed": true,
+        "result": {
+          "input_description": "NM_000256.3:c.1A>G",
+          "input_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_000256.3"
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_000256.3",
+              "selector": {
+                "id": "NM_000256.3"
+              }
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_description": "NM_000256.3:c.1A>G",
+          "normalized_description": "NM_000256.3:c.1A>G",
+          "normalized_model": {
+            "variants": [
+              {
+                "type": "substitution",
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "inserted": [
+                  {
+                    "source": "description",
+                    "sequence": "G"
+                  }
+                ],
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ]
+              }
+            ],
+            "reference": {
+              "id": "NM_000256.3"
+            },
+            "coordinate_system": "c"
+          },
+          "protein": {
+            "description": "NM_000256.3(NP_000247.2):p.?",
+            "reference": "MPEPGKKPVSAFSKKPRSVEVAAGSPAVFEAETERAGVKVRWQRGGSDISASNKYGLATEGTRHTLTVREVGPADQGSYAVIAGSSKVKFDLKVIEAEKAEPMLAPAPAPAEATGAPGEAPAPAAELGESAPSPKGSSSAALNGPTPGAPDDPIGLFVMRPQDGEVTVGGSITFSARVAGASLLKPPVVKWFKGKWVDLSSKVGQHLQLHDSYDRASKVYLFELHITDAQPAFTGSYRCEVSTKDKFDCSNFNLTVHEAMGTGDLDLLSAFRRTSLAGGGRRISDSHEDTGILDFSSLLKKRDSFRTPRDSKLEAPAEEDVWEILRQAPPSEYERIAFQYGVTDLRGMLKRLKGMRRDEKKSTAFQKKLEPAYQVSKGHKIRLTVELADHDAEVKWLKNGQEIQMSGSKYIFESIGAKRTLTISQCSLADDAAYQCVVGGEKCSTELFVKEPPVLITRPLEDQLVMVGQRVEFECEVSEEGAQVKWLKDGVELTREETFKYRFKKDGQRHHLIINEAMLEDAGHYALCTSGGQALAELIVQEKKLEVYQSIADLMVGAKDQAVFKCEVSDENVRGVWLKNGKELVPDSRIKVSHIGRVHKLTIDDVTPADEADYSFVPEGFACNLSAKLHFMEVKIDFVPRQEPPKIHLDCPGRIPDTIVVVAGNKLRLDVPISGDPAPTVIWQKAITQGNKAPARPAPDAPEDTGDSDEWVFDKKLLCETEGRVRVETTKDRSIFTVEGAEKEDEGVYTVTVKNPVGEDQVNLTVKVIDVPDAPAAPKISNVGEDSCTVQWEPPAYDGGQPILGYILERKKKKSYRWMRLNFDLIQELSHEARRMIEGVVYEMRVYAVNAIGMSRPSPASQPFMPIGPPSEPTHLAVEDVSDTTVSLKWRPPERVGAGGLDGYSVEYCPEGCSEWVAALQGLTEHTSILVKDLPTGARLLFRVRAHNMAGPGAPVTTTEPVTVQEILQRPRLQLPRHLRQTIQKKVGEPVNLLIPFQGKPRPQVTWTKEGQPLAGEEVSIRNSPTDTILFIRAARRVHSGTYQVTVRIENMEDKATLVLQVVDKPSPPQDLRVTDAWGLNVALEWKPPQDVGNTELWGYTVQKADKKTMEWFTVLEHYRRTHCVVPELIIGNGYYFRVFSQNMVGFSDRAATTKEPVFIPRPGITYEPPNYKALDFSEAPSFTQPLVNRSVIAGYTAMLCCAVRGSPKPKISWFKNGLDLGEDARFRMFSKQGVLTLEIRKPCPFDGGIYVCRATNLQGEARCECRLEVRVPQ*",
+            "predicted": "?"
+          },
+          "rna": {
+            "description": "NM_000256.3:r.(1a>g)"
+          },
+          "infos": [
+            {
+              "code": "IMRNAGENOMICTIP",
+              "details": "An 'mRNA' sequence was used with the 'c.' coordinate system. Make use of a genomic reference sequence if the experiment performed involved measured DNA."
+            }
+          ],
+          "selector_short": {
+            "exon": {
+              "g": [
+                [
+                  "1",
+                  "80"
+                ],
+                [
+                  "81",
+                  "347"
+                ],
+                [
+                  "348",
+                  "461"
+                ],
+                [
+                  "462",
+                  "560"
+                ],
+                [
+                  "561",
+                  "709"
+                ],
+                [
+                  "710",
+                  "827"
+                ],
+                [
+                  "828",
+                  "876"
+                ],
+                [
+                  "877",
+                  "906"
+                ],
+                [
+                  "907",
+                  "960"
+                ],
+                [
+                  "961",
+                  "963"
+                ],
+                [
+                  "964",
+                  "981"
+                ],
+                [
+                  "982",
+                  "1145"
+                ],
+                [
+                  "1146",
+                  "1278"
+                ],
+                [
+                  "1279",
+                  "1281"
+                ],
+                [
+                  "1282",
+                  "1406"
+                ],
+                [
+                  "1407",
+                  "1512"
+                ],
+                [
+                  "1513",
+                  "1679"
+                ],
+                [
+                  "1680",
+                  "1845"
+                ],
+                [
+                  "1846",
+                  "1952"
+                ],
+                [
+                  "1953",
+                  "1982"
+                ],
+                [
+                  "1983",
+                  "2122"
+                ],
+                [
+                  "2123",
+                  "2203"
+                ],
+                [
+                  "2204",
+                  "2363"
+                ],
+                [
+                  "2364",
+                  "2468"
+                ],
+                [
+                  "2469",
+                  "2657"
+                ],
+                [
+                  "2658",
+                  "2792"
+                ],
+                [
+                  "2793",
+                  "2960"
+                ],
+                [
+                  "2961",
+                  "3049"
+                ],
+                [
+                  "3050",
+                  "3245"
+                ],
+                [
+                  "3246",
+                  "3385"
+                ],
+                [
+                  "3386",
+                  "3545"
+                ],
+                [
+                  "3546",
+                  "3682"
+                ],
+                [
+                  "3683",
+                  "3869"
+                ],
+                [
+                  "3870",
+                  "3906"
+                ],
+                [
+                  "3907",
+                  "4217"
+                ]
+              ],
+              "c": [
+                [
+                  "-55",
+                  "25"
+                ],
+                [
+                  "26",
+                  "292"
+                ],
+                [
+                  "293",
+                  "406"
+                ],
+                [
+                  "407",
+                  "505"
+                ],
+                [
+                  "506",
+                  "654"
+                ],
+                [
+                  "655",
+                  "772"
+                ],
+                [
+                  "773",
+                  "821"
+                ],
+                [
+                  "822",
+                  "851"
+                ],
+                [
+                  "852",
+                  "905"
+                ],
+                [
+                  "906",
+                  "908"
+                ],
+                [
+                  "909",
+                  "926"
+                ],
+                [
+                  "927",
+                  "1090"
+                ],
+                [
+                  "1091",
+                  "1223"
+                ],
+                [
+                  "1224",
+                  "1226"
+                ],
+                [
+                  "1227",
+                  "1351"
+                ],
+                [
+                  "1352",
+                  "1457"
+                ],
+                [
+                  "1458",
+                  "1624"
+                ],
+                [
+                  "1625",
+                  "1790"
+                ],
+                [
+                  "1791",
+                  "1897"
+                ],
+                [
+                  "1898",
+                  "1927"
+                ],
+                [
+                  "1928",
+                  "2067"
+                ],
+                [
+                  "2068",
+                  "2148"
+                ],
+                [
+                  "2149",
+                  "2308"
+                ],
+                [
+                  "2309",
+                  "2413"
+                ],
+                [
+                  "2414",
+                  "2602"
+                ],
+                [
+                  "2603",
+                  "2737"
+                ],
+                [
+                  "2738",
+                  "2905"
+                ],
+                [
+                  "2906",
+                  "2994"
+                ],
+                [
+                  "2995",
+                  "3190"
+                ],
+                [
+                  "3191",
+                  "3330"
+                ],
+                [
+                  "3331",
+                  "3490"
+                ],
+                [
+                  "3491",
+                  "3627"
+                ],
+                [
+                  "3628",
+                  "3814"
+                ],
+                [
+                  "3815",
+                  "*26"
+                ],
+                [
+                  "*27",
+                  "*337"
+                ]
+              ]
+            },
+            "cds": {
+              "g": [
+                [
+                  "56",
+                  "3880"
+                ]
+              ],
+              "c": [
+                [
+                  "1",
+                  "3825"
+                ]
+              ]
+            }
+          }
+        }
+      },
+      {
+        "control": "mane14_MYH7_synthetic_start_substitution",
+        "input": "NM_000257.4:c.1A>G",
+        "normalized": "NM_000257.4:c.1A>G",
+        "error_codes": [],
+        "passed": true,
+        "result": {
+          "input_description": "NM_000257.4:c.1A>G",
+          "input_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_000257.4"
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_model": {
+            "type": "description_dna",
+            "reference": {
+              "id": "NM_000257.4",
+              "selector": {
+                "id": "NM_000257.4"
+              }
+            },
+            "coordinate_system": "c",
+            "variants": [
+              {
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "type": "substitution",
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ],
+                "inserted": [
+                  {
+                    "sequence": "G",
+                    "source": "description"
+                  }
+                ]
+              }
+            ]
+          },
+          "corrected_description": "NM_000257.4:c.1A>G",
+          "normalized_description": "NM_000257.4:c.1A>G",
+          "normalized_model": {
+            "variants": [
+              {
+                "type": "substitution",
+                "location": {
+                  "type": "point",
+                  "position": 1
+                },
+                "inserted": [
+                  {
+                    "source": "description",
+                    "sequence": "G"
+                  }
+                ],
+                "source": "reference",
+                "deleted": [
+                  {
+                    "sequence": "A",
+                    "source": "description"
+                  }
+                ]
+              }
+            ],
+            "reference": {
+              "id": "NM_000257.4"
+            },
+            "coordinate_system": "c"
+          },
+          "protein": {
+            "description": "NM_000257.4(NP_000248.2):p.?",
+            "reference": "MGDSEMAVFGAAAPYLRKSEKERLEAQTRPFDLKKDVFVPDDKQEFVKAKIVSREGGKVTAETEYGKTVTVKEDQVMQQNPPKFDKIEDMAMLTFLHEPAVLYNLKDRYGSWMIYTYSGLFCVTVNPYKWLPVYTPEVVAAYRGKKRSEAPPHIFSISDNAYQYMLTDRENQSILITGESGAGKTVNTKRVIQYFAVIAAIGDRSKKDQSPGKGTLEDQIIQANPALEAFGNAKTVRNDNSSRFGKFIRIHFGATGKLASADIETYLLEKSRVIFQLKAERDYHIFYQILSNKKPELLDMLLITNNPYDYAFISQGETTVASIDDAEELMATDNAFDVLGFTSEEKNSMYKLTGAIMHFGNMKFKLKQREEQAEPDGTEEADKSAYLMGLNSADLLKGLCHPRVKVGNEYVTKGQNVQQVIYATGALAKAVYERMFNWMVTRINATLETKQPRQYFIGVLDIAGFEIFDFNSFEQLCINFTNEKLQQFFNHHMFVLEQEEYKKEGIEWTFIDFGMDLQACIDLIEKPMGIMSILEEECMFPKATDMTFKAKLFDNHLGKSANFQKPRNIKGKPEAHFSLIHYAGIVDYNIIGWLQKNKDPLNETVVGLYQKSSLKLLSTLFANYAGADAPIEKGKGKAKKGSSFQTVSALHRENLNKLMTNLRSTHPHFVRCIIPNETKSPGVMDNPLVMHQLRCNGVLEGIRICRKGFPNRILYGDFRQRYRILNPAAIPEGQFIDSRKGAEKLLSSLDIDHNQYKFGHTKVFFKAGLLGLLEEMRDERLSRIITRIQAQSRGVLARMEYKKLLERRDSLLVIQWNIRAFMGVKNWPWMKLYFKIKPLLKSAEREKEMASMKEEFTRLKEALEKSEARRKELEEKMVSLLQEKNDLQLQVQAEQDNLADAEERCDQLIKNKIQLEAKVKEMNERLEDEEEMNAELTAKKRKLEDECSELKRDIDDLELTLAKVEKEKHATENKVKNLTEEMAGLDEIIAKLTKEKKALQEAHQQALDDLQAEEDKVNTLTKAKVKLEQQVDDLEGSLEQEKKVRMDLERAKRKLEGDLKLTQESIMDLENDKQQLDERLKKKDFELNALNARIEDEQALGSQLQKKLKELQARIEELEEELEAERTARAKVEKLRSDLSRELEEISERLEEAGGATSVQIEMNKKREAEFQKMRRDLEEATLQHEATAAALRKKHADSVAELGEQIDNLQRVKQKLEKEKSEFKLELDDVTSNMEQIIKAKANLEKMCRTLEDQMNEHRSKAEETQRSVNDLTSQRAKLQTENGELSRQLDEKEALISQLTRGKLTYTQQLEDLKRQLEEEVKAKNALAHALQSARHDCDLLREQYEEETEAKAELQRVLSKANSEVAQWRTKYETDAIQRTEELEEAKKKLAQRLQEAEEAVEAVNAKCSSLEKTKHRLQNEIEDLMVDVERSNAAAAALDKKQRNFDKILAEWKQKYEESQSELESSQKEARSLSTELFKLKNAYEESLEHLETFKRENKNLQEEISDLTEQLGSSGKTIHELEKVRKQLEAEKMELQSALEEAEASLEHEEGKILRAQLEFNQIKAEIERKLAEKDEEMEQAKRNHLRVVDSLQTSLDAETRSRNEALRVKKKMEGDLNEMEIQLSHANRMAAEAQKQVKSLQSLLKDTQIQLDDAVRANDDLKENIAIVERRNNLLQAELEELRAVVEQTERSRKLAEQELIETSERVQLLHSQNTSLINQKKKMDADLSQLQTEVEEAVQECRNAEEKAKKAITDAAMMAEELKKEQDTSAHLERMKKNMEQTIKDLQHRLDEAEQIALKGGKKQLQKLEARVRELENELEAEQKRNAESVKGMRKSERRIKELTYQTEEDRKNLLRLQDLVDKLQLKVKAYKRQAEEAEEQANTNLSKFRKVQHELDEAEERADIAESQVNKLRAKSRDIGTKGLNEE*",
+            "predicted": "?"
+          },
+          "rna": {
+            "description": "NM_000257.4:r.(1a>g)"
+          },
+          "infos": [
+            {
+              "code": "IMRNAGENOMICTIP",
+              "details": "An 'mRNA' sequence was used with the 'c.' coordinate system. Make use of a genomic reference sequence if the experiment performed involved measured DNA."
+            }
+          ],
+          "selector_short": {
+            "exon": {
+              "g": [
+                [
+                  "1",
+                  "41"
+                ],
+                [
+                  "42",
+                  "97"
+                ],
+                [
+                  "98",
+                  "306"
+                ],
+                [
+                  "307",
+                  "450"
+                ],
+                [
+                  "451",
+                  "607"
+                ],
+                [
+                  "608",
+                  "635"
+                ],
+                [
+                  "636",
+                  "744"
+                ],
+                [
+                  "745",
+                  "837"
+                ],
+                [
+                  "838",
+                  "901"
+                ],
+                [
+                  "902",
+                  "1000"
+                ],
+                [
+                  "1001",
+                  "1104"
+                ],
+                [
+                  "1105",
+                  "1243"
+                ],
+                [
+                  "1244",
+                  "1362"
+                ],
+                [
+                  "1363",
+                  "1512"
+                ],
+                [
+                  "1513",
+                  "1683"
+                ],
+                [
+                  "1684",
+                  "1993"
+                ],
+                [
+                  "1994",
+                  "2061"
+                ],
+                [
+                  "2062",
+                  "2149"
+                ],
+                [
+                  "2150",
+                  "2267"
+                ],
+                [
+                  "2268",
+                  "2391"
+                ],
+                [
+                  "2392",
+                  "2528"
+                ],
+                [
+                  "2529",
+                  "2784"
+                ],
+                [
+                  "2785",
+                  "3027"
+                ],
+                [
+                  "3028",
+                  "3204"
+                ],
+                [
+                  "3205",
+                  "3350"
+                ],
+                [
+                  "3351",
+                  "3441"
+                ],
+                [
+                  "3442",
+                  "3831"
+                ],
+                [
+                  "3832",
+                  "3958"
+                ],
+                [
+                  "3959",
+                  "4077"
+                ],
+                [
+                  "4078",
+                  "4274"
+                ],
+                [
+                  "4275",
+                  "4458"
+                ],
+                [
+                  "4459",
+                  "4624"
+                ],
+                [
+                  "4625",
+                  "4749"
+                ],
+                [
+                  "4750",
+                  "5058"
+                ],
+                [
+                  "5059",
+                  "5262"
+                ],
+                [
+                  "5263",
+                  "5388"
+                ],
+                [
+                  "5389",
+                  "5664"
+                ],
+                [
+                  "5665",
+                  "5760"
+                ],
+                [
+                  "5761",
+                  "5895"
+                ],
+                [
+                  "5896",
+                  "6027"
+                ]
+              ],
+              "c": [
+                [
+                  "-105",
+                  "-65"
+                ],
+                [
+                  "-64",
+                  "-9"
+                ],
+                [
+                  "-8",
+                  "201"
+                ],
+                [
+                  "202",
+                  "345"
+                ],
+                [
+                  "346",
+                  "502"
+                ],
+                [
+                  "503",
+                  "530"
+                ],
+                [
+                  "531",
+                  "639"
+                ],
+                [
+                  "640",
+                  "732"
+                ],
+                [
+                  "733",
+                  "796"
+                ],
+                [
+                  "797",
+                  "895"
+                ],
+                [
+                  "896",
+                  "999"
+                ],
+                [
+                  "1000",
+                  "1138"
+                ],
+                [
+                  "1139",
+                  "1257"
+                ],
+                [
+                  "1258",
+                  "1407"
+                ],
+                [
+                  "1408",
+                  "1578"
+                ],
+                [
+                  "1579",
+                  "1888"
+                ],
+                [
+                  "1889",
+                  "1956"
+                ],
+                [
+                  "1957",
+                  "2044"
+                ],
+                [
+                  "2045",
+                  "2162"
+                ],
+                [
+                  "2163",
+                  "2286"
+                ],
+                [
+                  "2287",
+                  "2423"
+                ],
+                [
+                  "2424",
+                  "2679"
+                ],
+                [
+                  "2680",
+                  "2922"
+                ],
+                [
+                  "2923",
+                  "3099"
+                ],
+                [
+                  "3100",
+                  "3245"
+                ],
+                [
+                  "3246",
+                  "3336"
+                ],
+                [
+                  "3337",
+                  "3726"
+                ],
+                [
+                  "3727",
+                  "3853"
+                ],
+                [
+                  "3854",
+                  "3972"
+                ],
+                [
+                  "3973",
+                  "4169"
+                ],
+                [
+                  "4170",
+                  "4353"
+                ],
+                [
+                  "4354",
+                  "4519"
+                ],
+                [
+                  "4520",
+                  "4644"
+                ],
+                [
+                  "4645",
+                  "4953"
+                ],
+                [
+                  "4954",
+                  "5157"
+                ],
+                [
+                  "5158",
+                  "5283"
+                ],
+                [
+                  "5284",
+                  "5559"
+                ],
+                [
+                  "5560",
+                  "5655"
+                ],
+                [
+                  "5656",
+                  "5790"
+                ],
+                [
+                  "5791",
+                  "*114"
+                ]
+              ]
+            },
+            "cds": {
+              "g": [
+                [
+                  "106",
+                  "5913"
+                ]
+              ],
+              "c": [
+                [
+                  "1",
+                  "5808"
+                ]
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "project_annotation_compatibility": "NOT_YET_VALIDATED: fixture controls do not certify current HCM MANE1.4/GENCODE49/VEP115 mapping",
+    "clinical_classification": false
+  },
+  "concordance": {
+    "schema_version": 1,
+    "status": "SELECTED_PUBLIC_ID_CONCORDANCE_PASS",
+    "mane_release": "1.4",
+    "gencode_release": 49,
+    "expected_vep_cache_release": 115,
+    "hgvs_controls_pass": true,
+    "public_pairs": [
+      {
+        "symbol": "MYBPC3",
+        "RefSeq_nuc": "NM_000256.3",
+        "RefSeq_prot": "NP_000247.2",
+        "Ensembl_nuc": "ENST00000545968.6",
+        "Ensembl_prot": "ENSP00000442795.1",
+        "GRCh38_chr": "NC_000011.10",
+        "chr_strand": "-",
+        "gencode49_transcript": {
+          "gene_name": "MYBPC3",
+          "chromosome": "chr11",
+          "strand": "-",
+          "start": 47331406,
+          "end": 47352702
+        },
+        "identity_matches": true
+      },
+      {
+        "symbol": "MYH7",
+        "RefSeq_nuc": "NM_000257.4",
+        "RefSeq_prot": "NP_000248.2",
+        "Ensembl_nuc": "ENST00000355349.4",
+        "Ensembl_prot": "ENSP00000347507.3",
+        "GRCh38_chr": "NC_000014.9",
+        "chr_strand": "-",
+        "gencode49_transcript": {
+          "gene_name": "MYH7",
+          "chromosome": "chr14",
+          "strand": "-",
+          "start": 23412740,
+          "end": 23435660
+        },
+        "identity_matches": true
+      }
+    ],
+    "gencode_file_sha256": "d6e6fe0515c95b2a8cd36a853c1989cee9115c736c60237c56ae92b9daaaf7c4",
+    "genomic_to_transcript_variant_mapping_validated": false,
+    "vep115_runtime_control_validated": false,
+    "all_hcm_transcripts_validated": false,
+    "network_queries": false,
+    "patient_data": false
+  },
+  "source_manifest": {
+    "schema_version": 1,
+    "tool": "Mutalyzer",
+    "version": "3.1.1",
+    "upstream_commit": "171f36ada65b228c443b359925305bd85e9fa40e",
+    "fixture_reference_ids": [
+      "NM_003002.4",
+      "NC_012920.1",
+      "NM_000256.3",
+      "NM_000257.4"
+    ],
+    "mane14_public_pairs": [
+      {
+        "symbol": "MYBPC3",
+        "RefSeq_nuc": "NM_000256.3",
+        "RefSeq_prot": "NP_000247.2",
+        "Ensembl_nuc": "ENST00000545968.6",
+        "Ensembl_prot": "ENSP00000442795.1",
+        "GRCh38_chr": "NC_000011.10",
+        "chr_strand": "-"
+      },
+      {
+        "symbol": "MYH7",
+        "RefSeq_nuc": "NM_000257.4",
+        "RefSeq_prot": "NP_000248.2",
+        "Ensembl_nuc": "ENST00000355349.4",
+        "Ensembl_prot": "ENSP00000347507.3",
+        "GRCh38_chr": "NC_000014.9",
+        "chr_strand": "-"
+      }
+    ],
+    "created_utc": "2026-11-05T19:09:23.397629+00:00",
+    "files": [
+      {
+        "reference_id": "NM_003002.4",
+        "name": "NM_003002.4.fasta",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/tests/data/NM_003002.4.fasta",
+        "bytes": 1504,
+        "sha256": "a4188d491a80e4530b8c5887c1dd00b7762dad0bf2e14429e984328493aacaf9",
+        "role": "upstream public test fixture; not project MANE/GENCODE cache"
+      },
+      {
+        "reference_id": "NM_003002.4",
+        "name": "NM_003002.4.gff3",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/tests/data/NM_003002.4.gff3",
+        "bytes": 1722,
+        "sha256": "9decde20540bf302953f16688284bd89a23caa24d9ff46b8f963e1ba6bc212d8",
+        "role": "upstream public test fixture; not project MANE/GENCODE cache"
+      },
+      {
+        "reference_id": "NC_012920.1",
+        "name": "NC_012920.1.fasta",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/tests/data/NC_012920.1.fasta",
+        "bytes": 16865,
+        "sha256": "6a3a287c95a912cdff5c33e6322ad0fe22097758436718d0d4ba70131af68a96",
+        "role": "upstream public test fixture; not project MANE/GENCODE cache"
+      },
+      {
+        "reference_id": "NC_012920.1",
+        "name": "NC_012920.1.gff3",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/tests/data/NC_012920.1.gff3",
+        "bytes": 21283,
+        "sha256": "c97180e860bda8aa32f24ebf17c810294679223195ef8e6cfd2a9ad5832c44b9",
+        "role": "upstream public test fixture; not project MANE/GENCODE cache"
+      },
+      {
+        "reference_id": "NM_000256.3",
+        "name": "NM_000256.3.fasta",
+        "url": "https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?db=nuccore&id=NM_000256.3&report=fasta&retmode=text",
+        "bytes": 4346,
+        "sha256": "1eeb07605c1acb58bcf3dd866a2fcba1d9c6ea5fc52d0fa3757eb502a0c6bd9b",
+        "role": "NCBI public versioned HCM transcript; matched to existing MANE1.4 summary"
+      },
+      {
+        "reference_id": "NM_000256.3",
+        "name": "NM_000256.3.gff3",
+        "url": "https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?db=nuccore&id=NM_000256.3&report=gff3&retmode=text",
+        "bytes": 7349,
+        "sha256": "ae7aff384dbb02594ba01808d33d993c465ba3a3c54e5cf457aeb88955c68369",
+        "role": "NCBI public versioned HCM transcript; matched to existing MANE1.4 summary"
+      },
+      {
+        "reference_id": "NM_000257.4",
+        "name": "NM_000257.4.fasta",
+        "url": "https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?db=nuccore&id=NM_000257.4&report=fasta&retmode=text",
+        "bytes": 6197,
+        "sha256": "3ef5185ecb0037fb14ceadab4d45d0f38dc0dc1e7788cd789580bed61f2aa6ba",
+        "role": "NCBI public versioned HCM transcript; matched to existing MANE1.4 summary"
+      },
+      {
+        "reference_id": "NM_000257.4",
+        "name": "NM_000257.4.gff3",
+        "url": "https://www.ncbi.nlm.nih.gov/sviewer/viewer.fcgi?db=nuccore&id=NM_000257.4&report=gff3&retmode=text",
+        "bytes": 8124,
+        "sha256": "71e92979c94cfbc5e6dd71b1d7bb218ac3d99838d99c242960403c52e6f49ca1",
+        "role": "NCBI public versioned HCM transcript; matched to existing MANE1.4 summary"
+      },
+      {
+        "name": "upstream-LICENSE",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/LICENSE",
+        "bytes": 1089,
+        "sha256": "84ac3f02682551de43e3500e096b29f577faca352743b3559758b344368b5adc"
+      },
+      {
+        "name": "upstream-tests-commons.py",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/tests/commons.py",
+        "bytes": 1433,
+        "sha256": "9494e2f2a3691610433db77ebc3d761873ab28664e172133540f9d5d98e5c1fb"
+      },
+      {
+        "name": "upstream-tests-conftest.py",
+        "url": "https://raw.githubusercontent.com/mutalyzer/mutalyzer/171f36ada65b228c443b359925305bd85e9fa40e/tests/conftest.py",
+        "bytes": 164,
+        "sha256": "669c64f2d4453c7f95b32233c4a70c4bc19119c2d1dbe821a58f44482ceb71cb"
+      },
+      {
+        "name": "pip-25.3-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/44/3c/d717024885424591d5376220b5e836c2d5293ce2011523c9de23ff7bf068/pip-25.3-py3-none-any.whl",
+        "metadata_url": "https://pypi.org/pypi/pip/25.3/json",
+        "bytes": 1778622,
+        "sha256": "9655943313a94722b7774661c21049070f6bbb0a1516bf02f7c8d5d9201514cd"
+      }
+    ],
+    "patient_data": false,
+    "isolated": true,
+    "compatibility": "Public fixture proof only; current MANE1.4/GENCODE49/VEP115 HCM transcript cache not implied"
+  }
+}

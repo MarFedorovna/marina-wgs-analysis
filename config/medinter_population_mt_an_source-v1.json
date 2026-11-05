@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "approval": "User approved MedInter P01; noncommercial research",
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "source_root": "/srv/marina/resources/medinter-population-mt-sources-v1",
+  "patient_inputs_allowed": false,
+  "annotation_binding_updated": false,
+  "max_total_source_bytes": 1200000000,
+  "sources": [
+    {
+      "id": "gnomad_exomes_all_sites_an_v4_1",
+      "group": "an",
+      "url": "https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/tsv/exomes/gnomad.exomes.v4.1.allele_number_all_sites.tsv.bgz",
+      "expected_bytes": 1149738480,
+      "format": "tsv_gzip",
+      "publisher_md5": "ee71ce1ccfa5c1d9dd86e1ee1b1d11e2",
+      "publisher_md5_provenance": "https://raw.githubusercontent.com/broadinstitute/gnomad-browser/main/browser/src/DataPage/GnomadV4Downloads.tsx",
+      "terms_url": "https://gnomad.broadinstitute.org/terms",
+      "license_note": "Primary aggregate gnomAD data CC0 under current official terms; preserve source/version/citation. This unindexed 1.071GiB source is retained only on server and subset to fixed public HCM39 CDS; no full VCF or protected genotypes. Missing subset entry is never automatically AC=0."
+    }
+  ]
+}

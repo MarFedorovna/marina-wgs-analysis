@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "status": "PUBLIC_CLI_FIXTURE_SMOKE_PASS",
+  "version": "Delly version: v2.7.0\n using Boost: v1.74.0\n using HTSlib: v1.21",
+  "public_files": [
+    {
+      "name": "delly",
+      "url": "https://github.com/dellytools/delly/releases/download/v2.7.0/delly-v2.7.0-linux-amd64",
+      "bytes": 9871504,
+      "sha256": "0a2a29c6b827b130948a0431ecba64942257e187c52d2b58ade014c032dab665",
+      "checksum_provenance": "publisher release asset SHA256"
+    },
+    {
+      "name": "ref.fa",
+      "url": "https://raw.githubusercontent.com/dellytools/delly/3d505adc17afccb4443cf97dd01f78afc1d5a267/example/ref.fa",
+      "bytes": 203339,
+      "sha256": "2a31b9335ac345f00c17a3429d96a48f846ebff4e88370a64ff817b1bdee6093",
+      "checksum_provenance": "own observation over HTTPS, pinned upstream commit"
+    },
+    {
+      "name": "ref.fa.fai",
+      "url": "https://raw.githubusercontent.com/dellytools/delly/3d505adc17afccb4443cf97dd01f78afc1d5a267/example/ref.fa.fai",
+      "bytes": 18,
+      "sha256": "0c3ddf773a9d71591c8d374a71089478d1e45964270be840e2be1af5ce873d94",
+      "checksum_provenance": "own observation over HTTPS, pinned upstream commit"
+    },
+    {
+      "name": "sr.bam",
+      "url": "https://raw.githubusercontent.com/dellytools/delly/3d505adc17afccb4443cf97dd01f78afc1d5a267/example/sr.bam",
+      "bytes": 1381351,
+      "sha256": "7767be4c13fffcb6a07eec87dc96abc25dde3d9de7c5fe4cf0de0bd384c2a5ce",
+      "checksum_provenance": "own observation over HTTPS, pinned upstream commit"
+    },
+    {
+      "name": "sr.bam.bai",
+      "url": "https://raw.githubusercontent.com/dellytools/delly/3d505adc17afccb4443cf97dd01f78afc1d5a267/example/sr.bam.bai",
+      "bytes": 672,
+      "sha256": "5aece8f6103fba717f6025d83d8be98d63bcb30b3475bf24bc0e9ea2d1c8c2cf",
+      "checksum_provenance": "own observation over HTTPS, pinned upstream commit"
+    },
+    {
+      "name": "LICENSE",
+      "url": "https://raw.githubusercontent.com/dellytools/delly/3d505adc17afccb4443cf97dd01f78afc1d5a267/LICENSE",
+      "bytes": 1564,
+      "sha256": "5c2e1c1a30e65e75e26b6c2145fc0fe10ac96855b9dada16e854e45bfbd6f4ee",
+      "checksum_provenance": "own observation over HTTPS, pinned upstream commit"
+    }
+  ],
+  "received_bytes": 11458448,
+  "command": [
+    "delly",
+    "sr",
+    "-g",
+    "ref.fa",
+    "-o",
+    "public-sr.bcf",
+    "sr.bam"
+  ],
+  "public_output_records": 1,
+  "elapsed_seconds": 0.09,
+  "no_patient_data": true,
+  "patient_sv_caller_launched": false,
+  "golden_truth_accuracy_benchmark": false,
+  "clinical_detection_sensitivity_validated": false
+}

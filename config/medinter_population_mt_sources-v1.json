@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "approval": "User explicitly approved MedInter P01-P11; noncommercial research confirmed 2026-11-05",
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "source_root": "/srv/marina/resources/medinter-population-mt-sources-v1",
+  "patient_inputs_allowed": false,
+  "annotation_binding_updated": false,
+  "max_total_source_bytes": 1300000000,
+  "sources": [
+    {"id":"helix_mtdb_20200327","group":"mt","url":"https://helix-research-public.s3.amazonaws.com/mito/HelixMTdb_20200327.tsv","expected_bytes":2050188,"format":"tsv","terms_url":"https://www.helix.com/mitochondrial-variant-database","license_note":"Preserve source citation/link; phenotype-unselected cohort is not a proven healthy control cohort"},
+    {"id":"gnomad_mt_v3_1","group":"mt","url":"https://storage.googleapis.com/gcp-public-data--gnomad/release/3.1/vcf/genomes/gnomad.genomes.v3.1.sites.chrM.vcf.bgz","expected_bytes":5150029,"format":"vcf_bgzf","terms_url":"https://gnomad.broadinstitute.org/terms","license_note":"gnomAD aggregate public data; preserve exact source release and separate homoplasmic/heteroplasmic denominators; no nuclear AF substitution"},
+    {"id":"gnomad_mt_v3_1_tbi","group":"mt","url":"https://storage.googleapis.com/gcp-public-data--gnomad/release/3.1/vcf/genomes/gnomad.genomes.v3.1.sites.chrM.vcf.bgz.tbi","expected_bytes":108,"format":"bgzf_tbi","terms_url":"https://gnomad.broadinstitute.org/terms"},
+    {"id":"clinvar_submission_summary_20261101","group":"clinvar","url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/submission_summary.txt.gz","expected_bytes":406785046,"format":"tsv_gzip","publisher_md5_url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/submission_summary.txt.gz.md5","terms_url":"https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/","license_note":"Public NCBI reference submissions, not full ClinVar XML or literature full text; submission statements retain provenance"},
+    {"id":"clinvar_variant_summary_20261101","group":"clinvar","url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz","expected_bytes":457862838,"format":"tsv_gzip","publisher_md5_url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz.md5","terms_url":"https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/"},
+    {"id":"clinvar_var_citations_20261031","group":"clinvar","url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/var_citations.txt","expected_bytes":258888923,"format":"tsv","publisher_md5_url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/var_citations.txt.md5","terms_url":"https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/"},
+    {"id":"clinvar_gene_summary_20261031","group":"clinvar","url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/gene_specific_summary.txt","expected_bytes":3498816,"format":"tsv","publisher_md5_url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/gene_specific_summary.txt.md5","terms_url":"https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/"},
+    {"id":"clinvar_organization_summary_20261031","group":"clinvar","url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/organization_summary.txt","expected_bytes":950688,"format":"tsv","publisher_md5_url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/organization_summary.txt.md5","terms_url":"https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/"},
+    {"id":"clinvar_tab_readme_20260113","group":"clinvar","url":"https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README","expected_bytes":47147,"format":"text","terms_url":"https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/"}
+  ]
+}
