@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "bundle_id": "alphamissense-2023-v2-grch38-v3",
+  "assembly": "GRCh38",
+  "source_reference": "GRCh38.p13",
+  "transcript_annotation": "GENCODE v32",
+  "dataset_version": "AlphaMissense 2023; Zenodo record 8360242 v2; generation-pinned GCS objects",
+  "license": "CC BY 4.0, as updated by Google DeepMind on 2024-03-13",
+  "license_source": "https://github.com/google-deepmind/alphamissense#alphamissense-predictions-license",
+  "citation": "https://doi.org/10.1126/science.adg7492",
+  "tabix_version": "1.13",
+  "min_free_gib": 150,
+  "resources": [
+    {
+      "name": "canonical", "object": "AlphaMissense_hg38.tsv.gz", "generation": "1691073413649109",
+      "bytes": 642961469, "md5": "9fd167735f16a1b87da6eb3e4c25fcb5"
+    },
+    {
+      "name": "isoforms", "object": "AlphaMissense_isoforms_hg38.tsv.gz", "generation": "1695131173393377",
+      "bytes": 1177361934, "md5": "018771baa0dcc7ef79772448f8b8c354"
+    },
+    {
+      "name": "license_readme", "object": "README.pdf", "generation": "1710329639054159",
+      "bytes": 93890, "md5_base64": "1Fys7DD6gC+NjzXIvg3l1Q=="
+    }
+  ]
+}

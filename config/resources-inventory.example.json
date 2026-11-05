@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "purpose": "Current Analysis 2 resource preparation inventory; Analysis 1 versions are not imported",
+  "external_patient_queries": false,
+  "computed_consequences": {
+    "engine": "VEP transcript consequence calculation using Sequence Ontology; not a separate pathogenicity database",
+    "terms": ["SNV", "insertion", "deletion", "stop_gained", "stop_lost", "start_lost", "frameshift_variant", "splice_donor_variant", "splice_acceptor_variant", "splice_region_variant", "missense_variant", "synonymous_variant"],
+    "mechanism": "LoF/GoF/NMD/PVS1 require gene-disease-transcript-specific manual evidence; plof_candidate is preliminary"
+  },
+  "automatic_resources": ["clinvar", "clinvar_index", "clingen_validity", "clingen_dosage", "hpo_gene", "hpo_ontology", "hgnc", "mane", "alphamissense"],
+  "cache_resources": {
+    "vep_cache": {"manifest_key": "vep_cache", "note": "Ensembl 115 GRCh38; archive and expanded files must validate"},
+    "ensembl": {"manifest_key": "vep_cache", "note": "Actual Ensembl/GENCODE versions from verified cache info.txt"},
+    "gnomad_exomes": {"manifest_key": "gnomad", "note": "Versioned cached AF only; not full genomes, AN/coverage or a newer gnomAD release"},
+    "gnomad_genomes": {"manifest_key": "gnomad", "note": "Versioned cached AF only; actual cache metadata authoritative"},
+    "sift": {"manifest_key": "sift", "note": "Available only after verified cache metadata and control variants"},
+    "polyphen2": {"manifest_key": "polyphen2", "note": "Available only after verified cache metadata and control variants"},
+    "dbsnp": {"manifest_key": null, "metadata_label": "dbSNP", "note": "rs identifiers/cache subset only; full dbSNP or build156 not assumed"},
+    "hgmd_public_cache": {"manifest_key": null, "metadata_label": "HGMD", "note": "Historical public cache component if actually present; not HGMD Professional"}
+  },
+  "manual": {
+    "clingen_vcep": "Versioned gene-disease-specific CSpec/ACMG review; no automatic clinical classifier",
+    "pubmed": "PMID annotations are not downloaded full text or a systematic literature review",
+    "genereviews": "Permitted local documents/manual review; full bulk content not claimed",
+    "orphanet": "Manual context/permitted exports; full dump not installed by this command",
+    "lovd": "Database-specific permitted local export/manual review; no universal bulk mirror",
+    "varsome": "Secondary aggregator/manual review; no patient upload or assumed free full API"
+  },
+  "access_required": {
+    "omim": "No full licensed content provided; authorized local export/manual access required",
+    "dbnsfp": "New authorized release/license/export required; Analysis1 dbNSFP4.9a not reused",
+    "hgmd_professional": "Authorized local licensed export required; historical HGMD-PUBLIC cache is separate"
+  },
+  "optional": {
+    "refseq_full": "Full RefSeq/merged VEP cache not downloaded; MANE summary is only partial transcript metadata",
+    "fathmm": "Public legacy SQL/HMM backend not connected; no execution in an existing database",
+    "cadd": "Package/use terms and version must be reviewed before a separate large download; fourth video predictor uncertain",
+    "revel": "Official permitted release and normalized local adapter required; not downloaded",
+    "spliceai": "Permitted model/scores license and exact assembly/allele mapping required; not installed",
+    "loftee": "Implementation extra, not confirmed in lecture texts; dependencies and validation not prepared",
+    "varity": "Named in sources; versioned permitted local scores/adapter not installed",
+    "metalr": "Named in sources; versioned permitted local scores/adapter not installed",
+    "maxentscan": "Named in sources; local model/context validation not installed"
+  },
+  "other_registry_default": "manual_or_separate_branch_not_automatically_installed",
+  "missing_policy": "Missing is not benign, reference, AF=0, or an ACMG criterion"
+}

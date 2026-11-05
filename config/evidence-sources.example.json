@@ -317,9 +317,13 @@
     {
       "id": "alphamissense",
       "role": "missense_predictor",
+      "required_by": "USER latest explicit request",
+      "priority": "MUST",
+      "required_outputs": ["score", "prediction_class", "source_release", "transcript_version", "protein_variant", "matching_status", "missing_reason"],
       "source_refs": [
         "M33 50:00",
-        "M34 18:09"
+        "M34 18:09",
+        "USER latest explicit request; requirements matrix USER02"
       ],
       "scope": "germline_snv",
       "official_url": "https://github.com/google-deepmind/alphamissense",
