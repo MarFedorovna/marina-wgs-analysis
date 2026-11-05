@@ -28,6 +28,14 @@ Parabricks 4.8 documents GATK 4.3.0.0 and BWA-MEM 0.7.17 as compatibility baseli
 
 ## Server commands
 
+After the first pilot alignment and complete input-transfer verification, prepare the remaining alignment queue with `python3 scripts/configure_remaining_align.py --execute`. With that private configuration prepared, the next command is:
+
+```bash
+python3 scripts/run_parabricks.py --config /srv/marina/private/remaining-align.json --stage align --execute
+```
+
+This aligns the other three samples against the complete fixed reference, one GPU job at a time, and collects BAM QC. The first verified BAM stays in its pilot directory. This command makes no new variant calls. See [remaining alignment](docs/remaining-alignment.md) for prerequisites, outputs and reruns.
+
 To reproduce preparation on a fresh Ubuntu GPU VM, copy this reviewed checkout and upload the inputs with the [transfer utilities](transfer/README.md). Keep a private eight-column sample TSV based on `config/samples.example.tsv`, together with the expected-source upload manifest. From the checkout, inspect the plan first:
 
 ```bash
@@ -71,6 +79,7 @@ The default is a dry run. Add `--execute` only after supplying and checking the 
 ## Documentation
 
 - [Server setup and analysis commands](docs/server-setup.md)
+- [Align the remaining samples](docs/remaining-alignment.md)
 - [Pinned Broad GRCh38 reference preparation](docs/reference-setup.md)
 - [Observed runtime validation](docs/runtime-validation.md)
 - [Verified data transfer](transfer/README.md)
