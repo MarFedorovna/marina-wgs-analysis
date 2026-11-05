@@ -33,11 +33,42 @@ The actual tool outputs report these comparison baselines:
 Record the actual command output when comparing CPU/GPU results. A generic online
 software-version table may differ from the tool-specific binary report.
 
-No FASTQ alignment, variant calling, CUDA compute benchmark, or clinical validation
-was performed by these setup checks. They establish installed tools and container GPU
-exposure. Actual analysis still needs a pinned reference, private input manifests,
-explicit interval/ploidy policy and a pilot. Setup logs and complete installed-package
-versions remain under the private `/srv/marina/logs/`, not in git.
+## Minimal CUDA compute verification
+
+On 2026-11-05, a separate synthetic compute probe completed with **PASS** inside the
+same immutable Parabricks image, using the normal VM user's UID:GID (1000:1000).
+It used no genomic inputs and allocated only four bytes of GPU output memory.
+
+The probe initialized CUDA, called the CUDA runtime's `cudaMalloc` and `cudaMemset`,
+JIT-compiled a minimal PTX kernel targeting the A100's `sm_80` architecture, launched
+that kernel on the GPU, synchronized, and copied the result back with `cudaMemcpy`.
+The returned value was **42**, matching the kernel's expected output. CUDA Driver API
+and runtime version queries both returned **13030 (CUDA 13.3)**.
+
+The process's `/proc/self/maps` confirmed these actual loaded libraries:
+
+```text
+/usr/local/cuda-13.3/compat/libcuda.so.610.57.04
+/usr/local/cuda-13.3/compat/libnvidia-ptxjitcompiler.so.610.57.04
+/usr/local/cuda-13.3/targets/x86_64-linux/lib/libcudart.so.13.3.29
+```
+
+Thus the image's CUDA forward-compatibility libraries were used over the unchanged
+host kernel driver **570.148.08**. NVIDIA's [forward compatibility documentation and
+support matrix](https://docs.nvidia.com/deploy/cuda-compatibility/forward-compatibility.html),
+consulted on 2026-11-05, mark `cuda-compat-13-3` with the 570 driver branch as compatible
+for supported Data Center GPUs. This is distinct from plain [minor-version
+compatibility](https://docs.nvidia.com/deploy/cuda-compatibility/minor-version-compatibility.html),
+where CUDA 13.x normally requires at least the 580 driver branch.
+
+The successful probe establishes real minimal GPU execution with this image and host;
+it does not establish performance or correctness of a bioinformatics workload. No
+FASTQ alignment, variant calling, analysis-workload benchmark, or clinical validation
+was performed. A pinned reference, private input manifests, explicit interval/ploidy
+policy and a representative pilot are still required for actual analysis. The probe
+code/log remain in the ignored local directory; setup logs and complete installed
+package versions remain under private `/srv/marina/logs/`, not in git. Neither the
+host driver nor the stable analysis code was changed to obtain this compute result.
 
 The root project directory, private config directory and output directory are owned
 by the normal VM user with mode 0700. No new SSH users, credentials, public service
