@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "assembly_label": "Broad hg38/v0 Homo_sapiens_assembly38; new uniform reanalysis",
+  "source_documentation": "https://gatk.broadinstitute.org/hc/en-us/articles/360035890811-Resource-bundle",
+  "alt_policy": "Broad published ALT mapping; source fasta.64.alt is copied to fasta.alt without changing content",
+  "image": "nvcr.io/nvidia/clara/clara-parabricks@sha256:44206e2b522e87370c1107c774f52c5859af9b8f3408aa7232de4bbe3c24953c",
+  "bwa_version": "0.7.17",
+  "bwa_binary": "/usr/bin/bwa",
+  "objects": [
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta",
+      "generation": "1575676516681666",
+      "bytes": 3249912778,
+      "md5_base64": "f/E0lT3MqMiZdFO7uAtrXg==",
+      "crc32c_base64": "GQ2ctA==",
+      "destination": "Homo_sapiens_assembly38.fasta"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.fai",
+      "generation": "1575676516578189",
+      "bytes": 160928,
+      "md5_base64": "92NxsRNzSlbN4ja8A3LeCg==",
+      "crc32c_base64": "dXsREQ==",
+      "destination": "Homo_sapiens_assembly38.fasta.fai"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.dict",
+      "generation": "1575676516486325",
+      "bytes": 581712,
+      "md5_base64": "OITGLrDlP6kkWe2b/xM65g==",
+      "crc32c_base64": "gKxbtg==",
+      "destination": "Homo_sapiens_assembly38.dict"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.64.alt",
+      "generation": "1575676516489805",
+      "bytes": 487553,
+      "md5_base64": "sH5lqkQlvDZRQXVvXJgyjA==",
+      "crc32c_base64": "c9pCCA==",
+      "destination": "Homo_sapiens_assembly38.fasta.alt"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.64.amb",
+      "generation": "1575676516504704",
+      "bytes": 20199,
+      "md5_base64": "5NxP23NYGY4IRxBlmVIKqQ==",
+      "crc32c_base64": "RDmxbA==",
+      "destination": "Homo_sapiens_assembly38.fasta.amb"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.64.ann",
+      "generation": "1575676516518309",
+      "bytes": 455474,
+      "md5_base64": "r2Ee0LuUh/sbpKoafnrSHA==",
+      "crc32c_base64": "jRE1Mg==",
+      "destination": "Homo_sapiens_assembly38.fasta.ann"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.64.bwt",
+      "generation": "1575676516703507",
+      "bytes": 3217347004,
+      "md5_base64": "fwyNz8hrfCzj46VBGNaPvQ==",
+      "crc32c_base64": "DY1HHA==",
+      "destination": "Homo_sapiens_assembly38.fasta.bwt"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.64.pac",
+      "generation": "1575676516584835",
+      "bytes": 804336731,
+      "md5_base64": "F4hip5sEOi+XTvEOOHfvhg==",
+      "crc32c_base64": "EdKUtA==",
+      "destination": "Homo_sapiens_assembly38.fasta.pac"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/Homo_sapiens_assembly38.fasta.64.sa",
+      "generation": "1575676516653931",
+      "bytes": 1608673512,
+      "md5_base64": "kaXV7TmG24p0eC5fRRnrXw==",
+      "crc32c_base64": "wIGJEA==",
+      "destination": "Homo_sapiens_assembly38.fasta.sa"
+    }
+  ],
+  "index_source_documentation": "https://github.com/broadinstitute/gatk-sv/blob/main/inputs/values/resources_hg38.json",
+  "index_validation_package_source": "https://packages.ubuntu.com/jammy/bwa"
+}
