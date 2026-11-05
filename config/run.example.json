@@ -1,0 +1,31 @@
+{
+  "_instructions": "Copy outside git to /srv/marina/private/run.json. Replace every SET_ field and record the chosen reference bundle explicitly.",
+  "image": "nvcr.io/nvidia/clara/clara-parabricks:4.8.0-1",
+  "image_digest": "SET_REGISTRY_DIGEST_SHA256_FROM_BOOTSTRAP",
+  "reads_root": "/srv/marina/inputs/raw",
+  "reference_root": "/srv/marina/references",
+  "output_root": "/srv/marina/outputs",
+  "scratch_root": "/srv/marina/scratch",
+  "samples_manifest": "/srv/marina/private/samples.tsv",
+  "calls_manifest": "/srv/marina/private/calls.tsv",
+  "reference": {
+    "fasta": "SET_REFERENCE.fasta",
+    "sha256": "SET_SHA256",
+    "assembly_label": "SET_EXACT_REFERENCE_BUNDLE_NAME",
+    "source": "SET_OFFICIAL_SOURCE_URL_OR_DOCUMENTED_PROVENANCE"
+  },
+  "bqsr_enabled": false,
+  "known_sites": [],
+  "processing_assumptions": [
+    "One available FASTQ pair per sample is treated as one analytical library; this is not confirmed wet-lab provenance.",
+    "This is a new uniform reanalysis reference, not a claim to reproduce the previous laboratory bundle.",
+    "BQSR remains disabled until appropriate known-sites and sequencing-platform assumptions are reviewed."
+  ],
+  "gpu_device": "0",
+  "cpu_limit": 24,
+  "container_memory_gib": 160,
+  "sort_memory_gb": 100,
+  "free_disk_gib_min": 150,
+  "max_run_hours": 12,
+  "hourly_usd": 2.39
+}

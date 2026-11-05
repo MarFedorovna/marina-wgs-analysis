@@ -1,0 +1,5 @@
+sample_id	r1	r2	read_group_id	library	library_origin	platform	platform_unit
+SAMPLE_01	SAMPLE_01_R1.fastq.gz	SAMPLE_01_R2.fastq.gz	analysis_rg_01	analysis_library_01	processing_assumption		
+SAMPLE_02	SAMPLE_02_R1.fastq.gz	SAMPLE_02_R2.fastq.gz	analysis_rg_02	analysis_library_02	processing_assumption		
+SAMPLE_03	SAMPLE_03_R1.fastq.gz	SAMPLE_03_R2.fastq.gz	analysis_rg_03	analysis_library_03	processing_assumption		
+SAMPLE_04	SAMPLE_04_R1.fastq.gz	SAMPLE_04_R2.fastq.gz	analysis_rg_04	analysis_library_04	processing_assumption		
