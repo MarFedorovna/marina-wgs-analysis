@@ -327,6 +327,38 @@ def promote(source, target):
         raise OSError(ctypes.get_errno(), 'No-replace resource promotion failed.')
 
 
+def cache_metadata_records(info, stage):
+    """Require actual official cache metadata; MANE release is not always reported."""
+    text = info.read_text(errors='replace')
+    values = {}
+    for line in text.splitlines():
+        if '\t' not in line:
+            continue
+        key, value = line.split('\t', 1)
+        key = key.lower()
+        need(key not in values, 'Duplicate cache metadata key: ' + key)
+        values[key] = value.strip()
+    required = {'species': 'homo_sapiens', 'assembly': 'GRCh38', 'source_assembly': 'GRCh38.p14',
+        'source_gencode': 'GENCODE 49', 'source_sift': '6.2.1', 'source_polyphen': '2.2.3',
+        'source_gnomade': 'v4.1', 'source_gnomadg': 'v4.1', 'source_dbsnp': '156'}
+    for key, expected in required.items():
+        need(values.get(key) == expected, 'Cache metadata version unexpected for ' + key + '; inspect preserved info.txt.')
+    identity = dict(path=info.relative_to(stage).as_posix(), bytes=info.stat().st_size, sha256=sha256(info),
+        documented_source='https://sep2025.archive.ensembl.org/info/docs/tools/vep/script/vep_cache.html')
+    result = {}
+    for name, keys in {'gnomad': ['source_gnomade', 'source_gnomadg'], 'sift': ['source_sift'], 'polyphen2': ['source_polyphen']}.items():
+        result[name] = dict(identity, status='bundled_in_verified_cache',
+            version='; '.join(key + '=' + values[key] for key in keys),
+            scope='versioned_cache_allele_AF_only_no_AN_coverage_constraint_claim' if name == 'gnomad' else 'cache_component')
+    mane = values.get('source_mane')
+    result['mane_cache'] = dict(identity,
+        status='bundled_in_verified_cache' if mane else 'source_version_unreported_in_cache_metadata',
+        version=mane or None, scope='cache_MANE_source_metadata_only; runtime transcript labels require public VEP controls',
+        external_mane_summary_is_distinct_resource=True,
+        limitation='Missing source_MANE does not establish MANE1.4, absence of all MANE labels, or runtime mapping readiness.')
+    return result
+
+
 def prepare(config_path, root, execute=False, pull_image=False, prefetched_cache=None, prefetched_cache_sha256=None):
     config_bytes = config_path.read_bytes()
     cfg = json.loads(config_bytes)
@@ -436,17 +468,7 @@ def prepare(config_path, root, execute=False, pull_image=False, prefetched_cache
             record = dict(item)
             record.setdefault('status', 'unavailable_manual_or_licensed')
             available.setdefault(item['name'], record)
-        documented = 'https://sep2025.archive.ensembl.org/info/docs/tools/vep/script/vep_cache.html'
-        expected = {'gnomad': ('gnomAD', '4.1'), 'sift': ('sift', '6.2.1'),
-                    'polyphen2': ('polyphen', '2.2.3'), 'mane_cache': ('MANE', '1.4')}
-        for name, (label, version_number) in expected.items():
-            matching_lines = [line for line in cache_info.splitlines() if label.lower() in line.lower()]
-            actual = '\n'.join(matching_lines)
-            need(version_number in actual, 'Cache metadata version unexpected for ' + label + '; inspect preserved info.txt.')
-            available[name] = dict(status='bundled_in_verified_cache', version=actual.strip(),
-                path=info.relative_to(stage).as_posix(), bytes=info.stat().st_size, sha256=sha256(info),
-                documented_source=documented,
-                scope='versioned_cache_allele_AF_only_no_AN_coverage_constraint_claim' if name == 'gnomad' else 'cache_component')
+        available.update(cache_metadata_records(info, stage))
         manifest = dict(schema_version=1, status='PASS', assembly='GRCh38',
             config_sha256=lock_sha, vep=cfg['vep'], cache_info=cache_info,
             cache_expanded_bytes=expanded, resources=available,

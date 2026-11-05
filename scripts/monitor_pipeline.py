@@ -142,6 +142,14 @@ def snapshot(root, local=False, proc=Path('/proc')):
     result['databases']['installer'] = process(db.get('current_pid'), 'prepare_annotation_resources.py', proc)
     result['databases']['supervisor_pids'] = discover('supervise_databases.py', proc)
     result['databases']['current_attempt_log'] = current_attempt_errors(root / 'logs/annotation-databases.log', db.get('attempt_log_offset'))
+    recovery = load(private / 'annotation-resource-recovery-v1/status.json')
+    if recovery.get('status') and isinstance(recovery.get('pid'), int):
+        result['databases']['historical_installer_status'] = db.get('status')
+        result['databases']['status'] = recovery['status']
+        result['databases']['status_authority'] = 'reviewed_resource_recovery_receipt'
+        result['databases']['recovery'] = fields(recovery, 'status', 'updated_utc',
+            'verified_files', 'verified_expanded_bytes', 'error_type', 'deadline_utc')
+        result['databases']['recovery']['process'] = process(recovery['pid'], 'recover_annotation_extracted_stage.py', proc)
     deadline = db.get('deadline_utc')
     try:
         seconds = (dt.datetime.fromisoformat(deadline.replace('Z', '+00:00')) - now).total_seconds()
