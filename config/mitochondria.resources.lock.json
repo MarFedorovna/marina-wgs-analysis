@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "gatk_tag": "4.3.0.0",
+  "gatk_image": "broadinstitute/gatk@sha256:e7996ba655225c1cde0a1faec6a113e217758310af2cf99b00d61dae8ec6e9f2",
+  "haplochecker_image": "us.gcr.io/broad-dsde-methods/haplochecker@sha256:a636ac0e5a8490562c70356a32f39840450e5d81c5983e95e148cd4506ac8db3",
+  "normal_sequence_md5": "c68f52674c9fb33aef52dcf399755519",
+  "normal_length": 16569,
+  "shift_bases": 8000,
+  "normal_interval": "chrM:576-16024",
+  "shifted_interval": "chrM:8025-9144",
+  "objects": [
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.dict",
+      "generation": "1575676516723507",
+      "bytes": 192,
+      "publisher_md5_base64": "jT/fHUYY+WdAMy214T+4HQ==",
+      "sha256": "b2d36c5414908bc1d49d5eca935c4b9d223a1261b9560bbe5500d3cd708f5776",
+      "destination": "Homo_sapiens_assembly38.chrM.dict",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.dict?alt=media&generation=1575676516723507"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta",
+      "generation": "1575676516732246",
+      "bytes": 16857,
+      "publisher_md5_base64": "/sXuwghtumDrgvwLl12A2Q==",
+      "sha256": "c019cad706b775494d6ebdcc8b7841192ed80aa24817e4f6e7a1509c7b0310f8",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta?alt=media&generation=1575676516732246"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta.amb",
+      "generation": "1575676516786419",
+      "bytes": 19,
+      "publisher_md5_base64": "Z0n2RUhygREsJUq4KeoEjA==",
+      "sha256": "2c516f0426ece6f58530da64119b157aac7f1c5724e25be02dc74a799088f792",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta.amb",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta.amb?alt=media&generation=1575676516786419"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta.ann",
+      "generation": "1575676516753143",
+      "bytes": 144,
+      "publisher_md5_base64": "VGob8pfH2j1HrxrMv/pduw==",
+      "sha256": "15084210683f3d8411c25e8ebc77b80296b5610cfc8d8cf9d2f56a25146e11bc",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta.ann",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta.ann?alt=media&generation=1575676516753143"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta.bwt",
+      "generation": "1575676516762683",
+      "bytes": 16648,
+      "publisher_md5_base64": "ljN6bZ3A16/FYv7osa+2cw==",
+      "sha256": "11c088677467e0c6f8a60718b0184481e4f05cd774f7a25f13314b1ba81a3edd",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta.bwt",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta.bwt?alt=media&generation=1575676516762683"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta.fai",
+      "generation": "1575676516787869",
+      "bytes": 23,
+      "publisher_md5_base64": "sWmzd35SDdZF648GGR4BPw==",
+      "sha256": "f865b48cebfe5741b4393c99038df72dc9392571aa17cc85c5a3386db67b075f",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta.fai",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta.fai?alt=media&generation=1575676516787869"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta.pac",
+      "generation": "1575676516768390",
+      "bytes": 4144,
+      "publisher_md5_base64": "7L6oDUgbbo5w2j9GS5d9kQ==",
+      "sha256": "cfdf937b0b4a81d922453362994144f82a773b2f4fce2aa76704cfef11c4e7d1",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta.pac",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta.pac?alt=media&generation=1575676516768390"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.fasta.sa",
+      "generation": "1575676516777239",
+      "bytes": 8336,
+      "publisher_md5_base64": "fAaiwLTyPnheL4U4O50TFw==",
+      "sha256": "664a92ea47058c6a4a281334655feb977693181f7b68d0f2a3b5431584abdff4",
+      "destination": "Homo_sapiens_assembly38.chrM.fasta.sa",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.fasta.sa?alt=media&generation=1575676516777239"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.dict",
+      "generation": "1575676516804062",
+      "bytes": 214,
+      "publisher_md5_base64": "FkOISgge2xLdjH1fweV5IA==",
+      "sha256": "28dd2be3c1b8a9d44c9c75ceed4493fae8d22d90bc2daf925f0705d72e711ad3",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.dict",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.dict?alt=media&generation=1575676516804062"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta",
+      "generation": "1575676516780731",
+      "bytes": 16857,
+      "publisher_md5_base64": "Qyk+InKsuQjbKQmc0PnrxQ==",
+      "sha256": "4aaddc84aff2eb5b964d7051bdd0949a433c7f4a97a4954602e79f972eb35d24",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta?alt=media&generation=1575676516780731"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.amb",
+      "generation": "1575676516835634",
+      "bytes": 20,
+      "publisher_md5_base64": "G2Mjy1pLwvU3MM68sZsXaA==",
+      "sha256": "bd6dcbf8c9690b60eb5e2c994b6f1b50b7e95fb8d4e36429b64d79f663d7011d",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.amb",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.amb?alt=media&generation=1575676516835634"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.ann",
+      "generation": "1575676516809159",
+      "bytes": 144,
+      "publisher_md5_base64": "VGob8pfH2j1HrxrMv/pduw==",
+      "sha256": "15084210683f3d8411c25e8ebc77b80296b5610cfc8d8cf9d2f56a25146e11bc",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.ann",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.ann?alt=media&generation=1575676516809159"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.bwt",
+      "generation": "1575676516789156",
+      "bytes": 16648,
+      "publisher_md5_base64": "4zvaopV/OiVoEGYS+KtQjQ==",
+      "sha256": "68f81d94482fb1b88e449dda3ddd586e7135388c9479457742a18a991f3fdab7",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.bwt",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.bwt?alt=media&generation=1575676516789156"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.fai",
+      "generation": "1575676516801413",
+      "bytes": 23,
+      "publisher_md5_base64": "sWmzd35SDdZF648GGR4BPw==",
+      "sha256": "f865b48cebfe5741b4393c99038df72dc9392571aa17cc85c5a3386db67b075f",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.fai",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.fai?alt=media&generation=1575676516801413"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.pac",
+      "generation": "1575676516837807",
+      "bytes": 4144,
+      "publisher_md5_base64": "2C/P5dpj++oBc7t4eBIXaA==",
+      "sha256": "874db6c9a581d9c0232342ccf949b4f52987f4ff62c7ef49b4a698b29f415fa0",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.pac",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.pac?alt=media&generation=1575676516837807"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.sa",
+      "generation": "1575676516827927",
+      "bytes": 8336,
+      "publisher_md5_base64": "Y+LqBu6T/7wyRpVhPP9LxQ==",
+      "sha256": "f5af2b54e16e110ccdc7a1a53e9e1990f4ca51d7a030237e105ec9b08ce480f4",
+      "destination": "Homo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.sa",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FHomo_sapiens_assembly38.chrM.shifted_by_8000_bases.fasta.sa?alt=media&generation=1575676516827927"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/ShiftBack.chain",
+      "generation": "1575676516853452",
+      "bytes": 125,
+      "publisher_md5_base64": "plZzQC9tzkTHrMRJ76AX1g==",
+      "sha256": "01145dab84d9aaa42557f45792eb1d9f3f7977e1ac1590932d9b40f143bb4132",
+      "destination": "ShiftBack.chain",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FShiftBack.chain?alt=media&generation=1575676516853452"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/blacklist_sites.hg38.chrM.bed",
+      "generation": "1575676516855910",
+      "bytes": 132,
+      "publisher_md5_base64": "nRnQUVLFDXzUrDZHyMTf2Q==",
+      "sha256": "816c68f70bd8486d3777cd557195dd8f44b43fbca97eb2f7a7afdd183a82efd3",
+      "destination": "blacklist_sites.hg38.chrM.bed",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2Fblacklist_sites.hg38.chrM.bed?alt=media&generation=1575676516855910"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/blacklist_sites.hg38.chrM.bed.idx",
+      "generation": "1575676516841972",
+      "bytes": 283,
+      "publisher_md5_base64": "c7qBzm0/4qxBVweXWjpG0w==",
+      "sha256": "8c05c4b835a744bd5e6336555618130302c258644887b12841139b99ac393f3b",
+      "destination": "blacklist_sites.hg38.chrM.bed.idx",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2Fblacklist_sites.hg38.chrM.bed.idx?alt=media&generation=1575676516841972"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/control_region_shifted.chrM.interval_list",
+      "generation": "1575676516862890",
+      "bytes": 233,
+      "publisher_md5_base64": "U66TYONlfNmoKYd3HP6O5A==",
+      "sha256": "a1c2b5f6ad36b447c6b9d6974c2872c02a99737e0325732aef7d047c4cbe7146",
+      "destination": "control_region_shifted.chrM.interval_list",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2Fcontrol_region_shifted.chrM.interval_list?alt=media&generation=1575676516862890"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/non_control_region.chrM.interval_list",
+      "generation": "1575676516881473",
+      "bytes": 211,
+      "publisher_md5_base64": "0uNsVEJ+g+FAytWi0LvwRQ==",
+      "sha256": "60fc9794f1c8926e33181aa8cc2dab03a2a6b3c938de6a40f3575ec958873b05",
+      "destination": "non_control_region.chrM.interval_list",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2Fnon_control_region.chrM.interval_list?alt=media&generation=1575676516881473"
+    },
+    {
+      "bucket": "gcp-public-data--broad-references",
+      "object": "hg38/v0/chrM/chrMWithFinalNuMTs.hg38.interval_list",
+      "generation": "1575676516869992",
+      "bytes": 581809,
+      "publisher_md5_base64": "/hd07tZAs5U+Ev9KYuGQSQ==",
+      "sha256": "a8e1aa56fb6a4c222e45222998e4d600a5120bd643a761c0859a5767931ad572",
+      "destination": "chrMWithFinalNuMTs.hg38.interval_list",
+      "url": "https://storage.googleapis.com/storage/v1/b/gcp-public-data--broad-references/o/hg38%2Fv0%2FchrM%2FchrMWithFinalNuMTs.hg38.interval_list?alt=media&generation=1575676516869992"
+    }
+  ],
+  "official_pipeline_source": "https://github.com/broadinstitute/gatk/tree/4.3.0.0/scripts/mitochondria_m2_wdl"
+}

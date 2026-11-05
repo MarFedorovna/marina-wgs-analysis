@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "gencode_release": 49,
+  "assembly": "GRCh38.p14; primary chromosomes only; coverage chr1-chr22",
+  "gencode_gtf": {
+    "url": "https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/gencode.v49.annotation.gtf.gz",
+    "destination": "gencode.v49.annotation.gtf.gz",
+    "bytes": 93374019,
+    "publisher_md5": "0ef4a024ea2d35b1b88c12447b0b70b9",
+    "publisher_md5_snapshot_url": "https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/MD5SUMS",
+    "publisher_md5_snapshot_sha256_observed": "61ba509e9cc43e1c184f07ee0e7f2e913b6377541cdb7f763fdb7fbb3240b6ac",
+    "release_documentation": "https://www.gencodegenes.org/human/release_49.html"
+  },
+  "mosdepth": {
+    "release_tag": "v0.3.11",
+    "release_id": 195360961,
+    "asset_id": 221199990,
+    "url": "https://github.com/brentp/mosdepth/releases/download/v0.3.11/mosdepth",
+    "bytes": 19235864,
+    "sha256_observed": "4564b69249f03cb5ccb2bb04a8b4723293c86b9c9183cf40c50711e5003cdef2",
+    "publisher_digest": null,
+    "digest_provenance": "Own SHA256 observation over HTTPS; GitHub asset API digest is null. This is not a publisher-provided checksum.",
+    "version": "mosdepth 0.3.11",
+    "package_note": "Ubuntu22.04 has no mosdepth apt package; use the pinned official upstream release without mixing distribution repositories.",
+    "documentation": "https://github.com/brentp/mosdepth"
+  },
+  "clingen_hcm": {
+    "csv_source_url": "https://search.clinicalgenome.org/kb/gene-validity/download",
+    "snapshot_date": "2026-11-05",
+    "disease_id": "MONDO:0005045",
+    "expected_curation_rows": 40,
+    "csv_sha256": "5cc793e4c476776d7d60f326d8250b65198c65e576cfd771df28d320d02fb10e",
+    "note": "Dated public ClinGen CSV snapshot; 40 curations are not necessarily 40 unique genes. Retain disputed/limited classifications; no automatic diagnosis."
+  }
+}

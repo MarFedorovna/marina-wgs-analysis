@@ -1,0 +1,11 @@
+{
+  "status": "MANUAL_REVIEW_REQUIRED",
+  "reviewer": "SET_REVIEWER",
+  "reference_sha256": "SET_EXACT_ANALYSIS_FASTA_SHA256",
+  "official_par_gff_sha256": "cc1b9b6dac63774e8e22ec87cfb71edfea59483534520094a1758a4a509f7311",
+  "par_policy": "unknown",
+  "par_report_coordinates": "X_only",
+  "mask_present_at_original_alignment": false,
+  "sample_alignment_receipt_sha256": {},
+  "notes": "No approval is implied. Review original alignment reference, actual Y-PAR mask, remapping/multimapping handling and per-sample copy-number evidence. If a new masked reference/realignment is needed, review a separate new-reference plan; do not alter original BAM or autosomal results."
+}
