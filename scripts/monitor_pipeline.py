@@ -27,6 +27,52 @@ def fields(value, *names):
     return {key: value[key] for key in names if key in value}
 
 
+def parallel_processes(private, proc):
+    """Observe an executing private primary wrapper, never a proof or dry run.
+
+    Small rule fields bind process purpose/output. Pins are reported, not rehashed;
+    this observer does not replace the launcher's exact-rule verification.
+    """
+    result = []
+    for folder in proc.glob('[0-9]*'):
+        try:
+            args = [v.decode() for v in (folder / 'cmdline').read_bytes().split(b'\0') if v]
+            scripts = [v for v in args if Path(v).name == 'parallel_annotation.py']
+            if len(scripts) != 1 or 'run' not in args or '--execute' not in args:
+                continue
+            if args.count('--rule') != 1 or args.count('--reviewed-rule-sha256') != 1:
+                continue
+            rule_path = Path(args[args.index('--rule') + 1]).resolve(strict=True)
+            producer = Path(scripts[0]).resolve(strict=True)
+            if not all(p.is_relative_to(private.resolve()) for p in (rule_path, producer)):
+                continue
+            rule = load(rule_path)
+            reviewed_sha = args[args.index('--reviewed-rule-sha256') + 1]
+            if (rule.get('schema_version') != 1 or rule.get('status') != 'CANDIDATE_USER_LAUNCH_ONLY'
+                or Path(rule.get('producer_path', '')).resolve() != producer
+                or Path(rule.get('output_root', '')).resolve() != (private.parent / 'outputs/workflow-v1').resolve()
+                or not re.fullmatch(r'[0-9a-f]{64}', reviewed_sha)
+                or not re.fullmatch(r'[0-9a-f]{64}', str(rule.get('producer_sha256', '')))
+                or rule.get('workers') != 5 or rule.get('cpus_per_worker') != 4
+                or rule.get('memory_gib_per_worker') != 16):
+                continue
+            item = process(folder.name, scripts[0], proc)
+            if item['verified_active']:
+                result.append(dict(pid=item['pid'], verified_active=True, workers_max=5,
+                    cpus_max=20, memory_gib_max=80, reviewed_rule_sha256=reviewed_sha,
+                    deadline_utc=rule.get('deadline_utc'), rule_pins_rehashed=False))
+        except (OSError, ValueError, UnicodeError, IndexError):
+            continue
+    return sorted(result, key=lambda item: item['pid'])
+
+
+def completed_stage(root, name):
+    receipt = load(root / 'outputs/workflow-v1/stages' / name / 'workflow-receipt.json')
+    return (receipt.get('status') == 'PASS' and receipt.get('stage') == name
+            and bool(re.fullmatch(r'[0-9a-f]{64}', str(receipt.get('identity', ''))))
+            and isinstance(receipt.get('artifacts'), dict) and bool(receipt['artifacts']))
+
+
 def annotation_status(private, proc):
     historical = load(private / 'annotation-queue-status.json')
     controller = load(private / 'annotation-reference-controller-v1/controller-status.json')
@@ -45,6 +91,25 @@ def annotation_status(private, proc):
         result['source'] = 'original_queue'
     result['queue_pids'] = discover('annotation_queue.py run', proc)
     result['public_controls_then_stages_6_7'] = 'CONSULT_CURRENT_QUEUE_RECEIPT'
+    parallel = parallel_processes(private, proc)
+    stage6 = completed_stage(private.parent, '06_annotate')
+    stage7 = completed_stage(private.parent, '07_report')
+    if parallel or stage6 or stage7:
+        result['historical_reference_v2_queue_status'] = current.get('status')
+        result['historical_original_queue_status'] = historical.get('status')
+        result['parallel_processes'] = parallel
+        result['stage06_receipt_observed_PASS'] = stage6
+        result['stage07_receipt_observed_PASS'] = stage7
+        result['completion_basis'] = 'small primary receipts observed; artifacts not rehashed'
+        result['public_controls_then_stages_6_7'] = 'PRIMARY_STAGE_RECEIPTS_AND_CURRENT_PRODUCER'
+        if stage6 and stage7:
+            result.update(source='primary_stage_07_receipt', status='RESEARCH_REPORT_COMPLETE_RECEIPT_OBSERVED')
+        elif stage6:
+            result.update(source='primary_stage_06_receipt', status=(
+                'ANNOTATION_PASS_REPORT_RUNNING' if parallel else 'ANNOTATION_PASS_REPORT_PENDING_OR_NOT_OBSERVED'))
+        elif parallel:
+            result.update(source='active_parallel_primary_runtime', status='PARALLEL_ANNOTATION_RUNNING')
+        result.pop('child_pid', None)
     return result
 
 
@@ -123,6 +188,19 @@ def current_attempt_errors(path, offset):
         return {'status': 'LOG_UNAVAILABLE'}
 
 
+def deliverable(path, expected):
+    value = load(path)
+    if value.get('read_error'):
+        status = 'UNREADABLE_COMPLETION_RECEIPT'
+    elif value.get('status') == expected:
+        status = 'COMPLETE_RECEIPT_OBSERVED'
+    elif value:
+        status = 'NO_MATCHING_PASS_RECEIPT'
+    else:
+        status = 'NOT_CREATED_OR_WAITING'
+    return dict(status=status, receipt_status=value.get('status'), artifacts_rehashed=False)
+
+
 def snapshot(root, local=False, proc=Path('/proc')):
     now = dt.datetime.now(dt.timezone.utc)
     result = dict(utc=now.isoformat(), mode='LOCAL_RECEIPTS_ONLY' if local else 'SERVER_READ_ONLY',
@@ -176,6 +254,9 @@ def snapshot(root, local=False, proc=Path('/proc')):
     result['mt_v2']['audit_waiter']['process'] = process(waiter.get('pid'), 'run-mito-recovery-v2-audit.py', proc)
     result['coverage'] = fields(load(private / 'gene-coverage-status.json'), 'status', 'completed_samples', 'updated_utc', 'read_error')
     result['annotation'] = annotation_status(private, proc)
+    result['deliverables'] = dict(
+        combined_master=deliverable(root / 'outputs/combined-annotation-master-v1/manifest.json', 'PASS_COMBINED_ANNOTATION_MASTER'),
+        cohort_and_sample_views=deliverable(root / 'outputs/cohort-sample-views-v1/manifest.json', 'PASS'))
     alpha = load(private / 'alphamissense-control-v1/public-controls-receipt.json')
     result['annotation']['separate_alphamissense_controls'] = fields(alpha, 'status', 'controls', 'tested')
     result['xy'] = dict(status='PLAN_ONLY_NO_EXECUTOR', clinical_sex_assignment=False,
@@ -183,7 +264,7 @@ def snapshot(root, local=False, proc=Path('/proc')):
                         par_alignment_contract='unverified_until_separate_review')
     result['limitations'] = ['No old MT v1 failure is used as current v2 status.',
         'Receipts are reported, not a fresh technical/clinical audit.',
-        'No completion claim for annotation, X/Y, full genome or interpretation.']
+        'Observed primary PASS receipts do not establish X/Y completion or clinical interpretation.']
     return result
 
 
@@ -202,6 +283,40 @@ def report(result, directory):
         temporary.replace(path)
 
 
+def human(result):
+    if result.get('mode') == 'LOCAL_RECEIPTS_ONLY':
+        item = result.get('local_transfer', {})
+        return 'Локальная копия: ' + str(item.get('status', item.get('Status', 'нет квитанции')))
+    annotation = result.get('annotation', {})
+    state = annotation.get('status', 'нет текущей квитанции')
+    names = {'PARALLEL_ANNOTATION_RUNNING': 'выполняется параллельно',
+             'ANNOTATION_PASS_REPORT_RUNNING': 'готова; формируется отчёт',
+             'ANNOTATION_PASS_REPORT_PENDING_OR_NOT_OBSERVED': 'готова; завершение отчёта ещё не подтверждено',
+             'RESEARCH_REPORT_COMPLETE_RECEIPT_OBSERVED': 'аннотация и отчёт завершены по квитанциям'}
+    lines = ['Аннотация: ' + names.get(state, state)]
+    active = annotation.get('parallel_processes', [])
+    if active:
+        lines.append('Основной процесс: PID ' + ', '.join(str(p['pid']) for p in active)
+                     + '; до 5 задач, 20 CPU, 80 GiB.')
+    if 'historical_reference_v2_queue_status' in annotation:
+        lines.append('Прежняя очередь: ' + str(annotation['historical_reference_v2_queue_status'])
+                     + ' — историческая запись, не статус текущего процесса.')
+    deadline = next((p.get('deadline_utc') for p in active if p.get('deadline_utc')), None)
+    if deadline:
+        lines.append('Предельное время текущего плана (UTC): ' + deadline)
+    for key, label in [('combined_master', 'Единая таблица со всеми источниками'),
+                       ('cohort_and_sample_views', 'Общие и пообразцовые таблицы/VCF')]:
+        item = result.get('deliverables', {}).get(key, {})
+        value = item.get('status', 'NOT_CREATED_OR_WAITING')
+        names = {'COMPLETE_RECEIPT_OBSERVED': 'готовы по квитанции',
+                 'NOT_CREATED_OR_WAITING': 'ещё не созданы; завершение не подтверждено',
+                 'NO_MATCHING_PASS_RECEIPT': 'квитанция есть, успешное завершение не подтверждено',
+                 'UNREADABLE_COMPLETION_RECEIPT': 'квитанция временно недоступна'}
+        lines.append(label + ': ' + names.get(value, value) + '.')
+    lines.append('Монитор только читает квитанции и PID; файлы результатов заново не проверяет.')
+    return '\n'.join(lines)
+
+
 def run(args, collect=snapshot, monotonic=time.monotonic, sleep=time.sleep):
     if not math.isfinite(args.max_hours) or not 0 < args.max_hours <= 8:
         raise ValueError('--max-hours must be >0 and <=8')
@@ -210,7 +325,7 @@ def run(args, collect=snapshot, monotonic=time.monotonic, sleep=time.sleep):
     end = monotonic() + args.max_hours * 3600
     while True:
         result = collect(args.root, args.local)
-        print(json.dumps(result, ensure_ascii=False), flush=True)
+        print(human(result) if getattr(args, 'human', False) else json.dumps(result, ensure_ascii=False), flush=True)
         if args.report_dir:
             report(result, args.report_dir)
         remaining = end - monotonic()
@@ -238,6 +353,7 @@ def main():
     parser.add_argument('--local', action='store_true', help='only allowlisted local transfer status; no secrets or proc')
     parser.add_argument('--interval', type=float, default=60)
     parser.add_argument('--max-hours', type=float, default=8)
+    parser.add_argument('--human', action='store_true', help='short Russian status; default stdout stays JSON')
     parser.add_argument('--report-dir', type=Path, help='optional dedicated directory named monitor-reports')
     try:
         run(parser.parse_args())
