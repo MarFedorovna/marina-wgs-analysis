@@ -36,9 +36,35 @@ def category_path(relative):
         return 'Settings', Path('Settings', *parts[2:])
     if parts[:2] == ('metadata', 'logs') or name.endswith('.log'):
         return 'Logs', Path('Logs', *parts)
-    if name.endswith(('.html', '.pdf', '.docx', '.xlsx')) or 'report' in name.lower():
+    if name.endswith(('.html', '.pdf', '.docx', '.xlsx', '.tsv', '.csv', '.tsv.gz', '.csv.gz', '.png', '.jpg', '.jpeg', '.svg')) or 'report' in name.lower():
         return 'Reports', Path('Reports', *parts)
     return 'QC and provenance', Path('QC', *parts)
+
+
+def publish_report_alias(destination, entry, stored):
+    """Keep offline report-relative links usable without duplicating file bytes."""
+    relative = PurePosixPath(entry['RelativePath'])
+    parts = relative.parts
+    if relative.is_absolute() or '..' in parts:
+        raise ValueError('Unsafe report-relative path')
+    bundles = {'consequence-tables-v1', 'tissue-protein-context-v1',
+               'population-reference-context-v1', 'cohort-sample-views-v1',
+               'combined-annotation-master-v1'}
+    allowed = len(parts) > 2 and parts[0] == 'outputs' and parts[1] in bundles
+    allowed = allowed or (len(parts) > 4 and parts[:3] == ('outputs', 'workflow-v1', 'stages')
+                          and parts[3] in ('06_annotate', '07_report'))
+    if not allowed:
+        return None
+    alias = destination / 'Reports' / Path(*parts)
+    if alias.is_symlink() or not alias.resolve().is_relative_to(destination.resolve()):
+        raise ValueError('Report bundle alias escapes local result storage')
+    alias.parent.mkdir(parents=True, exist_ok=True)
+    if alias.exists():
+        if not os.path.samefile(alias, stored):
+            raise ValueError('Different report bundle file exists; refusing overwrite')
+    else:
+        os.link(stored, alias)
+    return alias.relative_to(destination).as_posix()
 
 
 def publish_verified(destination, entry, mapping):
@@ -60,8 +86,9 @@ def publish_verified(destination, entry, mapping):
             raise ValueError('Differing existing friendly file; refusing overwrite')
     else:
         os.link(obj, target)
+    bundle_alias = publish_report_alias(destination, entry, obj)
     mapping[sha + ':' + rel] = {'Category': group, 'RelativePath': rel, 'LocalPath': friendly.as_posix(),
-                                'Sha256': sha, 'SizeBytes': entry['SizeBytes']}
+                                'Sha256': sha, 'SizeBytes': entry['SizeBytes'], 'ReportBundleAlias': bundle_alias}
     atomic_json(destination / 'verified-files.json', mapping)
 
 
@@ -99,6 +126,7 @@ def publish_size_only(destination, entry, stored, completion, records=None, pers
             raise ValueError('Differing friendly file exists; refusing overwrite')
     else:
         os.link(stored, target)
+    bundle_alias = publish_report_alias(destination, entry, stored)
     path = destination / 'size-only-files.json'
     if records is None:
         records = json.loads(path.read_text(encoding='utf-8-sig')) if path.exists() else {}
@@ -106,7 +134,8 @@ def publish_size_only(destination, entry, stored, completion, records=None, pers
               'RelativePath': entry['RelativePath'], 'LocalPath': friendly.as_posix(),
               'StoragePath': stored.relative_to(destination).as_posix(), 'SizeBytes': entry['SizeBytes'],
               'ActualSizeBytes': stored.stat().st_size, 'MtimeNs': stored.stat().st_mtime_ns,
-              'ExpectedServerSha256': entry['Sha256'], 'ActualSha256': None, 'CompletionEvidence': completion}
+              'ExpectedServerSha256': entry['Sha256'], 'ActualSha256': None, 'CompletionEvidence': completion,
+              'ReportBundleAlias': bundle_alias}
     records[key] = record
     if persist:
         atomic_json(path, records)
