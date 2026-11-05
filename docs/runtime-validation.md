@@ -62,13 +62,49 @@ compatibility](https://docs.nvidia.com/deploy/cuda-compatibility/minor-version-c
 where CUDA 13.x normally requires at least the 580 driver branch.
 
 The successful probe establishes real minimal GPU execution with this image and host;
-it does not establish performance or correctness of a bioinformatics workload. No
-FASTQ alignment, variant calling, analysis-workload benchmark, or clinical validation
-was performed. A pinned reference, private input manifests, explicit interval/ploidy
-policy and a representative pilot are still required for actual analysis. The probe
+this probe alone does not establish performance or correctness of a bioinformatics
+workload. No real-sample FASTQ alignment, real-sample variant calling, representative
+analysis-workload benchmark, or clinical validation was performed. A pinned reference,
+private input manifests, explicit interval/ploidy policy and a representative pilot
+are still required for actual analysis. The probe
 code/log remain in the ignored local directory; setup logs and complete installed
 package versions remain under private `/srv/marina/logs/`, not in git. Neither the
 host driver nor the stable analysis code was changed to obtain this compute result.
+
+## Synthetic end-to-end runner verification
+
+A subsequent isolated functional test on 2026-11-05 used an entirely generated
+100,000-base random reference, 5,000 synthetic paired reads, and a deliberately
+diploid synthetic interval. No real sample inputs or real output directories were
+mounted. BWA 0.7.17 for the tiny reference index was installed only in an ephemeral
+container based on the same immutable Parabricks image; neither the base image nor
+the host driver was changed.
+
+The first attempt exposed an actual Parabricks requirement: read groups must contain
+`PU`. Omitting `PL` is accepted, but omitting `PU` was rejected before alignment.
+The runner was therefore corrected to generate an explicitly technical PU when its
+input manifest field is empty, preserving original PU as `unknown` and origin as
+`processing_assumption`. It does not infer a physical flowcell or sequencing platform.
+
+The final runner was then exercised with **both PU and PL empty in the synthetic
+manifest**. The following checks passed:
+
+- GPU `fq2bam`, duplicate marking and metrics, BAM quickcheck/index/statistics.
+- 10,000 output BAM records from the 5,000 synthetic read pairs.
+- One BAM read group with the derived technical PU; the PL tag remained omitted.
+- GPU HaplotypeCaller, explicit synthetic diploid interval, gVCF generation and index.
+- Original/effective PU, assumption origin and explanation recorded in both stage
+  receipts and the run log; the derived fields participate in the fingerprint.
+- SHA256 of the runner itself recorded in the fingerprint and both receipts.
+- A repeated invocation verified and skipped both completed stages without launching
+  new workloads.
+- A validation-only copy of the runner with changed source bytes refused to reuse
+  the completed stages, demonstrating code-change invalidation of the resume cache.
+
+This is a tiny software integration test, **not** a benchmark, accuracy assessment,
+CPU/GPU concordance study or pilot on the four real samples. It does not establish
+their peak memory requirement or predict their runtime. The synthetic fixture,
+logs, receipts and numeric summary are in a separate private validation directory.
 
 The root project directory, private config directory and output directory are owned
 by the normal VM user with mode 0700. No new SSH users, credentials, public service

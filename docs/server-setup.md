@@ -89,6 +89,15 @@ analytical library**. Identifiers such as `analysis_library_01` express that gro
 they do not assert a confirmed wet-lab library. The templates label this origin.
 Unknown platform metadata stays unknown; no `ILLUMINA` tag is invented.
 
+Parabricks 4.8 requires a `PU` read-group field. When `platform_unit` is empty, the
+runner therefore uses `analysis_unit_<read_group_id>` as an explicitly technical
+input-group label. It records original PU as `unknown`, the effective value, origin
+`processing_assumption`, and its explanation in the run log and stage receipt. These
+derived fields also enter the run fingerprint. This does not identify a confirmed
+physical flowcell or recover missing wet-lab provenance. A nonempty supplied PU is
+preserved with origin `manifest_supplied`. Unknown `platform` stays empty and the
+`PL` tag remains omitted; no sequencing technology is inferred from the technical PU.
+
 `calls.tsv` has five TSV columns: `sample_id`, `callset`, `intervals`,
 `intervals_sha256`, `ploidy`. The interval file is relative to `reference_root`.
 Use separate non-overlapping callsets when ploidy differs. Ploidy must explicitly be
@@ -147,6 +156,8 @@ basic output checks and SHA256 receipts. Repeating the exact config skips a stag
 only if its fingerprint and output checksums still match. Changed/incomplete final
 directories cause a stop instead of overwrite. Failed partial directories remain for
 inspection; review their disk use before rerunning. Do not edit completed stage logs.
+The fingerprint and receipt include the runner's own SHA256; changing its code cannot
+silently reuse a stage produced by an older runner with otherwise identical inputs.
 One process lock prevents duplicate queues for the same output root. Always use that
 same root; changing it is not a method to run another concurrent GPU queue.
 
@@ -169,3 +180,45 @@ clinical VCFs. No SQL dump is executed or imported by these scripts.
 - [HaplotypeCaller options and mismatches](https://docs.nvidia.com/clara/parabricks/tool-reference/tools/haplotypecaller)
 - [NVIDIA Container Toolkit installation](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 - [Docker Engine installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+### Reconstruct the private one-sample technical pilot
+
+`scripts/configure_pilot.py` prepares configuration only. It keeps the canonical
+eight-column samples TSV unchanged and selects its first row. It creates private
+`pilot-samples.tsv`, `pilot-calls.tsv`, `pilot-run.json`, and the hash-bound
+`pilot-ready.json`, plus a reference interval list containing only chr1 with
+explicit diploid calling. Alignment still uses the entire selected FASTQ pair
+against the complete reference. This is not a final whole-WGS callset.
+
+Set `REFERENCE_RECEIPT` to the successful `prepare_reference.py` receipt, and
+`TRANSFER_MANIFEST` to the server-side upload manifest containing the expected
+source `RelativePath`, `SizeBytes`, and `Sha256` fields under `Files`, with
+`SchemaVersion: 1`. Then review without writes:
+
+```bash
+python3 scripts/configure_pilot.py --root /srv/marina \
+  --samples /srv/marina/private/samples.tsv \
+  --reference-receipt "$REFERENCE_RECEIPT" \
+  --transfer-manifest "$TRANSFER_MANIFEST" --dry-run
+```
+
+Replace `--dry-run` with `--execute` to create the configuration; this does not
+start containers or analysis. With the upload manifest supplied, the builder
+compares both actual FASTQs with the expected source sizes and SHA256 values and
+creates `pilot-inputs-verified.json` for `scripts/marina.sh`. Its `PlanId` is the
+SHA256 of the upload-manifest bytes. Computing a read's hash without this expected
+source identity is not treated as transfer verification. The builder can prepare
+configuration without `--transfer-manifest`, but the launcher remains blocked
+until a valid input-verification marker exists.
+
+The builder verifies the reference receipt and FASTA/index hashes, records the
+immutable container digest, disables BQSR, and records unknown PL and technical
+library/PU assumptions. It does not infer sex or define sex-chromosome, MT or CNV
+policies. All new private files use mode 0600. Identical files are reusable;
+different existing generated files are preserved and cause an error. Existing
+input-marker timestamps are preserved when their expected-source identity agrees.
+
+For an isolated functional check, add a separate `--private-dir` below private
+storage and a distinct `--interval-name` ending in `.interval_list`. This leaves
+the live pilot configuration unchanged. After configuration, `marina.sh status`
+checks readiness, `marina.sh plan` validates the actual runner without analysis,
+and `marina.sh pilot --wait` is the explicit manual analysis start.
