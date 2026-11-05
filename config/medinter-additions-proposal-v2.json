@@ -1,0 +1,768 @@
+{
+  "schema_version": 1,
+  "proposal_id": "medinter-additions-proposal-v2",
+  "review_date": "2026-11-05",
+  "scope": "Approval-only, noncommercial research HCM germline SNV/indel + MT; no patient data",
+  "operational_changes": false,
+  "downloads_or_installs": false,
+  "patient_external_queries": false,
+  "source_audit": [
+    {
+      "source_id": "M01",
+      "source_file": "med_inter\\1.1 Когда и зачем назначать генетическое тестирование_ клинические сценарии и путь пациента_watermark (1).pdf",
+      "sha256": "640a4e0ecf92c2d31032889600cf12f9b6979aabb0444d569f5b325e7d80008f",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M02",
+      "source_file": "med_inter\\1.2 NGS без магии_ ключевые принципы молекулярной биологии которые реально нужны врачу.pdf",
+      "sha256": "bf55886ec9324ab9e1fea963a73a6903155bb7fccc82b922d288d10b4f1d231a",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M03",
+      "source_file": "med_inter\\1.3 Типы генетических вариантов_ как мутации влияют на структуру и функцию гена, генома, белка.pptx_watermark (1).pdf",
+      "sha256": "124939dc01277a95288ce8ad2ef98563dfcdd3f1b2f63949ab14b38670059f91",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M04",
+      "source_file": "med_inter\\1.4 Как наследуются заболевания_ от простых моделей к сложной реальности.pptx_watermark (1).pdf",
+      "sha256": "64c3ab969816507bc793b4a62778dd8c05bf8d9ef00d8fd218e87c49428fbb13",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M05",
+      "source_file": "med_inter\\2.1 NGS в реальной диагностике_ возможности_ограничения и когда нужны другие методы_watermark (1).pdf",
+      "sha256": "c5a123832c5eea2e772b477054229355d48c177aa8bda93822672f95b32affe9",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M06",
+      "source_file": "med_inter\\2.2 Что происходит после секвенирования_ биоинформатический анализ (пайплайн), метрики качества и что такое IGV.pptx_watermark (1).pdf",
+      "sha256": "0f3d5966bd96b2e220e9bbe14214c99c68689a1cb065c681b1e3d2964c140df0",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M07",
+      "source_file": "med_inter\\2.3 Референсный геном и базы данных_ как не утонуть в источниках и использовать их осмысленно.pptx_watermark (1).pdf",
+      "sha256": "499728490945d7965858640bb5883fc7fec8b3039f90fef84785d315736252e2",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M08",
+      "source_file": "med_inter\\3.1 Как читать клинические данные пациента для генетического анализа_watermark (1).pdf",
+      "sha256": "80fced947459ea63b7e9f6aaab0e0dfc72f22a8a05a5c0a78aa73338d8e4c7a6",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M09",
+      "source_file": "med_inter\\3.2 Главные базы данных для интерпретации вариантов_ что использовать и когда.pptx_watermark (1) (1).pdf",
+      "sha256": "a6bd1c729dbc770a9d44e621e01da0954a5c29368b77d6e74fb842c7e17b9954",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M10",
+      "source_file": "med_inter\\3.3 ACMG без формализма_ как на практике классифицировать варианты_watermark (1).pdf",
+      "sha256": "254624cc0b66f1246ad85efcf8aaefa15dfa002707e988b16810dc8116345501",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M11",
+      "source_file": "med_inter\\3.4 Критерий PVS1_ когда loss-of-function действительно значим_watermark (1).pdf",
+      "sha256": "002699d45e0c65830728efed81a62e5bbc763cbde0092c8e0f0cae4d8568e93c",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M12",
+      "source_file": "med_inter\\3.5 Как правильно записывать варианты_ номенклатура без ошибок и путаницы_watermark (1).pdf",
+      "sha256": "1f07242faf3549274c0b75d57b9b332ec29181eda1d4d22228edcb6689ae0d03",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M13",
+      "source_file": "med_inter\\4.1.2 CNV и структурные перестройки_ как их находить и интерпретировать. Номенклатура_watermark.pdf",
+      "sha256": "e9aa99a6c8c1e400c790d4b2563228255892a4f74097fe572ad1f7fd22f18983",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M14",
+      "source_file": "med_inter\\4.2 Митохондриальная ДНК_ особенности анализа и интерпретации_watermark (2).pdf",
+      "sha256": "756b6ee30375fd4888a78d3937d3a5d35540437fa76d160bf001244cc9ec7d18",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M15",
+      "source_file": "med_inter\\4.3 Соматические мутации в онкологии_ от секвенирования до клинического решения.pptx_watermark (1) (1).pdf",
+      "sha256": "e043cd7d5230c4a44edb5c8b8ed930a4124b3b61945cb4736f27b63f802e8fb0",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M16",
+      "source_file": "med_inter\\5.1 Случайные находки_ что делать, если нашли не то, что искали_watermark (1).pdf",
+      "sha256": "e24a2af37361b4840f9e7601027016ea5655514ef50574fbb02510a13580f76a",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M17",
+      "source_file": "med_inter\\5.2 почему один и тот же вариант ведёт себя по_разному_ пенетрантность.pdf",
+      "sha256": "82035f03cb6d2d4b6793d8f481f22fe0bc3c45361581a3c66e48db6d36ffd1a5",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M18",
+      "source_file": "med_inter\\5.3 Как читать генетическое заключение и использовать его в практике.pptx_watermark.pdf",
+      "sha256": "50a46f80e1959ce5c937f138f0c4216b2c045a6e7ad8124acdb92dcba5a202c1",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M19",
+      "source_file": "med_inter\\5.4 Верификация результатов_ когда и как перепроверять варианты_watermark (1).pdf",
+      "sha256": "9f306b294cd34b8a0275647ff360fc6e916b984e61f7f10429f7268573ae71c7",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M20",
+      "source_file": "med_inter\\5.5 Как выбрать правильный метод тестирования под задачу пациента.pptx_watermark (1).pdf",
+      "sha256": "a975ad9a0f9bb763ef61a656585659549eca9ead6290e5106be407bea1077614",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M21",
+      "source_file": "med_inter\\NGS в наследственных заболеваниях цели анализа и путь пациента (4).html",
+      "sha256": "7071505f00c6e6cbdafbaf8b1379b13bf05aa23b7e82c0ad4665435601980ede",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M22",
+      "source_file": "med_inter\\Session 10_28_2026 (1).html",
+      "sha256": "2c49c4a85921912b1c77bf7239d87ddb1059a471ae8ce2a86f4c145741e2e9ce",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M23",
+      "source_file": "med_inter\\Session 10_28_2026 (2).html",
+      "sha256": "0fba292ac3ccf5b493a19519df69b0bd9dd033530d90c98a653e0f0f29802a0e",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M24",
+      "source_file": "med_inter\\Session 10_28_2026.html",
+      "sha256": "cca37d14e989b2f0df8bec0679230e3a37ab6b4b7b47d3cac02701e42a1fe7f7",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M25",
+      "source_file": "med_inter\\Summary 2026-10-24 13-05 (2).html",
+      "sha256": "f8694b9b4db68e50edb22ef89026cb4dcc979711a6adbd9ba80f4be91333bab9",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M26",
+      "source_file": "med_inter\\Summary 2026-10-28 15-39.html",
+      "sha256": "7ed9dccd0e5f6980a36f6c285144a62ed11829a6eb095b343ed556bda8796dce",
+      "manifest_match": true,
+      "content_review": "source_failed_no_requirements"
+    },
+    {
+      "source_id": "M27",
+      "source_file": "med_inter\\Биоинформатический анализ данных секвенирования нового поколения пайплайн, контр (1).html",
+      "sha256": "9c81133625b7fe77ea02fa3d6c82785a9501d3568c1b6f3f9cf678d170c419bf",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M28",
+      "source_file": "med_inter\\Выбор метода генетической диагностики фенотип, биоматериал и ограничения тестов (1).html",
+      "sha256": "041ec372a32bdf7208296797132650eec39dc3d0ccaa7c6418230e4bd49f6e0b",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M29",
+      "source_file": "med_inter\\Занятие 25.10.2026.html",
+      "sha256": "533ef5d9dcd21a3d8ef6fb1138d4cd2d33a3255c5aea602cf3311e7860db8dd1",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M30",
+      "source_file": "med_inter\\Занятие 26.10.2026 (1).html",
+      "sha256": "4e594c6d904ab551d13297211d36c5f28a0d57b49568b60e497c3708cc08f116",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M31",
+      "source_file": "med_inter\\Интерпретация критерия PVS1 когда потеря функции действительно значима (1).html",
+      "sha256": "de456f765ae9e0b27ff5aba0375c1dfb5ef5c52fd5386c1cfce5267ca15b5758",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M32",
+      "source_file": "med_inter\\Как читать клинические данные пациента для генетического анализа (1).html",
+      "sha256": "2db4e8fda607af7b769a8190e1ff238a832166c9fc3c90d78d5a1fc7366f1392",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M33",
+      "source_file": "med_inter\\Клинические базы данных и ресурсы для интерпретации генетических вариантов (1).html",
+      "sha256": "361cc1c57aeb9168fad0a92bb66301b976b1f5f4f68544a073787e0a66cb7b6a",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M34",
+      "source_file": "med_inter\\Критерии ACMG практическая классификация генетических вариантов (1).html",
+      "sha256": "a12af730eeb72bed9572cd3ccb1af7abd4a97acc91b5426f055b9781bc90668e",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M35",
+      "source_file": "med_inter\\Митохондриальная ДНК особенности анализа и интерпретации (1).html",
+      "sha256": "a274bbe19683c8c7e1ca9b85dbdcb389f309d2589307a1637c4c12ddb9e4dbd8",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M36",
+      "source_file": "med_inter\\Номенклатура генетических вариантов как записывать изменения по HGVS (2).html",
+      "sha256": "00b3929beb9306110b459e78bfb6522186950e6327ea0bb6ce81c52c8ab7d8fd",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M37",
+      "source_file": "med_inter\\Общие принципы молекулярной биологии в основе NGS (1).html",
+      "sha256": "911f23f52ca11b4e49aa2a7d4b1f56dde9e0f4e228f483b866d076a1e825b483",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M38",
+      "source_file": "med_inter\\Секвенирование в диагностике возможности, ограничения и выбор метода (1).html",
+      "sha256": "6662ff61e8c6829a44dbec877526733a689adfd080fcabf46457a9801d32f72a",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M39",
+      "source_file": "med_inter\\Случайные и вторичные находки что делать, если нашли не то, что искали (1).html",
+      "sha256": "c930151a99eb79124769fcb5477d29e0b50dc03c53439a61a86fd67bbd92502d",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M40",
+      "source_file": "med_inter\\Соматические мутации в онкологии от секвенирования до клинического решения (1).html",
+      "sha256": "a2e9345ab97497e4e080abde56792ebb66d173c39325c98b215dd2ea8d2a7c77",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "M41",
+      "source_file": "med_inter\\Типы мутаций и генетических вариантов от изменений генома до вариантов в отдельн (1).html",
+      "sha256": "9d3a4dc56ed03b499d875e1c74bd44517901f245786579d4927b4060348de5a8",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "G42",
+      "source_file": "gatk\\13. Анализ Y и MT хромосом 1.pdf",
+      "sha256": "faeb4efb33b2708761022ea94e76094835a0909adb746f3e7d88eabc174bcc93",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "G43",
+      "source_file": "gatk\\14. Анализ Y и MT хромосом P2.pdf",
+      "sha256": "80a9719ba4a11fed2b0bc800cb690de910a27bef79b3d72a61645d5bbdf0d81d",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    },
+    {
+      "source_id": "G44",
+      "source_file": "gatk\\Геном человека, референсные сборки и особенности митохондриальной и Y-хромосомы.html",
+      "sha256": "52d61bee5956fe45e48f1dea471eeaa93dd5b59ce316bf6c2f31091bd0066cd4",
+      "manifest_match": true,
+      "content_review": "overview_and_keyword_context; relevant PDF pages re-extracted selectively"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "P01",
+      "title": "gnomAD: AC/AN, homozygotes, FILTER и покрытие локуса",
+      "priority": "MUST",
+      "kind": "data_supplement",
+      "lecture_evidence": [
+        {
+          "source_id": "M10",
+          "source_file": "med_inter\\3.3 ACMG без формализма_ как на практике классифицировать варианты_watermark (1).pdf",
+          "locator": "PDF с. 9–10",
+          "sha256": "254624cc0b66f1246ad85efcf8aaefa15dfa002707e988b16810dc8116345501"
+        },
+        {
+          "source_id": "M33",
+          "source_file": "med_inter\\Клинические базы данных и ресурсы для интерпретации генетических вариантов (1).html",
+          "locator": "HTML [38:40], gnomAD",
+          "sha256": "361cc1c57aeb9168fad0a92bb66301b976b1f5f4f68544a073787e0a66cb7b6a"
+        }
+      ],
+      "current_gap": "Есть AF из VEP-кэша; MyVariant содержит исторический gnomAD 2.1.1. Современных полных AC/AN/nhomalt/quality/ancestry и all-sites AN для исследуемых областей нет.",
+      "case_role": "Проверка редкости приоритетных ядерных HCM SNV/indel; отсутствие записи не равно AC=0 при хорошем AN.",
+      "incremental_value": "Деноминатор и callable context позволяют отличить редкий вариант от плохо представленного участка. Частота когорты из четырёх образцов остаётся отдельной.",
+      "access_status": "Публичные release downloads. Предложен региональный публичный HCM39 extract, а не запросы по вариантам пациента или полный dump. Browser API schema нестабилен.",
+      "license_status": "Историческая официальная gnomAD документация указывает ODbL; условия конкретного актуального файла сохранить до загрузки/распространения.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Публичный доступ; фиксированную цену egress не проверяли. Платные облачные ресурсы не согласованы.",
+      "size_bytes": null,
+      "size_note": "Размер выбранного регионального extract и сетевого чтения неизвестен; сначала size/egress plan. Полные геномные файлы не предлагать в текущий бюджет.",
+      "official_urls": [
+        "https://gnomad.broadinstitute.org/downloads",
+        "https://broadinstitute.github.io/gnomad_methods/_modules/gnomad/resources/grch38/gnomad.html",
+        "https://discuss.gnomad.broadinstitute.org/t/stratified-coverage-counts-for-gnomad-v4/814/2",
+        "https://gnomad.broadinstitute.org/news/2026-09-gnomad-v4-1-2/"
+      ],
+      "recommended_decision": "Одобрить малый региональный план: release-specific AC/AN/quality + coverage/all-sites AN. Constraint добавлять только отдельным файлом v4.1.2: этот релиз исправляет rank/bin, не AF и не LOEUF values.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P02",
+      "title": "MITOMAP + HelixMTdb + gnomAD MT: специализированные частоты и публикации",
+      "priority": "MUST",
+      "kind": "mt_data_supplement",
+      "lecture_evidence": [
+        {
+          "source_id": "M14",
+          "source_file": "med_inter\\4.2 Митохондриальная ДНК_ особенности анализа и интерпретации_watermark (2).pdf",
+          "locator": "PDF с. 8, 12",
+          "sha256": "756b6ee30375fd4888a78d3937d3a5d35540437fa76d160bf001244cc9ec7d18"
+        },
+        {
+          "source_id": "M35",
+          "source_file": "med_inter\\Митохондриальная ДНК особенности анализа и интерпретации (1).html",
+          "locator": "HTML [18:15], таблица частот",
+          "sha256": "a274bbe19683c8c7e1ca9b85dbdcb389f309d2589307a1637c4c12ddb9e4dbd8"
+        }
+      ],
+      "current_gap": "MT calling/QC уже выполнен, но это не локальная база MITOMAP/HelixMTdb. Наличие nuclear gnomAD AF и HCM predictor subsets не закрывает MT.",
+      "case_role": "MT-TI и прочие MT-кандидаты: rCRS NC_012920.1, homoplasmic/heteroplasmic counts, haplogroup context, published disease evidence.",
+      "incremental_value": "Добавляет mtDNA-specific знаменатели и литературу; патогенные утверждения MITOMAP отделять от популяционных записей. Helix и GenBank не считать доказанной здоровой контрольной когортой.",
+      "access_status": "Helix официально даёт публичную Download HelixMTdb ссылку. MITOMAP вернул 403 при read-only проверке, способ разрешённого bulk/download не подтверждён. gnomAD MT formats описаны авторами.",
+      "license_status": "Helix просит цитирование и ссылку; полной лицензии скачиваемого файла пока не проверено. MITOMAP условия неизвестны: не объявлять CC0/unrestricted.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "На Helix download странице платёж не указан; точная цена/стоимость передачи неизвестна. MITOMAP неизвестно.",
+      "size_bytes": null,
+      "size_note": "Размеры трёх выбранных файлов неизвестны, без предварительного численного обещания.",
+      "official_urls": [
+        "https://www.mitomap.org/MITOMAP/Resources",
+        "https://www.helix.com/mitochondrial-variant-database",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8896463/"
+      ],
+      "recommended_decision": "Одобрить отдельный небольшой MT-reference план после проверки metadata/terms. Непонятный TOOLST из HTML не переименовывать в MitoTip и не устанавливать по догадке.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P03",
+      "title": "MT-specific manual ACMG worksheet и контекст ткани/гетероплазмии",
+      "priority": "MUST",
+      "kind": "method",
+      "lecture_evidence": [
+        {
+          "source_id": "M14",
+          "source_file": "med_inter\\4.2 Митохондриальная ДНК_ особенности анализа и интерпретации_watermark (2).pdf",
+          "locator": "PDF с. 8–11",
+          "sha256": "756b6ee30375fd4888a78d3937d3a5d35540437fa76d160bf001244cc9ec7d18"
+        }
+      ],
+      "current_gap": "PASS_RESEARCH_WITH_LIMITATIONS относится к техническому MT-run; manual nuclear ACMG worksheet не заменяет отдельные MT rules. Registry CSpec уже скачан: сначала проверить, есть ли нужный документ внутри, не дублировать загрузку.",
+      "case_role": "Раздельная оценка mtDNA protein-coding/tRNA/rRNA, гаплогруппы, ткани, maternal history, гетероплазмии и NUMT flags.",
+      "incremental_value": "MT-TI не является missense protein: AlphaMissense/REVEL и ядерная NMD/splicing схема к нему неприменимы. Учебные 1.5% нельзя выдавать за подтверждённый LoD нашего workflow.",
+      "access_status": "Официальная статья и ClinGen affiliation/guidance публично читаемы; сначала использовать уже локальный registry, затем только недостающее разрешённое руководство.",
+      "license_status": "Условия статьи и linked guidance сохранять отдельно; публичная доступность не означает права на весь контент MITOMAP.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Для ручной методики платный аккаунт не требуется; экспертиза не оценивалась как услуга.",
+      "size_bytes": null,
+      "size_note": "Новых больших данных не нужно; размер недостающего guidance неизвестен.",
+      "official_urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7717623/",
+        "https://clinicalgenome.org/affiliation/50027/"
+      ],
+      "recommended_decision": "Одобрить локальную MT evidence worksheet; вся классификация остаётся ручной. Один haplochecker flag не объявлять доказанной контаминацией.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P04",
+      "title": "Значимость сердечного транскрипта/экзона: GTEx и pext",
+      "priority": "USEFUL",
+      "kind": "data_supplement",
+      "lecture_evidence": [
+        {
+          "source_id": "M11",
+          "source_file": "med_inter\\3.4 Критерий PVS1_ когда loss-of-function действительно значим_watermark (1).pdf",
+          "locator": "PDF с. 4, 9, 13",
+          "sha256": "002699d45e0c65830728efed81a62e5bbc763cbde0092c8e0f0cae4d8568e93c"
+        }
+      ],
+      "current_gap": "MANE1.4, GENCODE49 и все VEP transcripts уже есть/готовятся; тканевая экспрессия и включение экзона в локальном bundle отсутствуют.",
+      "case_role": "Ручная проверка biologically relevant exon/transcript для MYBPC3 и других HCM pLoF/splice кандидатов.",
+      "incremental_value": "MANE/canonical сами по себе не доказывают экспрессию нужного экзона в сердце; pext является поддерживающим контекстом, не самостоятельным PVS1.",
+      "access_status": "GTEx open-access derived expression, gnomAD public gene model/pext downloads. Raw RNA-seq и donor-level данные защищены и для цели не нужны.",
+      "license_status": "GTEx разрешает использование с acknowledgement; лицензию выбранного производного файла и условия gnomAD сохранить. Никакого доступа к protected donor data.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Open-access данные; отдельные крупные GTEx файлы бывают requester-pays. Нужны только малые summary, платный аккаунт не предполагается.",
+      "size_bytes": null,
+      "size_note": "Размер summary/subset неизвестен; не загружать RNA-seq/QTL all-pairs.",
+      "official_urls": [
+        "https://www.gtexportal.org/home/downloads/adult-gtex/overview",
+        "https://www.gtexportal.org/home/faq",
+        "https://gnomad.broadinstitute.org/news/2025-01-update-gnomad-browser-gene-model-hail-tables/",
+        "https://gnomad.broadinstitute.org/news/2026-03-gnomad-v4-1-1/"
+      ],
+      "recommended_decision": "Одобрить компактный HCM transcript/exon summary после shortlist. Проверять accession/version: GTEx/gnomAD gene models могут отличаться от GENCODE49; новый GTEx V11 использует GENCODE47.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P05",
+      "title": "NMD и новый стоп после frameshift: воспроизводимый transcript review",
+      "priority": "MUST",
+      "kind": "method",
+      "lecture_evidence": [
+        {
+          "source_id": "M11",
+          "source_file": "med_inter\\3.4 Критерий PVS1_ когда loss-of-function действительно значим_watermark (1).pdf",
+          "locator": "PDF с. 9",
+          "sha256": "002699d45e0c65830728efed81a62e5bbc763cbde0092c8e0f0cae4d8568e93c"
+        },
+        {
+          "source_id": "M11",
+          "source_file": "med_inter\\3.4 Критерий PVS1_ когда loss-of-function действительно значим_watermark (1).pdf",
+          "locator": "PDF с. 4",
+          "sha256": "002699d45e0c65830728efed81a62e5bbc763cbde0092c8e0f0cae4d8568e93c"
+        }
+      ],
+      "current_gap": "Есть coordinates, exon/CDS/protein lengths и pLoF flags; NMD остаётся unassessed. Текущий GENCODE49 уже достаточен как структурная основа; покупать новую базу не нужно.",
+      "case_role": "Короткий список stop-gain/frameshift/start-lost/splice; только при disease mechanism и текущей gene-specific спецификации, допускающих PVS1.",
+      "incremental_value": "Выяснить положение фактического нового стопа, последнего exon junction, rescue isoforms/альтернативного старта и долю утраченного белка. Положение исходного frameshift не равно положению нового стопа.",
+      "access_status": "Локальная методика на существующих versioned FASTA/GTF/VEP и скачанных CSpec. LOFTEE не назван как требование в лекциях и не необходим для этой проверки.",
+      "license_status": "Использовать уже зафиксированные лицензии локальных ресурсов; SVI guidance — отдельное цитирование.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Новая база/ключ не нужны; вычислительное время не измерено.",
+      "size_bytes": null,
+      "size_note": "Новый dataset не нужен; объём таблицы зависит от shortlist.",
+      "official_urls": [
+        "https://www.clinicalgenome.org/docs/variant-curation-sop/"
+      ],
+      "recommended_decision": "Одобрить методический review без изменения текущего calling. Для MYH7 применимость PVS1 проверять по уже скачанному MYH7 v2.0, а не по generic HIGH.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P06",
+      "title": "Независимая локальная проверка HGVS: Mutalyzer или VariantValidator",
+      "priority": "MUST",
+      "kind": "tool_proposal",
+      "lecture_evidence": [
+        {
+          "source_id": "M12",
+          "source_file": "med_inter\\3.5 Как правильно записывать варианты_ номенклатура без ошибок и путаницы_watermark (1).pdf",
+          "locator": "PDF с. 20–21",
+          "sha256": "1f07242faf3549274c0b75d57b9b332ec29181eda1d4d22228edcb6689ae0d03"
+        },
+        {
+          "source_id": "M12",
+          "source_file": "med_inter\\3.5 Как правильно записывать варианты_ номенклатура без ошибок и путаницы_watermark (1).pdf",
+          "locator": "PDF с. 20",
+          "sha256": "1f07242faf3549274c0b75d57b9b332ec29181eda1d4d22228edcb6689ae0d03"
+        }
+      ],
+      "current_gap": "VEP выдаёт HGVS, но независимый HGVS validator с подготовленными референсами не установлен. RefSeq cache115 только queued и не равен Mutalyzer reference cache.",
+      "case_role": "Проверить shortlist indel/MNV и версии c./p./g.; различать VCF left-alignment и HGVS 3-prime rule.",
+      "incremental_value": "Независимая проверка nomenclature/reference mapping перед рукописью; не дублирует аннотацию всего VCF.",
+      "access_status": "Mutalyzer 3.1.1 официально описывает локальный CLI и file-based reference cache. Нужно заранее загрузить публичные references и проверять работоспособность с отключённой сетью: cache miss способен вызвать NCBI retrieval.",
+      "license_status": "Mutalyzer source MIT по официальному репозиторию; права reference sequences отдельно. VariantValidator здесь альтернатива, его package/dependencies/terms ещё не проверены.",
+      "account_or_key": "После одобрения: ключ не обязателен; для настройки retrieval требуется служебный email по документации. Его не запрашиваем и установку сейчас не выполняем.",
+      "price_status": "Mutalyzer CLI open source; reference egress/installation cost не измеряли. NCBI key в docs optional, не обязательная покупка.",
+      "size_bytes": null,
+      "size_note": "Размер выбранного transcript/reference cache неизвестен; full chromosome cache заранее не обещается.",
+      "official_urls": [
+        "https://github.com/mutalyzer/mutalyzer",
+        "https://mutalyzer.readthedocs.io/en/latest/",
+        "https://mutalyzer.readthedocs.io/en/latest/usage.html"
+      ],
+      "recommended_decision": "Одобрить локальный validator proof-of-concept на публичных controls и ограниченных reference IDs; не отправлять варианты пациента в hosted сервис.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P07",
+      "title": "UniProt: домены, функциональные участки и альтернативные изоформы",
+      "priority": "USEFUL",
+      "kind": "data_supplement",
+      "lecture_evidence": [
+        {
+          "source_id": "M09",
+          "source_file": "med_inter\\3.2 Главные базы данных для интерпретации вариантов_ что использовать и когда.pptx_watermark (1) (1).pdf",
+          "locator": "PDF с. 3",
+          "sha256": "a6bd1c729dbc770a9d44e621e01da0954a5c29368b77d6e74fb842c7e17b9954"
+        },
+        {
+          "source_id": "M07",
+          "source_file": "med_inter\\2.3 Референсный геном и базы данных_ как не утонуть в источниках и использовать их осмысленно.pptx_watermark (1).pdf",
+          "locator": "PDF с. 20–21",
+          "sha256": "499728490945d7965858640bb5883fc7fec8b3039f90fef84785d315736252e2"
+        }
+      ],
+      "current_gap": "Protein consequence/length уже есть. Локальный versioned UniProt feature/context extract для HCM белков не подтверждён; VEP protein ID не означает наличие curated domain evidence.",
+      "case_role": "Оценка утраченного C-конца, функционального домена и механизма shortlisted variants.",
+      "incremental_value": "Добавляет curated feature coordinates/evidence и публикации. Само попадание в домен не назначает PM1; приоритет имеют уже скачанные HCM CSpec определения.",
+      "access_status": "Официальный protein resource; предложен public-gene/protein extract, без variant queries. API/download metadata и точные release records предстоит подготовить после одобрения.",
+      "license_status": "Текущая help/license страница дала JS fallback; обнаружено расхождение с SIB manual. Лицензия конкретного файла требует проверки, CC-BY автоматически не приписывать.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Свободный доступ к просмотру; bulk/API price не подтверждён. Платная лицензия не согласована.",
+      "size_bytes": null,
+      "size_note": "Размер выбранных HCM feature records неизвестен; full UniProt download не нужен.",
+      "official_urls": [
+        "https://www.uniprot.org/help/license",
+        "https://www.uniprot.org/help/programmatic_access",
+        "https://web.expasy.org/docs/userman.html"
+      ],
+      "recommended_decision": "Одобрить только небольшой reference-only extract после подтверждения terms; если CSpec уже содержит нужные regions, дополнительную базу отложить.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P08",
+      "title": "ClinVar SCV + первичная литература: локальное досье короткого списка",
+      "priority": "MUST",
+      "kind": "evidence_review",
+      "lecture_evidence": [
+        {
+          "source_id": "M10",
+          "source_file": "med_inter\\3.3 ACMG без формализма_ как на практике классифицировать варианты_watermark (1).pdf",
+          "locator": "PDF с. 11, 17, 19",
+          "sha256": "254624cc0b66f1246ad85efcf8aaefa15dfa002707e988b16810dc8116345501"
+        },
+        {
+          "source_id": "M33",
+          "source_file": "med_inter\\Клинические базы данных и ресурсы для интерпретации генетических вариантов (1).html",
+          "locator": "HTML [41:20], VarSome/RAB27A, Mastermind links",
+          "sha256": "361cc1c57aeb9168fad0a92bb66301b976b1f5f4f68544a073787e0a66cb7b6a"
+        }
+      ],
+      "current_gap": "Свежий ClinVar GRCh38 snapshot уже есть. Полный SCV evidence dossier и прочитанные variant-specific публикации для shortlist не подтверждены. GeneReviews уже скачан, его повторная покупка/загрузка не нужна.",
+      "case_role": "Разобрать conflicts, disease, submitter, dates, SCV versions, assay validity, PS1/PM5 comparisons и независимость наблюдений.",
+      "incremental_value": "Сводный VCF не содержит весь объём SCV ObservedIn/assertion method/citations. Не считать ClinVar classification независимым PP5 и не дублировать одну публикацию несколько раз.",
+      "access_status": "NCBI публичные VCV/RCV XML содержат SCV и ObservedIn; сначала использовать доступные local data, затем разрешённые public gene-level citation/submission файлы или ручную очередь. Mastermind только optional shortcut, не предпосылка.",
+      "license_status": "NCBI и права отдельных публикаций/submitter content сохранять. Статья/abstract не автоматически unrestricted full text. Условия Mastermind API/full export не подтверждены.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "NCBI FTP без login; конкретные full-text статьи могут требовать доступа. Платный Mastermind/VarSome не одобрять по умолчанию; цены не проверены.",
+      "size_bytes": null,
+      "size_note": "Размер SCV subset неизвестен. Полный ClinVar XML для первого shortlist не планировать без отдельной size/streaming оценки.",
+      "official_urls": [
+        "https://www.ncbi.nlm.nih.gov/clinvar/docs/ftp_primer/",
+        "https://www.ncbi.nlm.nih.gov/clinvar/docs/review_status/",
+        "https://www.ncbi.nlm.nih.gov/clinvar/docs/submission_instructions/",
+        "https://www.genomenon.com/mastermind"
+      ],
+      "recommended_decision": "Одобрить ручное evidence dossier и компактные SCV/citation supplements; запросы пациентских вариантов внешним API остаются запрещены в рамках этого предложения.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P09",
+      "title": "Контроль сопоставления predictor scores и актуальных PP3/BP4",
+      "priority": "MUST",
+      "kind": "validation_method",
+      "lecture_evidence": [
+        {
+          "source_id": "M11",
+          "source_file": "med_inter\\3.4 Критерий PVS1_ когда loss-of-function действительно значим_watermark (1).pdf",
+          "locator": "PDF с. 13",
+          "sha256": "002699d45e0c65830728efed81a62e5bbc763cbde0092c8e0f0cae4d8568e93c"
+        },
+        {
+          "source_id": "M10",
+          "source_file": "med_inter\\3.3 ACMG без формализма_ как на практике классифицировать варианты_watermark (1).pdf",
+          "locator": "PDF с. 18",
+          "sha256": "254624cc0b66f1246ad85efcf8aaefa15dfa002707e988b16810dc8116345501"
+        }
+      ],
+      "current_gap": "SpliceAI, AlphaMissense, REVEL raw, CADD1.7 и MyVariant raw уже подготовлены. Остались применимость transcript/version/AA mapping и публичные controls реального VEP; новые массовые predictor пакеты не требуются.",
+      "case_role": "Аннотация missense/splice HCM-кандидатов с exact allele, transcript identity и source-specific missing reasons.",
+      "incremental_value": "SpliceAI default GENCODE24 отличается от GENCODE49; REVEL ENST без версии; FATHMM legacy/XF/MKL и неодинаковые raw arrays не сводить к одному scalar. HCM39 CDS subset не содержит все noncoding/indel/MT оценки.",
+      "access_status": "Уже локальные runtime/weights/subsets; это предложение проверок, не повторной установки. MaxEntScan optional только при отдельной механистической необходимости.",
+      "license_status": "Пользователь уже подтвердил noncommercial research; повторное подтверждение NC-цели не нужно. Условия каждого score источника сохраняются.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Новый платный API/full dbNSFP не нужен; контрольный runtime cost ещё не измерен.",
+      "size_bytes": null,
+      "size_note": "Новая база не нужна; объём дополнительных controls неизвестен.",
+      "official_urls": [
+        "https://github.com/Illumina/SpliceAI",
+        "https://sites.google.com/site/revelgenomics/downloads",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9748256/"
+      ],
+      "recommended_decision": "Одобрить validation gate после готовности VEP; predictor vote оставлять описательным, PP3/BP4 назначать только ручным применимым правилом.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P10",
+      "title": "Локальная IGV-проверка приоритетных SNV/indel и MT",
+      "priority": "MUST",
+      "kind": "tool_or_manual_review",
+      "lecture_evidence": [
+        {
+          "source_id": "M06",
+          "source_file": "med_inter\\2.2 Что происходит после секвенирования_ биоинформатический анализ (пайплайн), метрики качества и что такое IGV.pptx_watermark (1).pdf",
+          "locator": "PDF с. 10",
+          "sha256": "0f3d5966bd96b2e220e9bbe14214c99c68689a1cb065c681b1e3d2964c140df0"
+        },
+        {
+          "source_id": "M06",
+          "source_file": "med_inter\\2.2 Что происходит после секвенирования_ биоинформатический анализ (пайплайн), метрики качества и что такое IGV.pptx_watermark (1).pdf",
+          "locator": "PDF с. 38",
+          "sha256": "0f3d5966bd96b2e220e9bbe14214c99c68689a1cb065c681b1e3d2964c140df0"
+        },
+        {
+          "source_id": "M19",
+          "source_file": "med_inter\\5.4 Верификация результатов_ когда и как перепроверять варианты_watermark (1).pdf",
+          "locator": "PDF с. 3",
+          "sha256": "9f306b294cd34b8a0275647ff360fc6e916b984e61f7f10429f7268573ae71c7"
+        }
+      ],
+      "current_gap": "BAM/BAI и QC есть, GENCODE49 mosdepth CDS QC прошёл. Это не доказательство ручного read-review каждого приоритетного варианта; наличие установленного IGV не подтверждалось.",
+      "case_role": "Проверка strand/read-end/mapQ/baseQ/softclips/nearby indel/paralog context, MT NUMT flags и спорных allele balances.",
+      "incremental_value": "Порог DP/GQ/FT не заменяет визуальную поддержку. Итог review: reviewed_pass/concern/unassessed с причиной, а не автоматический clinical PASS.",
+      "access_status": "Официальный IGV Desktop локально открывает BAM/VCF/reference. Проверить имеющуюся установку; только если её нет — предложить portable desktop package. Внешний upload не нужен.",
+      "license_status": "IGV MIT; Java/runtime условия отдельно. Release на официальной download странице 2.19.8, Java21+ для текущей 2.x линии.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Open source, платный аккаунт не нужен; размер package/runtime и время review не измерены.",
+      "size_bytes": null,
+      "size_note": "Размер установки неизвестен; BAM уже существуют, повторный calling не требуется.",
+      "official_urls": [
+        "https://igv.org/doc/desktop/",
+        "https://igv.org/doc/desktop/DownloadPage/index.html"
+      ],
+      "recommended_decision": "Одобрить offline review shortlist с журналом причин; identity/relatedness/contamination требуют отдельных проверок и не выводятся из изображения одного локуса.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P11",
+      "title": "Структурированные phenotype/pedigree inputs вместо ещё одной базы",
+      "priority": "MUST",
+      "kind": "missing_evidence_inputs",
+      "lecture_evidence": [
+        {
+          "source_id": "M08",
+          "source_file": "med_inter\\3.1 Как читать клинические данные пациента для генетического анализа_watermark (1).pdf",
+          "locator": "PDF с. 5",
+          "sha256": "80fced947459ea63b7e9f6aaab0e0dfc72f22a8a05a5c0a78aa73338d8e4c7a6"
+        },
+        {
+          "source_id": "M10",
+          "source_file": "med_inter\\3.3 ACMG без формализма_ как на практике классифицировать варианты_watermark (1).pdf",
+          "locator": "PDF с. 12",
+          "sha256": "254624cc0b66f1246ad85efcf8aaefa15dfa002707e988b16810dc8116345501"
+        },
+        {
+          "source_id": "M32",
+          "source_file": "med_inter\\Как читать клинические данные пациента для генетического анализа (1).html",
+          "locator": "HTML: SAMS, Phenopacket",
+          "sha256": "2db4e8fda607af7b769a8190e1ff238a832166c9fc3c90d78d5a1fc7366f1392"
+        }
+      ],
+      "current_gap": "HPO, Orphadata, GeneReviews и ClinGen уже доступны. Не хватает индивидуальной клиники/возраста/пола/материала/семейных связей и критериев включения; database download этого не исправит.",
+      "case_role": "HCM phenotype matching, differential context, inheritance/phase/de novo/segregation и tissue-specific MT interpretation.",
+      "incremental_value": "Локальная таблица HPO present/absent/unknown + onset + source, pedigree relationship, cardiac examinations, maternal tissue history. Четыре образца не считать автоматически семьёй или независимыми probands.",
+      "access_status": "Локальная форма; Phenopacket — необязательный обменный формат, SAMS upload не требуется. Сведения поступают только от пользователя/уполномоченного специалиста.",
+      "license_status": "Новая data license не нужна; персональные сведения остаются локально и не попадают в proposal JSON/GitHub.",
+      "account_or_key": "После отдельного одобрения понадобятся только реально имеющиеся clinical/pedigree сведения, без регистрации и ключей.",
+      "price_status": "Новый аккаунт/платная база не нужны; клиническую консультацию не заказывали.",
+      "size_bytes": null,
+      "size_note": "Новая database не нужна; локальный шаблон ещё не создаётся этим review.",
+      "official_urls": [
+        "https://phenopacket-schema.readthedocs.io/en/latest/"
+      ],
+      "recommended_decision": "Одобрить перечень недостающих полей; сейчас не запрашивать документы по одному. До получения данных phenotype/de novo/segregation остаются unknown.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    },
+    {
+      "id": "P12",
+      "title": "CNV/SV и другие пропущенные классы: отдельный обоснованный этап",
+      "priority": "SEPARATE_BRANCH",
+      "kind": "future_branch",
+      "lecture_evidence": [
+        {
+          "source_id": "M19",
+          "source_file": "med_inter\\5.4 Верификация результатов_ когда и как перепроверять варианты_watermark (1).pdf",
+          "locator": "PDF с. 4",
+          "sha256": "9f306b294cd34b8a0275647ff360fc6e916b984e61f7f10429f7268573ae71c7"
+        },
+        {
+          "source_id": "M06",
+          "source_file": "med_inter\\2.2 Что происходит после секвенирования_ биоинформатический анализ (пайплайн), метрики качества и что такое IGV.pptx_watermark (1).pdf",
+          "locator": "PDF с. 35",
+          "sha256": "0f3d5966bd96b2e220e9bbe14214c99c68689a1cb065c681b1e3d2964c140df0"
+        }
+      ],
+      "current_gap": "CNV/SV/repeat calling не выполнен; ClinGen dosage уже скачан, но это interpretation data, а не caller. Обычный nuclear SNV/indel и MT small-variant run не закрывают эту ветку.",
+      "case_role": "Только если shortlist/фенотип/семейная картина оправдывает поиск CNV/SV или второго аллеля, либо нужно полноценное исследование иных классов.",
+      "incremental_value": "Закрывает иной класс событий; новый caller/QC/validation design нужен до выбора annotation databases. mtDNA deletion/mtCN также не доказываются готовым small-variant MT-run.",
+      "access_status": "Сначала отдельный design: BAM support, callable regions, benchmark, confirmation и budget. DGV/DECIPHER/gnomAD SV/ISCN условны, не обязательная пачка установок.",
+      "license_status": "Существующие ClinGen dosage terms уже сохранены; будущие DGV/DECIPHER/ISCN access/licenses проверять отдельно. Конкретная лицензия/цена не утверждается.",
+      "account_or_key": "Для подготовки предложения ничего; реализация только после одобрения.",
+      "price_status": "Стоимость caller/compute/validation неизвестна; исходный бюджет $50 и VM deadline не позволяют автоматически добавить эту ветку.",
+      "size_bytes": null,
+      "size_note": "Неизвестно до выбора caller и scope; большие SV/repeat datasets не загружать.",
+      "official_urls": [
+        "https://search.clinicalgenome.org/kb/downloads",
+        "https://iscn.karger.com/"
+      ],
+      "recommended_decision": "Отложить за пределы текущего SNV/indel+MT report, явно сохранить limitation; запускать только отдельным согласованным планом.",
+      "approval_status": "PROPOSED_NOT_APPROVED",
+      "installed_or_downloaded_by_this_review": false
+    }
+  ],
+  "status_authority": "Current root handoff plus checked local config/docs; requirements-coverage-v1.json contains stale MISSING statuses and is not runtime authority.",
+  "limitations": [
+    "44 original SHA256 match inventory; overview of all extracts and focused primary PDF reread, not claim of rereading every screenshot/page visually.",
+    "M26 is source_failed.",
+    "Unknown size/price/license means unknown, not free/unrestricted.",
+    "No new resource becomes approved or installed by inclusion here."
+  ]
+}
