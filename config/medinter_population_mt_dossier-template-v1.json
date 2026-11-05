@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "status": "MANUAL_REVIEW_TEMPLATE_NOT_A_CLASSIFICATION",
+  "variant": {"assembly": null, "chrom": null, "position": null, "ref": null, "alt": null, "HGVSg": null, "transcript_accession_version": null, "HGVSc": null, "HGVSp": null},
+  "clinvar": {"snapshot": null, "VCV_accession_version": null, "SCV_accession_version": null, "SCV_version_missing_reason": null, "submitter": null, "condition_and_inheritance": null, "classification": null, "date_evaluated": null, "assertion_method": null, "conflicts_reviewed": false, "classification_not_independent_PP5_evidence": true},
+  "literature": [{"PMID_or_DOI": null, "source_and_access_rights": null, "primary_article_read": false, "assay_validity_and_controls_reviewed": false, "independent_observations_count": null, "overlap_with_other_papers_or_submissions_reviewed": false, "supporting_or_contradicting_observations": null}],
+  "population_context": {"gnomAD_counts_release": "4.1.1 public CDS subset", "AC": null, "AN": null, "nhomalt": null, "FILTER": null, "absence_not_equated_with_AC_zero": true, "coverage_source_and_bin_limitations": null, "MT_source_and_haplogroup_context_if_applicable": null},
+  "manual_review": {"PS1_PM5_exact_amino_acid_and_transcript_comparison_done": false, "criteria_double_counting_reviewed": false, "source_and_coordinate_gaps": [], "reviewer": null, "review_date": null, "automatic_final_classification": false},
+  "privacy": "Populate actual case worksheets only in the private project area; this public template contains no patient identifiers and authorizes no external patient-variant requests"
+}
