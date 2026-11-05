@@ -22,3 +22,18 @@ Use the host, SSH port and user returned by the actual deployed instance. Indepe
 Uploads first enter a dedicated `.upload-staging/` directory. New files use `put`; partial staging files use `reput` to resume after interruption. A staging file that is already complete and matches its SHA256 is finalized without uploading it again. On the server, `verify_upload.py` verifies the expected manifest, file sizes and SHA256 digests before moving completed files into `inputs/raw`, `inputs/legacy`, and optionally `inputs/provenance`. A repeat run verifies existing completed files and skips them. It refuses to overwrite a final destination with differing content. If corruption is reported, rerun with `-RestartStaging` to overwrite only unverified staging files.
 
 The manifest, SFTP batch files and local state contain real paths and identifiers. Keep them in `.local/`, which must remain ignored by Git. Source inputs are never moved or deleted. Keep independent copies of all outputs before terminating an ephemeral server.
+
+## WSL and Brev SSH configuration
+
+When the authenticated Brev SSH key is already inside WSL, use `send_verified_wsl.py` without copying the private key to Windows. It reads Windows source paths directly through `wslpath` and uses `rsync --partial --append-verify` with the same checksum promotion helper. The SSH host key must already be independently verified and present in the supplied known-hosts file. There is no authentication or software installation in this script.
+
+```bash
+python3 transfer/send_verified_wsl.py \
+  --manifest .local/transfer-manifest.json \
+  --host confirmed-instance-alias \
+  --ssh-config "$HOME/.brev/ssh_config" \
+  --known-hosts .local/ssh_known_hosts \
+  --remote-root /srv/project-data
+```
+
+The default is a local dry run. Add `--execute` to send the reviewed data to the confirmed endpoint. Add `--rehash-local` to recheck source checksums before sending; server-side verification against the existing manifest is always required. Progress and the private verification summary are stored outside Git under `.local/transfer-state-wsl/`.
