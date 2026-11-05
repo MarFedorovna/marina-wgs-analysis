@@ -15,8 +15,10 @@
 Из корня установленного кода запустить базы одной командой:
 
 ```bash
-bash publicstages/01_prepare_databases.sh
+bash publicstages/00_prepare_all_resources.sh --execute
 ```
+
+Команда переиспользует готовые базы и работающую загрузку VEP, включает AlphaMissense и показывает отдельные статусы ручных/недоступных источников. Для просмотра без запуска: `bash publicstages/00_prepare_all_resources.sh --status`. Подробнее: [единая подготовка ресурсов](docs/resource-bootstrap.md), [типы и последствия вариантов](docs/sources-and-consequences.md).
 
 Инструменты Word/графиков устанавливаются отдельно и воспроизводимо:
 
