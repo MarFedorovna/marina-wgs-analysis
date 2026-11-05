@@ -27,6 +27,27 @@ def fields(value, *names):
     return {key: value[key] for key in names if key in value}
 
 
+def annotation_status(private, proc):
+    historical = load(private / 'annotation-queue-status.json')
+    controller = load(private / 'annotation-reference-controller-v1/controller-status.json')
+    current = load(private / 'annotation-public-hcm-v2-review/queue-status.json')
+    valid_controller = isinstance(controller.get('rule_sha256'), str) and bool(
+        re.fullmatch(r'[0-9a-f]{64}', controller['rule_sha256'])) and bool(controller.get('status'))
+    if valid_controller:
+        selected = current if current.get('status') else controller
+        result = fields(selected, 'status', 'updated_utc', 'child_pid', 'read_error')
+        result['source'] = 'reviewed_reference_v2_queue' if current.get('status') else 'reviewed_reference_v2_controller'
+        result['controller'] = process(controller.get('pid'), 'continue_annotation_reference_v2.py', proc)
+        result['controller_status'] = controller['status']
+        result['historical_queue_status'] = historical.get('status')
+    else:
+        result = fields(historical, 'status', 'updated_utc', 'child_pid', 'read_error')
+        result['source'] = 'original_queue'
+    result['queue_pids'] = discover('annotation_queue.py run', proc)
+    result['public_controls_then_stages_6_7'] = 'CONSULT_CURRENT_QUEUE_RECEIPT'
+    return result
+
+
 def process(pid, expected, proc=Path('/proc')):
     """Check PID identity instead of treating an old log/PID as a live job."""
     try:
@@ -146,10 +167,7 @@ def snapshot(root, local=False, proc=Path('/proc')):
     result['mt_v2']['audit_waiter'] = fields(waiter, 'status', 'updated_utc')
     result['mt_v2']['audit_waiter']['process'] = process(waiter.get('pid'), 'run-mito-recovery-v2-audit.py', proc)
     result['coverage'] = fields(load(private / 'gene-coverage-status.json'), 'status', 'completed_samples', 'updated_utc', 'read_error')
-    queue = load(private / 'annotation-queue-status.json')
-    result['annotation'] = fields(queue, 'status', 'updated_utc', 'child_pid', 'read_error')
-    result['annotation']['queue_pids'] = discover('annotation_queue.py run', proc)
-    result['annotation']['public_controls_then_stages_6_7'] = 'WAITING_VEP_RESOURCES' if queue.get('status') == 'WAITING_VEP_RESOURCES' else 'CONSULT_CURRENT_QUEUE_RECEIPT'
+    result['annotation'] = annotation_status(private, proc)
     alpha = load(private / 'alphamissense-control-v1/public-controls-receipt.json')
     result['annotation']['separate_alphamissense_controls'] = fields(alpha, 'status', 'controls', 'tested')
     result['xy'] = dict(status='PLAN_ONLY_NO_EXECUTOR', clinical_sex_assignment=False,
