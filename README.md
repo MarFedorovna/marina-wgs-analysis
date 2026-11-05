@@ -2,6 +2,10 @@
 
 Одна общая аннотация → единая таблица доказательств → общий топ-20 и категории последствий → VCF, таблицы и топ-20 каждого из четырёх образцов → локальная копия.
 
+## Где запускать
+
+Серверные команды — в **Terminal JupyterLab** или по SSH на Ubuntu, из папки этого репозитория. В JupyterLab: `File → New → Terminal`, затем `cd` в папку кода. Команды локального сохранения выполняются в PowerShell на компьютере.
+
 ## Посмотреть состояние
 
 Из корня кода на сервере:
@@ -12,6 +16,25 @@ python3 scripts/monitor_pipeline.py --root /srv/marina --once --human
 
 Для обновления раз в минуту добавьте `--watch --interval 60` вместо `--once`. Монитор ничего не запускает и не останавливает. Если аннотация уже работает, повторный запуск не нужен.
 
+## Подготовить новый сервер и референс
+
+На новом сервере сначала установите код и подготовьте приватные `samples.tsv`, пути FASTQ и исходные контрольные суммы. Они хранятся в `/srv/marina/private/`. Текущий работающий анализ уже прошёл подготовку.
+
+| Действие | Команда на сервере | Что получится |
+|---|---|---|
+| Docker, GPU runtime и основные инструменты | `sudo bash scripts/bootstrap-server.sh /srv/marina` | установленное окружение |
+| BWA для проверки индексов | `sudo apt-get install -y --no-install-recommends bwa` | host BWA 0.7.17 |
+| Скачать GRCh38 и готовые индексы | `python3 scripts/prepare_reference.py --lock config/broad-hg38-v0.sources.lock.json --root /srv/marina/references --execute` | FASTA, FAI, dictionary, ALT и BWA-индексы с квитанцией |
+| Проверить окружение | `sudo bash scripts/preflight-server.sh /srv/marina` | проверка GPU, RAM, диска и Docker |
+| Подготовить основные базы | `python3 scripts/prepare_all_resources.py --root /srv/marina --execute` | VEP cache и основные локальные источники |
+| Инструменты отчёта | `bash scripts/setup_report_env.sh` | отдельное окружение для Word и графиков |
+
+На новом сервере подготовщику баз также передают `--created-utc` с **фактическим временем создания VM**; на текущем оно уже записано в приватном бюджете. Полный реестр включает дополнительные источники с отдельными способами доступа — команда основных баз не означает установку каждого из них.
+
+Есть [единый установочный скрипт `setup_project.sh`](scripts/setup_project.sh): он устанавливает окружение, скачивает референс и создаёт приватный план пилота при наличии TSV образцов и манифеста исходных файлов. [Команды и обязательные входы](docs/server-setup.md), [подробности референса](docs/reference-setup.md), [скачивание баз и RefSeq](docs/QUICKSTART.md#скачать-или-проверить-базы).
+
+После четырёх готовых BAM создаётся приватный план `configure_workflow.py`, затем `python3 scripts/workflow.py all --execute` выполняет этапы 3–7: gVCF → совместный VCF → фильтрация → аннотация → основной отчёт. [Настройка и точные команды](docs/stages.md). Для текущей параллельной аннотации и последующего обогащения используются контроллеры ниже.
+
 ## Что выполняется
 
 | Шаг | Основной скрипт | Результат в `/srv/marina/outputs/` |
@@ -19,7 +42,7 @@ python3 scripts/monitor_pipeline.py --root /srv/marina --once --human
 | Общая аннотация и отчёт | `parallel_annotation.py` | `workflow-v1/stages/06_annotate/` и `07_report/` |
 | Присоединение применённых источников | `continue_combined_annotation_master.py` | `combined-annotation-master-v1/master_evidence.enriched.tsv.gz` |
 | Общие и пообразцовые представления | `continue_cohort_sample_views_v2.py` | `cohort-sample-views-v1/` |
-| Локальное сохранение | `prepare_native_plan.py` и `native_sftp_download.py` | выбранная папка на компьютере |
+| Локальное сохранение | `sync_completed_small_results.py` — таблицы и VCF; `native_sftp_download.py` — BAM | выбранная папка на компьютере |
 
 Этапы ожидают завершения своих входов. Наличие скрипта или запущенного ожидания ещё не означает готовность результата. Команды запуска и входы каждого шага: [краткая инструкция](docs/QUICKSTART.md).
 
