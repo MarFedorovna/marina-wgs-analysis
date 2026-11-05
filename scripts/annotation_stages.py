@@ -10,6 +10,7 @@ from contextlib import ExitStack
 import gzip
 import hashlib
 import html
+import importlib.util
 import json
 import math
 from pathlib import Path
@@ -53,6 +54,21 @@ FIELDS = [
     'candidate_reason', 'external_pathogenic_assertion', 'quality_rank',
     'gene_validity_rank', 'gene_validity_any_context', 'gene_validity_context_status', 'phenotype_context_rank', 'target_gene_context_rank', 'clinvar_review_rank',
     'consequence_rank', 'population_rank', 'ranking_rule', 'classification_status']
+FIELDS += ['AlphaMissense_score', 'AlphaMissense_model_label', 'AlphaMissense_match_status',
+           'AlphaMissense_source_transcript', 'AlphaMissense_source_protein_variant',
+           'AlphaMissense_source_uniprot', 'AlphaMissense_source_dataset',
+           'AlphaMissense_version', 'AlphaMissense_research_rank', 'AlphaMissense_allele_predictions_json']
+_ALPHA = None
+
+
+def alpha_module():
+    global _ALPHA
+    if _ALPHA is None:
+        path = Path(__file__).resolve().parent / 'alphamissense_adapter.py'
+        spec = importlib.util.spec_from_file_location('_marina_alphamissense_adapter', path)
+        _ALPHA = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_ALPHA)
+    return _ALPHA
 
 
 def need(ok, message):
@@ -282,7 +298,7 @@ def requirements_coverage(config, manifest):
         resource_id = requirement['id']
         keys = aliases.get(resource_id, [resource_id])
         matches = [(key, manifest['resources'].get(key, {})) for key in keys]
-        available = [key for key, item in matches if item.get('status') in ('available', 'bundled_in_verified_cache')]
+        available = [key for key, item in matches if item.get('status') in ('available', 'bundled_in_verified_cache', 'available_local_supplement')]
         status = 'available_local' if len(available) == len(keys) else 'partially_available_local' if available else 'unavailable_or_manual'
         if requirement.get('scope') in ('somatic_only', 'somatic_pharmacogenomics', 'mitochondrial', 'cnv_sv') and not available:
             status = 'separate_branch_not_analysed'
@@ -406,7 +422,8 @@ def parse_vcf(path):
 
 
 def annotation_row(record, csq, sample, data, context):
-    config, manifest, genes, hpogenes, db = context
+    config, manifest, genes, hpogenes, db = context[:5]
+    alpha = context[5] if len(context) > 5 else None
     key = variant_key(record['chrom'], record['pos'], record['ref'], record['alt'])
     local = local_evidence(db, key, csq.get('Feature', ''))
     # Multiple conflicting adapter assertions stay visible; ambiguous predictor values are not voted.
@@ -529,17 +546,23 @@ def annotation_row(record, csq, sample, data, context):
         clinvar_review_rank=review_rank if external_path else 0,
         consequence_rank=3 if consequences & PLOF else 2 if functional else 0,
         population_rank=2 if rare else 0 if maximum is not None else 1,
-        ranking_rule='lexicographic_v1; phenotype,target_gene_context,review,genevalidity,consequence,population,predictorvotes,MANE; identifiers break ties',
+        ranking_rule='lexicographic_v1; phenotype,target_gene_context,review,genevalidity,consequence,population,predictorvotes,AlphaMissense_compatible_research_rank,MANE; identifiers break ties',
         classification_status='manual_ACMG_review_required; no_automatic_pathogenicity_or_GoF_or_PVS1')
+    if alpha:
+        result.update(alpha.match(key, csq, config.get('alphamissense_research_threshold', .564)))
+    else:
+        result.update(AlphaMissense_match_status='not_prepared_in_this_context; not_benign', AlphaMissense_research_rank=0)
     return result
 
 
-def make_tables(annotated, workdir, config, manifest, manifest_path):
+def make_tables(annotated, workdir, config, manifest, manifest_path, alpha_inputs=None):
     dbpath = workdir / 'local-adapter-index.sqlite'
     db = make_adapter_database(manifest, manifest_path, dbpath)
-    context = config, manifest, gene_evidence(manifest, manifest_path), hpo_map(manifest, manifest_path), db
+    alpha = alpha_module().Lookup(db, alpha_inputs[1], alpha_inputs[0]) if alpha_inputs else None
+    context = config, manifest, gene_evidence(manifest, manifest_path), hpo_map(manifest, manifest_path), db, alpha
     names = vcf_samples(annotated)
-    counts = dict(records=0, transcript_sample_rows=0, missing_csq=0, nonsequence_records_preserved=0, samples=names)
+    counts = dict(records=0, transcript_sample_rows=0, missing_csq=0, nonsequence_records_preserved=0, samples=names,
+                  alphamissense_transcript_sample_statuses={}, alphamissense_matched_source_rows=alpha.source_rows if alpha else 0)
     def empty_counter():
         return dict(unique_normalized_alleles=0, nonexclusive_flags={flag: 0 for flag in FLAG_TERMS}, exclusive_primary_consequence={}, variant_type_histogram={})
     counters = dict(schema_version=1, cohort={level: empty_counter() for level in ('raw', 'qc', 'candidate')}, samples={},
@@ -588,6 +611,8 @@ def make_tables(annotated, workdir, config, manifest, manifest_path):
                         if row['candidate_eligible']:
                             candidates_for_record.add(sample)
                         counts['transcript_sample_rows'] += 1
+                        status = row['AlphaMissense_match_status']
+                        counts['alphamissense_transcript_sample_statuses'][status] = counts['alphamissense_transcript_sample_statuses'].get(status, 0) + 1
                 real = sequence_allele(record['ref'], record['alt'])
                 counts['nonsequence_records_preserved'] += int(not real)
                 memberships = {'raw': {s for s, data in record['samples'].items() if real and '1' in re.split(r'[/|]', data.get('GT', '.'))},
@@ -609,7 +634,7 @@ def make_tables(annotated, workdir, config, manifest, manifest_path):
 
 def rank_key(row):
     descending = ['phenotype_context_rank', 'target_gene_context_rank', 'clinvar_review_rank', 'gene_validity_rank',
-                  'consequence_rank', 'population_rank', 'predictors_damaging']
+                  'consequence_rank', 'population_rank', 'predictors_damaging', 'AlphaMissense_research_rank']
     return (*[-int(row.get(field) or 0) for field in descending], -int(bool(row.get('mane_select'))),
             row['variant_id'], row.get('gene', ''), row.get('transcript', ''), row['sample'])
 
@@ -622,6 +647,8 @@ def annotate(cfg, workdir, runtime):
         return {'outputs': [], 'metadata': dict(status='DRY_RUN', input=str(input_vcf), resource_manifest=str(manifest_path), offline=True)}
     need(config.get('assembly', 'GRCh38') == 'GRCh38', 'Annotation assembly must match GRCh38.')
     manifest = load_resources(manifest_path, local_adapters=config.get('local_adapters'))
+    if config.get('require_alphamissense', True):
+        alpha_module().load_manifest(alpha_module().manifest_location(cfg))
     image = cfg['tools']['vep_image']
     need(image == manifest['vep']['image'] and str(config.get('cache_version', 115)) == str(manifest['vep']['cache_version']),
          'VEP image/cache differ from the locked prepared resources.')
@@ -672,9 +699,27 @@ def annotate(cfg, workdir, runtime):
     for temporary in (sequence_input, workdir / 'sequence.annotated.vcf.gz', merged):
         temporary.unlink()
     need(output.is_file() and output.stat().st_size > 0, 'VEP did not produce annotated VCF.')
-    counts = make_tables(output, workdir, config, manifest, manifest_path)
+    alpha_inputs = alpha_module().prepare_matches(cfg, workdir, runtime, output) if config.get('require_alphamissense', True) else None
+    counts = make_tables(output, workdir, config, manifest, manifest_path, alpha_inputs)
+    if alpha_inputs:
+        for paths in alpha_inputs[1].values():
+            paths['regions'].unlink()
+            paths['matches'].unlink()
+    alpha_availability = (dict(status='available_local', manifest_sha256=sha256(alpha_inputs[2]),
+        dataset_version=alpha_inputs[0]['dataset_version'], source_reference=alpha_inputs[0]['source_reference'],
+        transcript_annotation=alpha_inputs[0]['transcript_annotation'], license=alpha_inputs[0]['license'],
+        citation=alpha_inputs[0]['citation'], exact_transcript_version_and_protein_substitution_required=True)
+        if alpha_inputs else dict(status='disabled_explicitly_in_this_context'))
+    if alpha_inputs:
+        manifest['resources']['alphamissense'] = dict(status='available_local_supplement',
+            version=alpha_inputs[0]['dataset_version'], manifest_sha256=sha256(alpha_inputs[2]),
+            source=alpha_inputs[0]['citation'], license=alpha_inputs[0]['license'],
+            scope='exact_allele_transcript_version_and_protein_change; model_labels_not_ACMG')
+        if manifest['resources'].get('AlphaMissense', {}).get('status', '').startswith('unavailable'):
+            del manifest['resources']['AlphaMissense']
     write_json(workdir / 'resource_availability.json', dict(manifest_sha256=sha256(manifest_path),
         vep=manifest['vep'], cache_info=manifest['cache_info'], resources=manifest['resources'],
+        alphamissense=alpha_availability,
         audited_source_coverage=requirements_coverage(config, manifest),
         no_patient_variant_remote_queries=True))
     write_json(workdir / 'annotation_counts.json', counts)
@@ -829,6 +874,7 @@ def report(cfg, workdir, runtime):
         'stop_gain/frameshift/splice are pLoF candidates, not automatic LoF, NMD, PVS1, gain-of-function or pathogenicity.',
         'Protein beginning/middle/end divides transcript protein length into thirds; it is not a functional-domain or NMD rule.',
         'SIFT/PolyPhen/FATHMM/CADD vote is a correlated research heuristic, not four independent ACMG evidence items. Fourth predictor identity remains explicitly unconfirmed unless configured.',
+        'AlphaMissense is a separate model prediction, not an ACMG class or an independent clinical evidence item. Its GENCODE v32 transcript versions must match the current transcript and protein substitution; mismatches retain source context without assigning a score to all transcripts.',
         'Missing predictors and absent ancestry AF are unavailable, not benign predictions or AF=0. Ancestry is not inferred from the patient.',
         'ClinVar values are external summary assertions; review/conflict/snapshot fields remain separate. Summary VCF does not supply all SCV-level assertions, dates or supporting evidence.',
         'ClinGen gene validity/dosage belongs to a gene-disease/inheritance context; dosage scores do not establish a specific small-variant mechanism.',
@@ -845,8 +891,9 @@ def report(cfg, workdir, runtime):
         callsets=cfg.get('callsets', []), disease_context=config.get('disease_context', 'not_supplied'),
         ranking=dict(rule='lexicographic_v1', order=['phenotype_exact_term_match', 'explicit_target_gene_context', 'external_ClinVar_review_rank_if_P_LP',
             'ClinGen_Strong_Definitive_gene_context', 'consequence_research_rank', 'observed_population_AF_rank',
-            'research_damaging_votes', 'MANE_select', 'variant_gene_transcript_sample_lexical_ties'],
+            'research_damaging_votes', 'AlphaMissense_compatible_research_rank', 'MANE_select', 'variant_gene_transcript_sample_lexical_ties'],
             max_af=config.get('research_max_af', 0.01), cadd_threshold=config.get('cadd_research_threshold', 20),
+            alphamissense_research_threshold=config.get('alphamissense_research_threshold', .564),
             candidate_rule='quality_passing_ALT AND (external_ClinVar_P_LP OR (functional_consequence AND (observed_AF<=threshold OR AF_missing_for_manual_review)))',
             missing_AF='eligible_for_manual_population_review; never labelled rare', no_padding=True),
         limitations=limitations, resources=availability, pathway_status=pathway['status'],
@@ -861,6 +908,16 @@ def report(cfg, workdir, runtime):
         deprecated_criteria_warning='PP5/BP6 are legacy worksheet labels, not automatically applicable. Use current ClinGen/gene-specific specifications.')
     filter_path = runtime.stage_path('filter') / 'filtering-policy.json'
     methods['filtering'] = json.loads(filter_path.read_text()) if filter_path.is_file() else dict(status='filter_policy_not_present_in_this_report_context')
+    methods['alphamissense'] = availability.get('alphamissense', dict(status='not_prepared_in_this_report_context'))
+    annotation_counts_path = source / 'annotation_counts.json'
+    if annotation_counts_path.is_file():
+        annotations = json.loads(annotation_counts_path.read_text())
+        alpha_coverage = dict(unit='transcript_sample_rows; not unique allele counts',
+            source_rows=annotations.get('alphamissense_matched_source_rows'),
+            matching_statuses=annotations.get('alphamissense_transcript_sample_statuses', {}))
+        write_json(workdir / 'alphamissense_coverage.json', alpha_coverage)
+        outputs.append('alphamissense_coverage.json')
+        methods['alphamissense_coverage'] = alpha_coverage
     methods['stage_receipts'] = {}
     for stage in ('call', 'joint', 'filter', 'annotate'):
         receipt_path = runtime.stage_path(stage) / 'workflow-receipt.json'

@@ -125,6 +125,10 @@ class Runtime:
     def code_identity(self):
         names = ['workflow_common.py', 'workflow.py']
         names += ['calling_stages.py'] if self.stage in ('call', 'joint', 'filter') else ['annotation_stages.py']
+        if self.stage == 'joint' and (self.code_root / 'scripts/joint_scatter.py').is_file():
+            names.append('joint_scatter.py')
+        if self.stage in ('annotate', 'report') and (self.code_root / 'scripts/alphamissense_adapter.py').is_file():
+            names.append('alphamissense_adapter.py')
         if self.stage == 'report' and (self.code_root / 'scripts/export_report_docx.py').is_file():
             names.append('export_report_docx.py')
         return {name: self.file_hash(self.code_root / 'scripts' / name) for name in sorted(names)}

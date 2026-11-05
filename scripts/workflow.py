@@ -127,6 +127,13 @@ def dependencies(stage, cfg, runtime):
         paths.append(receipt)
     if stage in ('annotate', 'report'):
         paths.append(Path(cfg['annotation']['resource_manifest']))
+        if cfg['annotation'].get('require_alphamissense', True):
+            from alphamissense_adapter import manifest_location, load_manifest
+            manifest_path = manifest_location(cfg)
+            alpha = load_manifest(manifest_path)
+            paths.append(manifest_path)
+            if stage == 'annotate':
+                paths += [manifest_path.parent / item['path'] for item in alpha['artifacts']]
     return paths
 
 
@@ -139,14 +146,21 @@ def downstream(args, stage, cfg, shared=None):
         return
     require(cfg.get('schema_version') == 2, 'Expected a prepared schema_version2 workflow configuration.')
     paths = dependencies(stage, cfg, runtime)
-    if stage in ('call', 'joint', 'filter'):
+    parameters = {'stage': stage}
+    use_scatter = stage == 'joint' and not args.serial_joint and len(cfg.get('callsets', [])) == 1 and cfg['callsets'][0].get('scope') == 'autosomes'
+    if use_scatter:
+        from joint_scatter import source_plan, scatter
+        paths = source_plan(cfg, runtime)[5]
+        parameters = {'implementation': 'chromosome CPU scatter', 'code_sha256': sha256(CODE / 'scripts/joint_scatter.py'),
+                      'workers': 4, 'cpus': 6, 'memory': 24, 'heap': 16}
+    elif stage in ('call', 'joint', 'filter'):
         from calling_stages import run_stage
     else:
         from annotation_stages import run_stage
     def produce(directory):
         child = runtime.child(directory, stage)
-        return run_stage(stage, cfg, directory, child)
-    result = runtime.run_stage(stage, paths, {'stage': stage}, produce)
+        return scatter(cfg, directory, child) if use_scatter else run_stage(stage, cfg, directory, child)
+    result = runtime.run_stage(stage, paths, parameters, produce)
     json_write(Path(cfg['data_root']) / 'private/workflow-status.json', {
         'status': 'PASS', 'stage': STAGES[stage], 'output': str(result),
         'updated_utc': dt.datetime.now(dt.timezone.utc).isoformat(),
@@ -177,6 +191,7 @@ def main():
     parser.add_argument('--resource-manifest', type=Path)
     parser.add_argument('--callsets-manifest', type=Path)
     parser.add_argument('--wait', action='store_true')
+    parser.add_argument('--serial-joint', action='store_true', help='Use the general joint caller for targeted or non-whole-chromosome callsets.')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--execute', action='store_true')
     mode.add_argument('--dry-run', action='store_true')

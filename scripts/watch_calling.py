@@ -65,6 +65,12 @@ def snapshot(root, label):
                 break
     if result.get('stage') == '4':
         result['current_task'] = 'Joint cohort genotyping (CPU); GPU may be idle.'
+        scatter_root = out / 'checkpoints' / '04_joint' / 'scatter'
+        result['joint_chromosomes_completed'] = sum(load(p).get('status') == 'PASS'
+            for p in scatter_root.glob('*/workflow-receipt.json'))
+        result['joint_chromosome_jobs_active'] = sum(not (p / 'failure.json').is_file()
+            for p in scatter_root.glob('*.partial-*') if p.is_dir())
+        result['joint_workers_limit'] = state.get('joint_workers')
     elif result.get('stage') == '5':
         result['current_task'] = 'Normalization and soft filtering (CPU); GPU may be idle.'
     try:
@@ -110,6 +116,10 @@ def main():
                     print('HC: ' + json.dumps(result['HC_progress']), flush=True)
                 if 'current_task' in result:
                     print(result['current_task'], flush=True)
+                if 'joint_chromosomes_completed' in result:
+                    print('Joint chromosomes completed: ' + str(result['joint_chromosomes_completed'])
+                          + '; active jobs: ' + str(result['joint_chromosome_jobs_active'])
+                          + '; worker limit: ' + str(result.get('joint_workers_limit') or '?'), flush=True)
             if not args.follow or result['status'] in ('PASS', 'FAIL', 'STOPPED_UNEXPECTEDLY'):
                 return 0 if result['status'] not in ('FAIL', 'STOPPED_UNEXPECTEDLY') else 1
             time.sleep(args.interval)

@@ -114,12 +114,18 @@ def export(source, output, synthetic=False):
     if top.is_file():
         with top.open(encoding='utf-8', newline='') as stream:
             for row in csv.DictReader(stream, delimiter='\t'):
-                records.append([row.get('rank'), row.get('gene'), row.get('variant_id'), row.get('Consequence') or row.get('consequence', ''), row.get('carrier_samples', '')])
+                alpha = '\n'.join(filter(None, [row.get('AlphaMissense_score', ''), row.get('AlphaMissense_model_label', ''),
+                                                 row.get('AlphaMissense_match_status', '')])) or 'Нет оценки'
+                variant = row.get('variant_id', '')
+                if len(variant) > 100:
+                    variant = variant[:100] + '… (полная запись в TSV)'
+                records.append([row.get('rank'), row.get('gene'), variant, row.get('Consequence') or row.get('consequence', ''), alpha, row.get('carrier_samples', '')])
     if records:
-        table(document, ['Ранг', 'Ген', 'Вариант', 'Последствие', 'Носители'], records[:20])
+        table(document, ['Ранг', 'Ген', 'Вариант', 'Последствие', 'AlphaMissense\nмодель', 'Носители'], records[:20])
     else:
         document.add_paragraph('В очереди нет подходящих вариантов. Это не является отрицательным клиническим результатом.')
     document.add_paragraph('Топ-10 и топ-20 по каждому образцу, полные приложения, отдельные записи для срочной ручной проверки и лист критериев ACMG находятся в соседних таблицах. Очереди не дополняются искусственно до заданного числа строк.')
+    document.add_paragraph('AlphaMissense применяется к missense-вариантам при совместимых аллели, версии транскрипта и белковой замене. Его model_label — предсказание модели, а не класс ACMG. Несовпадение версии или отсутствие оценки не означает доброкачественность.')
     document.add_heading('Доступность источников', 1)
     document.add_paragraph('Фактически загруженные версии и статусы всех дополнительных источников приведены в resource_availability.json. Упоминание базы в курсе не означает её установку или наличие лицензии. Недоступные оценки не превращаются в доброкачественные предсказания или нулевую частоту.')
     resources = methods.get('resources', {})
