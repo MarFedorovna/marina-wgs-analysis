@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "EMPTY_LOCAL_TEMPLATE_NOT_PATIENT_ASSESSMENT",
+  "no_external_upload": true,
+  "subjects": [
+    {
+      "subject_id": "SUBJECT_A",
+      "sample_ids": [],
+      "reported_sex": {"value": "unknown", "source": null},
+      "karyotype": {"value": "unknown", "source": null},
+      "age_at_last_review": {"value": null, "unit": "years", "source": null},
+      "material": {"tissue": "unknown", "collection_date": null, "source": null},
+      "phenotypes": [],
+      "cardiac_evaluations": [],
+      "family_history_status": "unknown",
+      "consent_and_scope_source": null
+    }
+  ],
+  "relationships": [],
+  "segregation_records": [],
+  "notes": "Populate locally only. HPO entries: hpo_id/status present|absent|unknown/onset/source. Relationship entries: subject_a/subject_b/relation/status unknown|reported|confirmed/source. Segregation: subject_id/variant_id/de_novo_status/parentage_confirmed/both_parents_tested/parent_sample_ids/source/phase unknown|cis|trans/phase_evidence_source. Unknown is not absent or unaffected; samples do not imply independent probands or a family. Technical XY findings do not assign clinical sex."
+}
