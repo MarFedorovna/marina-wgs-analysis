@@ -36,4 +36,4 @@ python3 transfer/send_verified_wsl.py \
   --remote-root /srv/project-data
 ```
 
-The default is a local dry run. Add `--execute` to send the reviewed data to the confirmed endpoint. Add `--rehash-local` to recheck source checksums before sending; server-side verification against the existing manifest is always required. Progress and the private verification summary are stored outside Git under `.local/transfer-state-wsl/`.
+The default is a local dry run. Add `--execute` to send the reviewed data to the confirmed endpoint. Add `--rehash-local` to recheck source checksums before sending; server-side verification against the existing manifest is always required. Progress is printed to stdout; the caller can save it outside Git, for example in `.local/transfer-progress.log`. The private verification summary is stored under ignored `.local/transfer-state-wsl/`.
