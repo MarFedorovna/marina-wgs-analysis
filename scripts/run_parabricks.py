@@ -127,12 +127,20 @@ class Queue:
             for key in ("platform", "platform_unit"):
                 require(not sample[key].startswith("SET_") and not any(c in sample[key] for c in "\t\r\n\\"),
                         f"Invalid {key}; leave unknown values empty.")
+            sample["platform_unit_original"] = sample["platform_unit"] or "unknown"
+            sample["platform_unit_effective"] = sample["platform_unit"] or "analysis_unit_" + sample["read_group_id"]
+            sample["platform_unit_origin"] = "manifest_supplied" if sample["platform_unit"] else "processing_assumption"
+            sample["processing_assumptions"] = [] if sample["platform_unit"] else [
+                "Original platform unit is unknown; effective PU is a technical input-group label, not a confirmed physical flowcell."
+            ]
             pair = [contained_file(self.reads, sample[r]) for r in ("r1", "r2")]
             require(pair[0] != pair[1], "R1 and R2 must be different files.")
             for key, path in zip(("r1", "r2"), pair):
                 sample[key] = path.relative_to(self.reads).as_posix()
             hashes.update({str(p): sha256(p) for p in pair})
-        self.base = fingerprint({"config": cfg, "samples": self.samples, "reads_sha256": hashes})
+        self.runner_sha256 = sha256(Path(__file__).resolve())
+        self.base = fingerprint({"config": cfg, "samples": self.samples, "reads_sha256": hashes,
+                                 "runner_sha256": self.runner_sha256})
         self.deadline = time.monotonic() + float(cfg["max_run_hours"]) * 3600
 
     def run(self, command, log, capture=False):
@@ -192,8 +200,7 @@ class Queue:
             rg = f"@RG\\tID:{sample['read_group_id']}\\tSM:{sid}\\tLB:{sample['library']}"
             if sample["platform"]:
                 rg += "\\tPL:" + sample["platform"]
-            if sample["platform_unit"]:
-                rg += "\\tPU:" + sample["platform_unit"]
+            rg += "\\tPU:" + sample["platform_unit_effective"]
             args = ["fq2bam", "--ref", ref, "--in-fq", "/inputs/" + sample["r1"], "/inputs/" + sample["r2"], rg,
                     "--out-bam", output + "/marked.bam", "--out-duplicate-metrics", output + "/duplicate-metrics.txt",
                     "--memory-limit", str(self.cfg["sort_memory_gb"]), "--bwa-primary-cpus", "16", "--bwa-cpu-thread-pool", "1",
@@ -215,6 +222,11 @@ class Queue:
                 args += ["--in-recal-file", "/outputs/" + (aligned / "bqsr.table").relative_to(self.out).as_posix()]
         start = dt.datetime.now(dt.timezone.utc).isoformat()
         self.commands = []
+        processing_metadata = {"original_platform_unit": sample["platform_unit_original"],
+                               "effective_platform_unit": sample["platform_unit_effective"],
+                               "platform_unit_origin": sample["platform_unit_origin"],
+                               "processing_assumptions": self.cfg["processing_assumptions"] + sample["processing_assumptions"]}
+        print(json.dumps({"sample": sid, "processing_metadata": processing_metadata}, ensure_ascii=False), flush=True)
         self.run(self.docker(token, args), log)
         if kind == "align":
             self.run(["samtools", "quickcheck", "-v", partial / "marked.bam"], log)
@@ -232,7 +244,9 @@ class Queue:
                 require((partial / "duplicate-metrics.txt").is_file(), "Missing duplicate metrics.")
                 require(not self.cfg["bqsr_enabled"] or (partial / "bqsr.table").is_file(), "Missing BQSR report.")
             receipt = {"fingerprint": stamp, "sample": sid, "image_tag": TAG, "config": self.cfg, "commands": self.commands,
+                       "runner_sha256": self.runner_sha256,
                        "original_platform": sample["platform"] or "unknown", "library_origin": sample["library_origin"],
+                       **processing_metadata,
                        "started_utc": start, "completed_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
                        "outputs": {p.name: sha256(p) for p in partial.iterdir() if p.is_file()}}
             (partial / "receipt.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
