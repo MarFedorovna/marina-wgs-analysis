@@ -15,6 +15,18 @@ spec.loader.exec_module(m)
 
 
 class MonitorTests(unittest.TestCase):
+    def test_resource_recovery_is_distinct_from_historical_installer_failure(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); private = root / 'private'; private.mkdir()
+            (private / 'databases-supervisor-status.json').write_text(json.dumps({'status': 'NONRETRYABLE_FAILURE_PARTIALS_PRESERVED'}))
+            folder = private / 'annotation-resource-recovery-v1'; folder.mkdir()
+            (folder / 'status.json').write_text(json.dumps({'status': 'VERIFYING_ALL_EXTRACTED_FILES_AGAINST_ARCHIVE', 'pid': 999, 'verified_files': 250}))
+            result = m.snapshot(root, proc=root / 'no-proc')['databases']
+            self.assertEqual(result['historical_installer_status'], 'NONRETRYABLE_FAILURE_PARTIALS_PRESERVED')
+            self.assertEqual(result['status'], 'VERIFYING_ALL_EXTRACTED_FILES_AGAINST_ARCHIVE')
+            self.assertEqual(result['recovery']['verified_files'], 250)
+            self.assertFalse(result['recovery']['process']['verified_active'])
+
     def test_reviewed_controller_supersedes_stopped_historical_queue(self):
         with tempfile.TemporaryDirectory() as temp:
             private = Path(temp)
