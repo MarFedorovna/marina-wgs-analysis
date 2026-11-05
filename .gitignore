@@ -1,51 +1,81 @@
-# Human genomic data and sample-level outputs
-*.fastq
-*.fastq.gz
-*.fq
-*.fq.gz
+# Local manifests contain real sample names, source paths, hosts and checksums.
+.local/
+local/
+config/local/
+*.local.*
+
+# Genomic inputs, intermediate files and patient-level outputs.
+data/
+raw/
+raw_data/
+input/
+inputs/
+legacy/
+results/
+output/
+outputs/
+reports/
+references/
+resources/
+manifests/
+*.fastq*
+*.fq*
+*.bam*
+*.cram*
 *.sam
-*.bam
-*.bai
-*.cram
-*.crai
-*.vcf
-*.vcf.gz
-*.bcf
-*.g.vcf
-*.g.vcf.gz
-*.tbi
-*.csi
-*.fasta
+*.vcf*
+*.bcf*
 *.fa
-*.fna
+*.fa.gz
+*.fasta*
+*.fna*
 *.fai
 *.dict
+*.bed
+*.bed.gz
+*.bwt*
+*.amb
+*.ann
+*.pac
+*.sa
 
-# Local data, intermediate files, and results
-/data/
-/raw_data/
-/results/
-/work/
-/reference/
-/clinical/
-/phenotypes/
-/pedigree/
+# Database exports and backups may contain personal data.
+sql/
+backups/
+*.sql*
+*.sqlite*
+*.db
+*.db-*
+*.dump*
+*.bak
 
-# Credentials and private configuration
+# Credentials and machine-specific connection details.
 .env
 .env.*
 !.env.example
+.ssh/
 *.pem
 *.key
-*.p12
-*.pfx
+*.ppk
+id_rsa*
+id_ed25519*
+credentials*
+secrets*
 
-# Common temporary files
+# Runtime files and local environments.
+logs/
+work/
+tmp/
+temp/
+*.log
+*.out
+*.pid
+.venv/
+venv/
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints/
-.nextflow/
-.nextflow.log*
+.nextflow*
 .snakemake/
 .DS_Store
 Thumbs.db
+desktop.ini
