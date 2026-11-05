@@ -2,6 +2,7 @@
 import bisect
 import hashlib
 import json
+import zlib
 from pathlib import Path
 
 PUBLIC_PANEL=Path('/srv/marina/resources/public-hcm-cds-v2')
@@ -11,7 +12,7 @@ def panel():
  if manifest.get('no_patient_selection') is not True or manifest.get('no_patient_variants_read') is not True or manifest.get('assembly')!='GRCh38' or manifest.get('gencode_release')!=49:raise ValueError('Fixed public GENCODE49 panel required')
  if manifest['source_clingen_sha256']!='5cc793e4c476776d7d60f326d8250b65198c65e576cfd771df28d320d02fb10e':raise ValueError('Public ClinGen provenance changed')
  bed=PUBLIC_PANEL/'hcm-cds-union-cadd.bed'
- if hashlib.sha256(bed.read_bytes()).hexdigest()!=manifest['bed_sha256']:raise ValueError('Public BED provenance mismatch')
+ if manifest['bed_sha256']!='2ea21bd9f9a3bd9f2aae7aee7fc5b7ea764173468d825ec0a8cf3b0dc9fe57dd' or hashlib.sha256(bed.read_bytes()).hexdigest()!=manifest['bed_sha256']:raise ValueError('Fixed public BED provenance mismatch')
  intervals=[('chr'+v[0].removeprefix('chr'),int(v[1]),int(v[2])) for v in (line.split('\t') for line in bed.read_text().splitlines())]
  if len(manifest['genes'])!=39 or any(start<0 or end<=start for chrom,start,end in intervals):raise ValueError('Expected fixed public39-gene interval panel')
  return manifest,intervals
@@ -43,6 +44,10 @@ def info_fields(text):return dict((part.split('=',1) if '=' in part else (part,T
 def population_info_projection(text):
  """Keep every population/quality field; omit only redundant VEP consequence payload."""
  return ';'.join(part for part in text.split(';') if part.split('=',1)[0].lower() not in {'vep','csq'})
+def encode_population_info(value):
+ text=decode_population_info(value)
+ return zlib.compress(population_info_projection(text).encode('utf-8'),6)
+def decode_population_info(value):return zlib.decompress(value).decode('utf-8') if isinstance(value,bytes) else value
 def population_fields(row):
  if len(row)<8:raise ValueError('Truncated public VCF record')
  chrom,pos,identifier,ref,alt,qual,filters,raw=row[:8];fields=info_fields(raw)
@@ -50,5 +55,6 @@ def population_fields(row):
  for name in ['AC','AN','AF','nhomalt']:fields.setdefault(name,'.')
  def numbers(value,cast):return [None]*len(alts) if value=='.' else [None if x=='.' else cast(x) for x in value.split(',')]
  ac=numbers(fields['AC'],int);hom=numbers(fields['nhomalt'],int);af=numbers(fields['AF'],float);an=None if fields['AN']=='.' else int(fields['AN'])
- if not len(alts)==len(ac)==len(hom)==len(af) or (an is not None and an<0) or any(x is not None and (x<0 or (an is not None and x>an)) for x in ac) or any(h is not None and (h<0 or (a is not None and h*2>a)) for h,a in zip(hom,ac)) or any(f is not None and not 0<=f<=1 for f in af):raise ValueError('Invalid gnomAD allele/denominator arrays')
+ autosome=chrom.removeprefix('chr').isdigit() and 1<=int(chrom.removeprefix('chr'))<=22
+ if not len(alts)==len(ac)==len(hom)==len(af) or (an is not None and an<0) or any(x is not None and (x<0 or (an is not None and x>an)) for x in ac) or any(h is not None and (h<0 or (a is not None and h*(2 if autosome else 1)>a)) for h,a in zip(hom,ac)) or any(f is not None and not 0<=f<=1 for f in af):raise ValueError('Invalid gnomAD allele/denominator arrays')
  return dict(chrom=chrom,pos=int(pos),ref=ref,alt=alt,filter=filters,AC=fields['AC'],AN=an,AF=fields['AF'],nhomalt=fields['nhomalt'],info=raw)

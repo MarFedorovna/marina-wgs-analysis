@@ -14,16 +14,17 @@ import threading
 import time
 import urllib.request
 from medinter_population_mt_sources import safe,save,load,now,HARD_DEADLINE,crc32c
-from medinter_population_mt_common import panel,PublicFasta,population_fields,population_info_projection
+from medinter_population_mt_common import panel,PublicFasta,population_fields,population_info_projection,encode_population_info
 
-ROOT=Path('/srv/marina/resources/medinter-population-hcm39-v2')
-PRIOR_ROOT=Path('/srv/marina/resources/medinter-population-hcm39-v1')
+ROOT=Path('/srv/marina/resources/medinter-population-hcm39-v3')
+PRIOR_ROOT=Path('/srv/marina/resources/medinter-population-hcm39-v2')
+LEGACY_ROOT=Path('/srv/marina/resources/medinter-population-hcm39-v1')
 CAP=1900000000
 TILE=262144
 class Budget:
  def __init__(self,root):
   self.root=root;self.lock=threading.RLock();seen=set();self.used=0
-  for base in [root,PRIOR_ROOT]:
+  for base in [root,PRIOR_ROOT,LEGACY_ROOT]:
    for p in list(base.rglob('*.tile'))+list(base.rglob('*.tbi')):
     stat=p.stat();key=(stat.st_dev,stat.st_ino)
     if key not in seen:self.used+=stat.st_size;seen.add(key)
@@ -39,15 +40,16 @@ class Source:
    if r.url!=url:raise ValueError('Unreviewed source redirect')
    self.size=int(r.headers['Content-Length']);self.identity=dict(url=url,bytes=self.size,etag=r.headers.get('ETag'),last_modified=r.headers.get('Last-Modified'))
   prior=load(root/'identity.json')
-  inherited=load(PRIOR_ROOT/root.name/'identity.json')
-  if inherited and inherited!=self.identity:raise ValueError('Prior public cache identity changed')
+  for prior_base in [PRIOR_ROOT,LEGACY_ROOT]:
+   inherited=load(prior_base/root.name/'identity.json')
+   if inherited and inherited!=self.identity:raise ValueError('Prior public cache identity changed')
   if prior and prior!=self.identity:raise ValueError('Source changed; preserve cached tiles')
   save(root/'identity.json',self.identity)
  def tile(self,start):
   with self.budget.lock:
    if self.stop.is_set():raise ValueError('Reader stopped')
    left=start//TILE*TILE;right=min(left+TILE,self.size)-1;path=safe(self.root/f'{left:015d}.tile')
-   reused=PRIOR_ROOT/self.root.name/path.name
+   reused=next((candidate for candidate in [PRIOR_ROOT/self.root.name/path.name,LEGACY_ROOT/self.root.name/path.name] if candidate.exists()),path)
    if path.exists() or reused.exists():
     data=(path if path.exists() else safe(reused)).read_bytes()
     if len(data)!=right-left+1:raise ValueError('Cached public source tile truncated')
@@ -67,7 +69,7 @@ class Source:
   prior=load(path.with_suffix('.identity.json'))
   if prior and prior!=identity:raise ValueError('Publisher index changed')
   save(path.with_suffix('.identity.json'),identity)
-  inherited=PRIOR_ROOT/self.root.name/path.name
+  inherited=next((candidate for candidate in [PRIOR_ROOT/self.root.name/path.name,LEGACY_ROOT/self.root.name/path.name] if candidate.exists()),path)
   if not path.exists() and inherited.exists():
    if load(inherited.with_suffix('.identity.json'))!=identity:raise ValueError('Prior index identity mismatch')
    os.link(safe(inherited),path)
@@ -115,7 +117,7 @@ def main():
    old.execute('BEGIN')  # One consistent public-source snapshot while prior job is alive.
    with db:
     for row in old.execute('SELECT * FROM variants'):
-     values=list(row);values[-1]=population_info_projection(values[-1]);db.execute('INSERT OR IGNORE INTO variants VALUES (?,?,?,?,?,?,?,?,?,?,?)',values)
+     values=list(row);values[-1]=encode_population_info(values[-1]);db.execute('INSERT OR IGNORE INTO variants VALUES (?,?,?,?,?,?,?,?,?,?,?)',values)
     for row in old.execute('SELECT * FROM completed'):db.execute('INSERT OR IGNORE INTO completed VALUES (?,?,?,?)',row)
    old.close();save(migration,dict(status='PRIOR_PUBLIC_SOURCE_INTERVALS_REUSED',preserved_prior_directory=str(PRIOR_ROOT),only_omitted_INFO_fields=['vep','CSQ'],frequency_ancestry_quality_fields_retained=True,patient_data=False))
   if '--stage-migration-only' in sys.argv:
@@ -140,17 +142,17 @@ def main():
          fields=population_fields(line.split('\t'))
          if not start<fields['pos']<=end:continue
          if len(fields['ref'])<10000 and fasta.sequence(c,fields['pos'],len(fields['ref']))!=fields['ref']:raise ValueError('Public GRCh38 REF mismatch')
-         values=(key,fields['chrom'],fields['pos'],fields['ref'],fields['alt'],fields['filter'],fields['AC'],fields['AN'],fields['AF'],fields['nhomalt'],population_info_projection(fields['info']))
+         values=(key,fields['chrom'],fields['pos'],fields['ref'],fields['alt'],fields['filter'],fields['AC'],fields['AN'],fields['AF'],fields['nhomalt'],encode_population_info(fields['info']))
          db.execute('INSERT OR IGNORE INTO variants VALUES (?,?,?,?,?,?,?,?,?,?,?)',values)
         if source.failure:raise ValueError(source.failure)
         db.execute('INSERT INTO completed VALUES (?,?,?,?)',(key,c,start,end))
-       if (ROOT/'public-population.sqlite').stat().st_size>1400000000:raise ValueError('Public source output size cap')
+       if (ROOT/'public-population.sqlite').stat().st_size>700000000:raise ValueError('Compact public source output size cap')
        done=db.execute('SELECT COUNT(*) FROM completed').fetchone()[0]
        state('FETCHING_PUBLIC_HCM39_GNOMAD_V4_1_1',source=key,completed_intervals=done,total_intervals=2*len(intervals),rows=db.execute('SELECT COUNT(*) FROM variants').fetchone()[0])
       tabix.close();save(source_dir/'source-receipt.json',dict(status='COMPLETE_PUBLIC_CDS_SOURCE_RANGES',transport_identity=source.identity,index_identity=index_identity,fields=['AC','AN','AF','nhomalt','FILTER','all_ancestry_INFO_preserved'],full_source_publisher_checksum_verified=False,no_patient_inputs=True))
      finally:source.stop.set();server.shutdown();server.server_close()
    rows=db.execute('SELECT COUNT(*) FROM variants').fetchone()[0];counts=dict(db.execute('SELECT source,COUNT(*) FROM variants GROUP BY source'))
-   result=dict(status='READY_PUBLIC_HCM39_GNOMAD_V4_1_1_SIDECAR_NOT_BOUND',rows=rows,counts=counts,scope='Fixed public39-gene GENCODE49 CDS intervals; variants selected by POS in CDS; no genome-wide/noncoding claim',panel_sha256=hashlib.sha256((Path('/srv/marina/resources/public-hcm-cds-v2')/'panel-manifest.json').read_bytes()).hexdigest(),actual_http_bytes=budget.used,only_omitted_INFO_fields=['vep','CSQ'],frequency_ancestry_quality_fields_retained=True,source_range_cache_resume=True,sqlite_transaction_interval_resume=True,reference_alignment_checked=True,missing_record_is_not_assumed_AC_zero=True,all_sites_AN_separate_release='4.1 exomes only; genomes AN not downloaded',annotation_binding_updated=False,patient_inputs=False,completed_utc=now().isoformat())
+   result=dict(status='READY_PUBLIC_HCM39_GNOMAD_V4_1_1_SIDECAR_NOT_BOUND',rows=rows,counts=counts,scope='Fixed public39-gene GENCODE49 CDS intervals; variants selected by POS in CDS; no genome-wide/noncoding claim',panel_sha256=hashlib.sha256((Path('/srv/marina/resources/public-hcm-cds-v2')/'panel-manifest.json').read_bytes()).hexdigest(),actual_http_bytes=budget.used,INFO_storage_encoding='zlib-compressed UTF-8 BLOB; use medinter_population_mt_common.decode_population_info',only_omitted_INFO_fields=['vep','CSQ'],frequency_ancestry_quality_fields_retained=True,source_range_cache_resume=True,sqlite_transaction_interval_resume=True,reference_alignment_checked=True,missing_record_is_not_assumed_AC_zero=True,all_sites_AN_separate_release='4.1 exomes only; genomes AN not downloaded',annotation_binding_updated=False,patient_inputs=False,completed_utc=now().isoformat())
    save(ROOT/'resource-receipt.json',result);state(result.pop('status'),rows=rows)
   except Exception as exc:state('PARTIAL_PUBLIC_REFERENCE_RETAINED_NOT_BOUND',error=str(exc)[:250]);raise
   finally:db.close();fasta.close()
