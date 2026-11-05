@@ -15,6 +15,74 @@ spec.loader.exec_module(m)
 
 
 class MonitorTests(unittest.TestCase):
+    def parallel_fixture(self, root, mode='run', execute=True):
+        private = root / 'private'; private.mkdir()
+        candidate = private / 'annotation-parallel-candidate'; (candidate / 'scripts').mkdir(parents=True)
+        producer = candidate / 'scripts/parallel_annotation.py'; producer.write_text('# synthetic')
+        rule = candidate / 'rule.json'
+        value = dict(schema_version=1, status='CANDIDATE_USER_LAUNCH_ONLY', producer_path=str(producer),
+                     producer_sha256='b' * 64, output_root=str(root / 'outputs/workflow-v1'),
+                     workers=5, cpus_per_worker=4, memory_gib_per_worker=16,
+                     deadline_utc='2030-01-01T00:00:00+00:00')
+        rule.write_text(json.dumps(value))
+        proc = root / 'proc'; folder = proc / '123'; folder.mkdir(parents=True)
+        (folder / 'stat').write_text('123 (python3) S 1 2')
+        args = ['python3', str(producer), mode, '--rule', str(rule), '--reviewed-rule-sha256', 'a' * 64]
+        if execute:args.append('--execute')
+        (folder / 'cmdline').write_bytes(b'\0'.join(a.encode() for a in args) + b'\0')
+        queue = private / 'annotation-public-hcm-v2-review'; queue.mkdir()
+        (queue / 'queue-status.json').write_text(json.dumps({'status': 'FAILED_OR_BUDGET_STOPPED'}))
+        return private, proc, rule
+
+    def test_live_parallel_primary_supersedes_cancelled_serial_queue(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); private, proc, _ = self.parallel_fixture(root)
+            result = m.annotation_status(private, proc)
+            self.assertEqual(result['status'], 'PARALLEL_ANNOTATION_RUNNING')
+            self.assertEqual(result['source'], 'active_parallel_primary_runtime')
+            self.assertEqual(result['historical_reference_v2_queue_status'], 'FAILED_OR_BUDGET_STOPPED')
+            self.assertEqual(result['parallel_processes'][0]['pid'], 123)
+            self.assertFalse(result['parallel_processes'][0]['rule_pins_rehashed'])
+            self.assertNotIn('argv', json.dumps(result))
+
+    def test_proof_dryrun_bad_rule_and_zombie_do_not_claim_parallel_running(self):
+        for mode, execute, change in [('prove', True, ''), ('run', False, ''), ('run', True, 'rule'), ('run', True, 'zombie')]:
+            with self.subTest(mode=mode, execute=execute, change=change), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp); private, proc, rule = self.parallel_fixture(root, mode, execute)
+                if change == 'rule':
+                    value = json.loads(rule.read_text()); value['output_root'] = '/unrelated'; rule.write_text(json.dumps(value))
+                if change == 'zombie':(proc / '123/stat').write_text('123 (python3) Z 1 2')
+                self.assertNotEqual(m.annotation_status(private, proc).get('source'), 'active_parallel_primary_runtime')
+
+    def test_completed_primary_report_receipts_override_old_queue_without_live_pid(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); private, proc, _ = self.parallel_fixture(root)
+            (proc / '123/stat').write_text('123 (python3) Z 1 2')
+            for name in ['06_annotate', '07_report']:
+                path = root / 'outputs/workflow-v1/stages' / name; path.mkdir(parents=True)
+                (path / 'workflow-receipt.json').write_text(json.dumps(dict(status='PASS', stage=name,
+                    identity='c' * 64, artifacts={'example.tsv': {'bytes': 10, 'sha256': 'd' * 64}})))
+            result = m.annotation_status(private, proc)
+            self.assertEqual(result['source'], 'primary_stage_07_receipt')
+            self.assertEqual(result['status'], 'RESEARCH_REPORT_COMPLETE_RECEIPT_OBSERVED')
+            self.assertEqual(result['parallel_processes'], [])
+            self.assertIn('not rehashed', result['completion_basis'])
+
+    def test_missing_outputs_are_not_reported_as_configured_or_complete(self):
+        with tempfile.TemporaryDirectory() as temp:
+            result = m.snapshot(Path(temp), proc=Path(temp) / 'proc')
+            self.assertEqual(result['deliverables']['combined_master']['status'], 'NOT_CREATED_OR_WAITING')
+            self.assertIn('ещё не созданы', m.human(result))
+
+    def test_human_is_opt_in_and_default_stdout_remains_json(self):
+        args = argparse.Namespace(max_hours=1, interval=60, root=Path('/missing'), local=False, watch=False, report_dir=None)
+        for human in [False, True]:
+            args.human = human
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                m.run(args, collect=lambda *_: {'annotation': {'status': 'PARALLEL_ANNOTATION_RUNNING'}})
+            if human:self.assertIn('выполняется параллельно', output.getvalue())
+            else:self.assertEqual(json.loads(output.getvalue())['annotation']['status'], 'PARALLEL_ANNOTATION_RUNNING')
+
     def test_resource_recovery_is_distinct_from_historical_installer_failure(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp); private = root / 'private'; private.mkdir()
