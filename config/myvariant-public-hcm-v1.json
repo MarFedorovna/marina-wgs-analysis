@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "bundle_id": "myvariant-public-hcm-v1",
+  "base_url": "https://myvariant.info/v1",
+  "assembly": "hg38",
+  "clingen_csv": "/srv/marina/resources/annotation/.public-source-cache/39446cf554e4193d3d87a974177a62187139752db6a02f42a3f784f2ab5d4229/clingen-gene-validity-20261105.csv",
+  "clingen_csv_sha256": "5cc793e4c476776d7d60f326d8250b65198c65e576cfd771df28d320d02fb10e",
+  "disease_id": "MONDO:0005045",
+  "expected_curation_rows": 40,
+  "reference_fasta": "/srv/marina/references/broad-hg38-v0-altaware-g1575676516681666-prebuilt/Homo_sapiens_assembly38.fasta",
+  "reference_sha256_from_existing_manifest_not_rehashed": "93157a161863464c9435062fd67c173fdaf99cb8b32f1455018361387ffa5564",
+  "fields": "dbnsfp.chrom,dbnsfp.hg38,dbnsfp.ref,dbnsfp.alt,dbnsfp.genename,dbnsfp.ensembl,dbnsfp.aa,dbnsfp.fathmm,dbnsfp.fathmm-xf,dbnsfp.fathmm-mkl,dbnsfp.cadd,dbnsfp.revel,dbnsfp.metalr,dbnsfp.varity,dbnsfp.spliceai,dbnsfp.maxentscan,dbnsfp.sift,dbnsfp.polyphen2,dbnsfp._license",
+  "max_raw_bytes": 300000000,
+  "max_records": 300000,
+  "max_minutes": 30,
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "expected_api_build": "20250624",
+  "expected_dbnsfp_version": "4.8a",
+  "patient_variant_inputs_allowed": false,
+  "score_enablement": "NOT_ENABLED; public gene reference cache only; source-specific terms and transcript-version/adapter review required",
+  "source_warning": "API build is historical and does not replace ClinVar20261025, gnomAD4.1/cache115 or current dbNSFP5.4; CADD subscore version not specified by API metadata"
+}

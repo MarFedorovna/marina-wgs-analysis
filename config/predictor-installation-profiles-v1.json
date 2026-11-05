@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "audit_utc": "2026-11-05T17:39:02Z",
+  "scope": "Public official-source verification for missing computational predictors; no downloads performed by this audit, no patient queries, and no terms/contracts accepted.",
+  "candidates_install_now": [
+    {
+      "id": "revel",
+      "status": "SMALL_PUBLIC_CANDIDATE_REVIEW_TERMS_BEFORE_USE",
+      "release": "v1.3 (official score file dated page updates May 2021; GRCh37 plus lifted GRCh38 coordinate column)",
+      "assembly": [
+        "GRCh37",
+        "GRCh38"
+      ],
+      "files": [
+        {
+          "name": "revel-v1.3_all_chromosomes.zip",
+          "official_advertised_size": "526 MB",
+          "format": "CSV; 9 fields incl chr, GRCh37/GRCh38 position, REF/ALT, amino acid, score, Ensembl transcript IDs"
+        }
+      ],
+      "official_url": "https://sites.google.com/site/revelgenomics/downloads",
+      "license_access": "Official page states free for non-commercial use; contact authors for other uses. Direct download link hosted at Mount Sinai; an alternative Zenodo record is linked. No account/contract stated on page.",
+      "adapter": "Ensembl VEP REVEL plugin exists. Convert CSV to tab-separated; retain records with GRCh38 coordinate; sort/index with bgzip/tabix (tabix dependency required); match exact genomic REF/ALT plus transcript ID and amino-acid change. Add locally versioned plugin file and run public controls.",
+      "why_candidate": "The only clearly advertised compact whole-score file in this audit; much smaller than whole-genome score resources. Given explicit non-commercial terms, don't proceed if project use is commercial/unclear.",
+      "public_patient_queries": false,
+      "primary_sources": [
+        "https://sites.google.com/site/revelgenomics/downloads",
+        "https://github.com/Ensembl/VEP_plugins/blob/release/116/REVEL.pm"
+      ]
+    }
+  ],
+  "not_now": [
+    {
+      "id": "spliceai",
+      "status": "NOT_SMALL_ACCOUNT_AND_LICENSE_GATED",
+      "release": "Official SpliceAI repository documents precomputed score files but does not identify a dated current score release on the accessed README; original package uses GENCODE v24 canonical annotations, D=50 default. Code version is not a data release.",
+      "assembly": [
+        "GRCh37",
+        "GRCh38"
+      ],
+      "files": [
+        {
+          "name": "all possible substitutions, 1-bp insertions, 1-4 bp deletions within genes (per official README)",
+          "official_size": "not stated on official download page"
+        }
+      ],
+      "official_url": "https://github.com/Illumina/SpliceAI",
+      "license_access": "Officially free for academic and not-for-profit use; commercial license from Illumina required. Precomputed downloads are linked to Illumina BaseSpace. VEP docs/community estimates are about 15.5 GB SNV + 4.5 GB indel for GRCh38, but those sizes are NOT stated by official SpliceAI source; treat as indicative only. Download may need BaseSpace account access.",
+      "adapter": "Ensembl VEP SpliceAI plugin reads local SNV and indel VCF score tables and emits DS_AG/AL/DG/DL and DP_*; pin exact model/release/masking, validate GRCh38/reference and versioned controls. Avoid remote API variant calls.",
+      "why_not_now": "Not a small package, account-mediated and license-restricted; resource version and exact official byte size need resolution before approval. Existing core cache has no SpliceAI files.",
+      "primary_sources": [
+        "https://github.com/Illumina/SpliceAI",
+        "https://github.com/Ensembl/VEP_plugins/blob/release/116/SpliceAI.pm"
+      ]
+    },
+    {
+      "id": "cadd",
+      "status": "NOT_MASSIVE_BULK",
+      "release": "v1.7, currently the latest supported/downloadable production release on official download page; CADD-Splice v1.6 separately",
+      "assembly": [
+        "GRCh38",
+        "GRCh37"
+      ],
+      "files": [
+        {
+          "name": "GRCh38 all possible SNVs",
+          "size": "81G + 2.6M tabix index"
+        },
+        {
+          "name": "SNVs incl all annotations",
+          "size": "625G"
+        },
+        {
+          "name": "gnomAD r4.0 genome indels to initiate local setup",
+          "size": "1.2G + 1.8M tabix index"
+        },
+        {
+          "name": "all GRCh38 annotations for offline install",
+          "size": "336G"
+        }
+      ],
+      "official_url": "https://cadd.bihealth.org/download",
+      "license_access": "Official page: freely available for non-commercial use; commercial application requires license. No account stated.",
+      "adapter": "Ensembl VEP CADD plugin exists; local tabix file and CADD-specific cache/annotation setup required. Pin score release and distinguish CADD raw/PHRED; indel subset is gnomAD genomes r4.0 and not exhaustive universal indels.",
+      "why_not_now": "81G even for pre-scored SNVs (and 336G supporting annotation bundle for offline recomputation); explicitly too large for the small supplement/budget window. Older 81.5 GiB approximation is essentially confirmed as 81G by official page.",
+      "primary_sources": [
+        "https://cadd.bihealth.org/download",
+        "https://cadd.gs.washington.edu/static/ReleaseNotes_CADD_v1.7.pdf",
+        "https://github.com/Ensembl/VEP_plugins/blob/release/116/CADD.pm"
+      ]
+    },
+    {
+      "id": "fathmm",
+      "status": "NO_CURRENT_SMALL_LOCAL_SCORE_PACKAGE_VERIFIED",
+      "release": "FATHMM v2.3 legacy; official downloads describe original nsSNV algorithm, FATHMM-MKL, and separate datasets, without a dated packaged whole-genome VEP score release or file size.",
+      "assembly": "No standalone assembly-pinned score file verified; FATHMM 2.3 is a legacy coding nsSNV predictor.",
+      "files": [
+        {
+          "name": "official legacy dataset files",
+          "size": "not stated by official source"
+        }
+      ],
+      "official_url": "https://fathmm.biocompute.org.uk/downloads.html",
+      "license_access": "Official software license GPLv3. Authors state HGMD-trained pathogenic training data cannot be circulated; public SwissProt/TrEMBL alternative is linked. Do not claim an HGMD-derived database can be redistributed. Current legacy SQL/backend availability/size not verified.",
+      "adapter": "Would require obtaining the exact permissible dataset/tool, building or attaching a separate local backend, versioning its inputs, and validating exact allele/protein mappings. dbNSFP current release contains FATHMM-XF coding, which is a distinct method, not the old FATHMM 2.3 score.",
+      "why_not_now": "No official small, assembly-pinned and license-clear current score package identified; not an installable turnkey addition.",
+      "primary_sources": [
+        "https://fathmm.biocompute.org.uk/downloads.html",
+        "https://fathmm.biocompute.org.uk/database/"
+      ]
+    },
+    {
+      "id": "dbnsfp",
+      "status": "NOT_SMALL_ACCESS_REQUIRED",
+      "release": "v5.4 (2026-08-01); user-reported Analysis 1 v4.9a remains historical and is not reused in Analysis 2.",
+      "assembly": [
+        "GRCh38",
+        "GRCh37",
+        "hs1 T2T-CHM13 v2.0"
+      ],
+      "files": [
+        {
+          "name": "full academic branch",
+          "size": "about 50 GB; official page does not give exact release archive bytes"
+        },
+        {
+          "name": "single tabix-indexed BGZF table per assembly",
+          "size": "not stated; still requires gated download"
+        }
+      ],
+      "data_basis": "GENCODE 50 / Ensembl 116, newer than Analysis 2 VEP 115; transcript-version matching is required. Current v5.4 includes MetaLR, VARITY and FATHMM-XF coding (not legacy FATHMM v2.3).",
+      "official_url": "https://www.dbnsfp.org/releases/",
+      "license_access": "Academic branch CC BY-NC-ND 4.0 for academic/non-commercial use; institutional email registration and code are required. Commercial branch is paid; official tiers start at $5,000/year. Individual upstream score licenses still apply. No contract or registration accepted.",
+      "adapter": "Official page offers GRCh38 tabix-indexed BGZF variant table ready for VEP/SnpSift; use version-matched dbNSFP plugin/fields and retain transcript-specific scores. Require a current authorized release manifest and exact key validation.",
+      "why_not_now": "Whole database is ~50 GB and gated; current release is Ensembl 116 while pipeline cache is Ensembl 115. Cannot substitute the unverified old v4.9a user list or infer commercial rights.",
+      "primary_sources": [
+        "https://www.dbnsfp.org/releases/",
+        "https://www.dbnsfp.org/download/",
+        "https://www.dbnsfp.org/license/"
+      ]
+    },
+    {
+      "id": "varity_standalone",
+      "status": "NOT_VERIFIED_AS_STANDALONE_DOWNLOAD",
+      "release": "Original VARITY publication-era precomputed scores; VEP plugin references an unversioned tar.gz URL.",
+      "assembly": "VEP plugin states genomic lookups; direct official data page was inaccessible during audit, exact assembly/size/release/license not confirmed.",
+      "official_url": "https://varity.varianteffect.org/downloads/varity_all_predictions.tar.gz",
+      "license_access": "No authoritative terms could be verified from the inaccessible host. Current VARITY scores are available as a dbNSFP v5.4 score, subject to dbNSFP academic registration/commercial licensing and component terms.",
+      "adapter": "VEP VARITY plugin exists for rare missense scores; needs local sorted score file and exact transcript/protein mapping.",
+      "why_not_now": "No verified direct file metadata or current redistribution terms; use authorized dbNSFP release if later approved.",
+      "primary_sources": [
+        "https://github.com/Ensembl/VEP_plugins/blob/release/116/VARITY.pm",
+        "https://www.dbnsfp.org/license/"
+      ]
+    },
+    {
+      "id": "metalr",
+      "status": "NOT_STANDALONE; DBNSFP_COMPONENT",
+      "release": "MetaLR is included in dbNSFP v5.4 (2026-08-01); no separate official independent score package found.",
+      "assembly": [
+        "GRCh38",
+        "GRCh37"
+      ],
+      "files": [
+        {
+          "name": "dbNSFP full academic package containing MetaLR",
+          "size": "about 50 GB; no separate MetaLR archive"
+        }
+      ],
+      "official_url": "https://www.dbnsfp.org/license/",
+      "license_access": "Same dbNSFP academic registration/CC BY-NC-ND 4.0 or paid commercial terms plus component terms.",
+      "adapter": "dbNSFP VEP/SnpSift indexed table; preserve MetaLR score and rankscore as one correlated ensemble output, not as independent ACMG evidence.",
+      "why_not_now": "No standalone downloadable MetaLR table and only identified current source is the gated ~50 GB database.",
+      "primary_sources": [
+        "https://www.dbnsfp.org/releases/",
+        "https://www.dbnsfp.org/download/",
+        "https://www.dbnsfp.org/license/"
+      ]
+    },
+    {
+      "id": "maxentscan",
+      "status": "LOCAL_ALGORITHM_NOT_VERSIONED_DATASET; SOURCE_TERMS_UNCLEAR",
+      "release": "Original Yeo & Burge maximum-entropy splice-site model (2004); official MIT download URL returns 404 in audit.",
+      "assembly": "No fixed assembly release; scores sequence windows against splice donor/acceptor motifs, so an offline adapter must derive strand-aware reference and alternate windows from pinned transcript/reference context.",
+      "files": [
+        {
+          "name": "MaxEntScan archive/tables",
+          "size": "not officially stated"
+        }
+      ],
+      "official_url": "http://genes.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html",
+      "license_access": "Current official page unavailable and package license not verifiable. Do not substitute third-party reimplementations as the official tool without review.",
+      "adapter": "Ensembl VEP MaxEntScan plugin exists; requires upstream score5/score3 tables/scripts, reference/transcript sequence windows and public variant-control tests. Keep raw REF/ALT score difference and score context, not pathogenicity class.",
+      "why_not_now": "No accessible official archive with clear terms; do not install third-party package under an assumed license.",
+      "primary_sources": [
+        "http://genes.mit.edu/burgelab/maxent/download/",
+        "https://github.com/Ensembl/VEP_plugins/blob/release/116/MaxEntScan.pm"
+      ]
+    }
+  ],
+  "other_optional": [
+    {
+      "id": "loftee",
+      "status": "OPTIONAL_NOT_CONFIRMED_BY_LECTURE_SOURCES",
+      "note": "Not confirmed as a lecture-required source and not automatically included; separate implementation/dependencies and validation needed. Do not add without explicit decision."
+    }
+  ],
+  "recommendation_to_sol": "Only REVEL is a low-volume, official whole-score candidate (526 MB) with a shipped VEP adapter, conditional on intended use meeting explicit non-commercial terms. Do not initiate without confirming license applicability/adapter scope; no other listed database qualifies as small, publicly ungated, and turnkey. CADD 81G, SpliceAI 20GB indicative + BaseSpace access, dbNSFP ~50GB registration, FATHMM/VARITY/MaxEntScan package/terms uncertainty. No downloads were started by this audit."
+}

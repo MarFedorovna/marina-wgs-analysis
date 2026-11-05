@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope": "Public source preparation; no patient variants or genotypes; no account creation, payment, or acceptance of provider contracts",
+  "patient_variant_requests_enabled": false,
+  "profiles": {
+    "omim": {
+      "status": "ACCESS_REQUIRED",
+      "api_base": "https://api.omim.org/api/",
+      "secret_env": "OMIM_API_KEY",
+      "enabled": false,
+      "documentation": ["https://omim.org/api", "https://omim.org/downloads", "https://pmc.ncbi.nlm.nih.gov/articles/PMC4383985/"],
+      "public_identifier_file": "https://omim.org/static/omim/data/mim2gene.txt",
+      "next_steps": ["Account holder requests an OMIM Downloads/API key under the applicable terms", "Provide the key only through secret environment OMIM_API_KEY", "Review permitted usage and separately authorize a bounded public gene-metadata request"],
+      "key_is_not_full_local_database": true,
+      "public_mim2gene_is_identifier_mapping_only": true
+    },
+    "varsome": {
+      "status": "ACCESS_REQUIRED",
+      "secret_env": "VARSOME_API_KEY",
+      "enabled": false,
+      "documentation": ["https://docs.varsome.com/en/varsome-api-packages-explained", "https://docs.varsome.com/en/varsome-api-faq", "https://docs.varsome.com/en/varsome-api-cost-calculation"],
+      "test_package": {"chromosome": "17 only", "variant_queries_per_month": 100000, "nonvariant_queries_per_month": 500},
+      "next_steps": ["Account holder supplies an existing licensed subscription/token, or arranges a test account themselves", "Provide token only through secret environment VARSOME_API_KEY", "Review account quota, allowed API endpoint, billing cap and permitted use before any request"],
+      "standard_package_payment_required": true,
+      "local_bulk_database_download_available": false
+    },
+    "lovd": {
+      "status": "PUBLIC_GENE_CATALOG_PREFETCH_READY",
+      "enabled": true,
+      "allowlisted_urls": ["https://databases.lovd.nl/shared/api/rest.php/genes", "https://databases.lovd.nl/shared/api/rest.php/genes/MYH7"],
+      "documentation": ["https://www.lovd.nl/3.0/faq", "https://databases.lovd.nl/shared/docs/"],
+      "requests_per_second_ceiling": 1,
+      "case_level_downloads_enabled": false,
+      "variant_assertions_enabled": false,
+      "reuse_review": "Per installation and submitter licenses apply; preserve source verbatim, no blanket redistribution grant"
+    },
+    "spliceai_broad_lookup": {
+      "status": "PUBLIC_CONTROL_ONLY_PROFILE_DISABLED",
+      "enabled": false,
+      "documentation": ["https://github.com/broadinstitute/SpliceAI-lookup/blob/master/index.html"],
+      "patient_requests_enabled": false,
+      "bulk_queries_enabled": false,
+      "rate_guidance": "A handful of requests per user per minute; use prepared local model for research"
+    }
+  }
+}

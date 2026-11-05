@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "bundle_id": "public-supplements-v1",
+  "total_byte_ceiling": 1000000000,
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "resources": [
+    {
+      "id": "orphadata_genes",
+      "file": "en_product6.xml",
+      "url": "https://www.orphadata.com/data/xml/en_product6.xml",
+      "discovery_url": "https://sciences.orphadata.com/genes/",
+      "release": "Orphanet Knowledge base July 2026",
+      "expected_bytes": 22612034,
+      "max_bytes": 30000000,
+      "format": "xml",
+      "license": "CC-BY-4.0",
+      "attribution": "Orphanet / INSERM; Orphadata Science; July 2026; accessed 2026-11-05"
+    },
+    {
+      "id": "orphadata_disease_ids",
+      "file": "en_product1.xml",
+      "url": "https://www.orphadata.com/data/xml/en_product1.xml",
+      "discovery_url": "https://sciences.orphadata.com/alignments/",
+      "release": "Orphanet Knowledge base July 2026",
+      "max_bytes": 65000000,
+      "format": "xml",
+      "license": "CC-BY-4.0",
+      "attribution": "Orphanet / INSERM; Orphadata Science; July 2026; accessed 2026-11-05"
+    },
+    {
+      "id": "orphadata_phenotypes",
+      "file": "en_product4.xml",
+      "url": "https://www.orphadata.com/data/xml/en_product4.xml",
+      "discovery_url": "https://sciences.orphadata.com/phenotypes/",
+      "release": "Orphanet Knowledge base July 2026",
+      "expected_bytes": 47893357,
+      "max_bytes": 60000000,
+      "format": "xml",
+      "license": "CC-BY-4.0",
+      "attribution": "Orphanet / INSERM; Orphadata Science; July 2026; accessed 2026-11-05"
+    },
+    {
+      "id": "clingen_cspec_public",
+      "file": "cspec-public.json",
+      "url": "https://cspec.genome.network/cspec/SequenceVariantInterpretation/id?detail=high",
+      "discovery_url": "https://cspec.genome.network/cspec/ui/svi/help",
+      "release": "public registry snapshot 2026-11-05; individual specification versions retained",
+      "max_bytes": 50000000,
+      "format": "json",
+      "license": "ClinGen curated content CC0-1.0; retain linked-source terms",
+      "license_url": "https://www.clinicalgenome.org/docs/terms-of-use/",
+      "attribution": "Clinical Genome Resource (ClinGen), CSpec Registry; accessed 2026-11-05"
+    },
+    {
+      "id": "clingen_cspec_page2",
+      "file": "cspec-public-page2.json",
+      "url": "https://cspec.genome.network/cspec/SequenceVariantInterpretation/id?detail=high&pg=2&pgSize=100",
+      "discovery_url": "https://cspec.genome.network/cspec/ui/svi/help",
+      "release": "public registry snapshot 2026-11-05; individual specification versions retained",
+      "max_bytes": 20000000,
+      "format": "json",
+      "license": "ClinGen curated content CC0-1.0; retain linked-source terms",
+      "license_url": "https://www.clinicalgenome.org/docs/terms-of-use/",
+      "attribution": "Clinical Genome Resource (ClinGen), CSpec Registry; accessed 2026-11-05"
+    },
+    {
+      "id": "clingen_cspec_page3",
+      "file": "cspec-public-page3.json",
+      "url": "https://cspec.genome.network/cspec/SequenceVariantInterpretation/id?detail=high&pg=3&pgSize=100",
+      "discovery_url": "https://cspec.genome.network/cspec/ui/svi/help",
+      "release": "public registry snapshot 2026-11-05; individual specification versions retained",
+      "max_bytes": 20000000,
+      "format": "json",
+      "license": "ClinGen curated content CC0-1.0; retain linked-source terms",
+      "license_url": "https://www.clinicalgenome.org/docs/terms-of-use/",
+      "attribution": "Clinical Genome Resource (ClinGen), CSpec Registry; accessed 2026-11-05"
+    },
+    {
+      "id": "clingen_cspec_registry_metadata",
+      "file": "cspec-registry-metadata.json",
+      "url": "https://cspec.genome.network/cspec/SequenceVariantInterpretation",
+      "discovery_url": "https://cspec.genome.network/cspec/ui/svi/help",
+      "release": "public registry snapshot 2026-11-05; individual specification versions retained",
+      "max_bytes": 100000,
+      "format": "json_object",
+      "license": "ClinGen curated content CC0-1.0; retain linked-source terms",
+      "license_url": "https://www.clinicalgenome.org/docs/terms-of-use/",
+      "attribution": "Clinical Genome Resource (ClinGen), CSpec Registry; accessed 2026-11-05"
+    }
+  ]
+}

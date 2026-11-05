@@ -1,0 +1,2538 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-11-05T17:46:30.683953+00:00",
+  "scope": "All audited Ulugbek/MedInter/GATK requirements; source availability is not completion",
+  "registry_source_count": 69,
+  "resources": [
+    {
+      "id": "clinvar",
+      "role": "variant-condition assertions",
+      "source_refs": [
+        "V1 03:59-04:45",
+        "M09 p13-14"
+      ],
+      "scope": "germline_snv_indel",
+      "official_url": "https://www.ncbi.nlm.nih.gov/clinvar/",
+      "download_url": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/",
+      "access": "public_bulk_xml_vcf_tsv",
+      "license_review_status": "preserve_NCBI_and_submitter_terms",
+      "fields": [
+        "variation_id",
+        "allele_id",
+        "significance",
+        "condition",
+        "review_status",
+        "conflict",
+        "last_evaluated",
+        "release"
+      ],
+      "note": "VCF is summary and excludes imprecise locations; use submissions XML/TSV for detailed review",
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "clingen_gene_validity",
+      "role": "gene-disease validity",
+      "source_refs": [
+        "M08 p13",
+        "M32"
+      ],
+      "scope": "germline",
+      "official_url": "https://search.clinicalgenome.org/kb/downloads",
+      "access": "public_bulk_csv",
+      "license_review_status": "review_required",
+      "fields": [
+        "gene_id",
+        "disease",
+        "inheritance",
+        "classification",
+        "curation_date",
+        "expert_panel"
+      ],
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "clingen_dosage",
+      "role": "HI_TS",
+      "source_refs": [
+        "M30 26.10.2026"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://search.clinicalgenome.org/kb/downloads",
+      "access": "public_bulk_csv_tsv_bed",
+      "license_review_status": "review_required",
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "clingen_vcep_cspec",
+      "role": "variant_evidence_and_criteria_specification",
+      "source_refs": [
+        "M10 p27-50",
+        "M11 p2"
+      ],
+      "scope": "germline",
+      "official_url": "https://clinicalgenome.org/tools/clingen-variant-classification-guidance",
+      "access": "public_guidance_and_downloads",
+      "license_review_status": "review_required",
+      "fields": [
+        "specification_version",
+        "gene_disease",
+        "criterion",
+        "strength",
+        "rationale",
+        "pmid"
+      ],
+      "coverage_mode": "new_public_supplement_candidate_not_bound",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "acmg_amp",
+      "role": "classification_framework",
+      "source_refs": [
+        "V2 01:28-04:21",
+        "M10 p3-28"
+      ],
+      "scope": "germline",
+      "official_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4544753/",
+      "access": "manual_evidence_framework",
+      "license_review_status": "publication_terms",
+      "criteria": [
+        "PVS1",
+        "PS1",
+        "PS2",
+        "PS3",
+        "PS4",
+        "PM1",
+        "PM2",
+        "PM3",
+        "PM4",
+        "PM5",
+        "PM6",
+        "PP1",
+        "PP2",
+        "PP3",
+        "PP4",
+        "PP5",
+        "BA1",
+        "BS1",
+        "BS2",
+        "BS3",
+        "BS4",
+        "BP1",
+        "BP2",
+        "BP3",
+        "BP4",
+        "BP5",
+        "BP6",
+        "BP7"
+      ],
+      "note": "Use current ClinGen specifications; deprecated PP5/BP6 and correlated predictor votes must not be blindly counted",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "gnomad",
+      "role": "population_AF_AC_AN_Hom_and_constraint",
+      "source_refs": [
+        "V1 10:54-12:24",
+        "M09 p19",
+        "M30"
+      ],
+      "scope": "germline_and_cnv",
+      "official_url": "https://gnomad.broadinstitute.org/",
+      "access": "official_release_bulk_if_terms_accepted",
+      "license_review_status": "review_required",
+      "fields": [
+        "AF",
+        "AC",
+        "AN",
+        "nhomalt",
+        "population",
+        "popmax_definition",
+        "filter",
+        "coverage",
+        "release",
+        "pLI",
+        "LOEUF"
+      ],
+      "coverage_mode": "cache_115_waiting_verified_metadata_and_controls",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "exac",
+      "role": "historical_population_context",
+      "source_refs": [
+        "M27",
+        "M33"
+      ],
+      "scope": "historical",
+      "official_url": "https://gnomad.broadinstitute.org/",
+      "access": "historical_only",
+      "license_review_status": "review_required",
+      "note": "Not a substitute for a current pinned gnomAD release",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ruseq",
+      "role": "population_context",
+      "source_refs": [
+        "M10 p9",
+        "M34 05:04"
+      ],
+      "scope": "germline",
+      "official_url": "https://ruseq.ru/",
+      "access": "manual_pending_official_download_and_terms_verification",
+      "license_review_status": "unverified",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "all_of_us",
+      "role": "population_context",
+      "source_refs": [
+        "M34 05:04"
+      ],
+      "scope": "germline",
+      "official_url": "https://www.researchallofus.org/",
+      "access": "manual_access_dependent",
+      "license_review_status": "review_required",
+      "note": "Named in HTML lecture; participant data are not assumed publicly downloadable",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "omim",
+      "role": "gene_disease_mechanism_inheritance",
+      "source_refs": [
+        "M09 p4-8",
+        "M08 p11"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://omim.org/",
+      "access": "web_manual_or_registered_permitted_downloads",
+      "license_review_status": "restricted_registration_commercial_redistribution_terms",
+      "note": "No scraping or unrestricted full dump assumed",
+      "coverage_mode": "access_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "genereviews",
+      "role": "phenotype_mechanism_penetrance",
+      "source_refs": [
+        "M09 p9-12",
+        "M17"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.ncbi.nlm.nih.gov/books/NBK1116/",
+      "access": "public_reading",
+      "license_review_status": "chapter_reuse_terms_review",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "lovd",
+      "role": "locus_specific_variant_evidence",
+      "source_refs": [
+        "M09 p15-18"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://databases.lovd.nl/shared/",
+      "access": "locus_specific_manual_or_permitted_export",
+      "license_review_status": "database_specific_review",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "varsome",
+      "role": "secondary_aggregator",
+      "source_refs": [
+        "M09 p20-25",
+        "V2 platform_name_uncertain"
+      ],
+      "scope": "manual",
+      "official_url": "https://varsome.com/",
+      "access": "manual_web_api_subscription",
+      "license_review_status": "commercial_api_terms",
+      "note": "Not required for offline pipeline; no patient queries",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "franklin",
+      "role": "secondary_aggregator",
+      "source_refs": [
+        "M09 p26-33",
+        "M33 50:00"
+      ],
+      "scope": "manual",
+      "official_url": "https://franklin.genoox.com/",
+      "access": "manual_account_terms",
+      "license_review_status": "review_required",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "sift",
+      "role": "missense_predictor",
+      "source_refs": [
+        "V1 04:51-05:58",
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://sift.bii.a-star.edu.sg/",
+      "access": "local_precomputed_vep_cache",
+      "license_review_status": "component_terms_review",
+      "coverage_mode": "cache_115_waiting_verified_metadata_and_controls",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "polyphen2",
+      "role": "missense_predictor",
+      "source_refs": [
+        "V1 04:51-05:58",
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "http://genetics.bwh.harvard.edu/pph2/",
+      "access": "local_precomputed_vep_cache",
+      "license_review_status": "component_terms_review",
+      "coverage_mode": "cache_115_waiting_verified_metadata_and_controls",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "fathmm",
+      "role": "missense_predictor",
+      "source_refs": [
+        "V1 04:51-05:58",
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://fathmm.biocompute.org.uk/downloads.html",
+      "access": "local_software_or_authorised_scores",
+      "license_review_status": "software_GPLv3_score_package_review",
+      "note": "Inherited-disease model; HGMD training set is not redistributable",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "fathmm",
+        "status": "NO_CURRENT_SMALL_LOCAL_SCORE_PACKAGE_VERIFIED",
+        "release": "FATHMM v2.3 legacy; official downloads describe original nsSNV algorithm, FATHMM-MKL, and separate datasets, without a dated packaged whole-genome VEP score release or file size.",
+        "assembly": "No standalone assembly-pinned score file verified; FATHMM 2.3 is a legacy coding nsSNV predictor.",
+        "files": [
+          {
+            "name": "official legacy dataset files",
+            "size": "not stated by official source"
+          }
+        ],
+        "official_url": "https://fathmm.biocompute.org.uk/downloads.html",
+        "license_access": "Official software license GPLv3. Authors state HGMD-trained pathogenic training data cannot be circulated; public SwissProt/TrEMBL alternative is linked. Do not claim an HGMD-derived database can be redistributed. Current legacy SQL/backend availability/size not verified.",
+        "adapter": "Would require obtaining the exact permissible dataset/tool, building or attaching a separate local backend, versioning its inputs, and validating exact allele/protein mappings. dbNSFP current release contains FATHMM-XF coding, which is a distinct method, not the old FATHMM 2.3 score.",
+        "why_not_now": "No official small, assembly-pinned and license-clear current score package identified; not an installable turnkey addition.",
+        "primary_sources": [
+          "https://fathmm.biocompute.org.uk/downloads.html",
+          "https://fathmm.biocompute.org.uk/database/"
+        ]
+      }
+    },
+    {
+      "id": "revel",
+      "role": "ensemble_missense_predictor",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://sites.google.com/site/revelgenomics/downloads",
+      "access": "precomputed_download",
+      "license_review_status": "package_terms_review",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "revel",
+        "status": "SMALL_PUBLIC_CANDIDATE_REVIEW_TERMS_BEFORE_USE",
+        "release": "v1.3 (official score file dated page updates May 2021; GRCh37 plus lifted GRCh38 coordinate column)",
+        "assembly": [
+          "GRCh37",
+          "GRCh38"
+        ],
+        "files": [
+          {
+            "name": "revel-v1.3_all_chromosomes.zip",
+            "official_advertised_size": "526 MB",
+            "format": "CSV; 9 fields incl chr, GRCh37/GRCh38 position, REF/ALT, amino acid, score, Ensembl transcript IDs"
+          }
+        ],
+        "official_url": "https://sites.google.com/site/revelgenomics/downloads",
+        "license_access": "Official page states free for non-commercial use; contact authors for other uses. Direct download link hosted at Mount Sinai; an alternative Zenodo record is linked. No account/contract stated on page.",
+        "adapter": "Ensembl VEP REVEL plugin exists. Convert CSV to tab-separated; retain records with GRCh38 coordinate; sort/index with bgzip/tabix (tabix dependency required); match exact genomic REF/ALT plus transcript ID and amino-acid change. Add locally versioned plugin file and run public controls.",
+        "why_candidate": "The only clearly advertised compact whole-score file in this audit; much smaller than whole-genome score resources. Given explicit non-commercial terms, don't proceed if project use is commercial/unclear.",
+        "public_patient_queries": false,
+        "primary_sources": [
+          "https://sites.google.com/site/revelgenomics/downloads",
+          "https://github.com/Ensembl/VEP_plugins/blob/release/116/REVEL.pm"
+        ]
+      }
+    },
+    {
+      "id": "alphamissense",
+      "role": "missense_predictor",
+      "required_by": "USER latest explicit request",
+      "priority": "MUST",
+      "required_outputs": [
+        "score",
+        "prediction_class",
+        "source_release",
+        "transcript_version",
+        "protein_variant",
+        "matching_status",
+        "missing_reason"
+      ],
+      "source_refs": [
+        "M33 50:00",
+        "M34 18:09",
+        "USER latest explicit request; requirements matrix USER02"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://github.com/google-deepmind/alphamissense",
+      "access": "public_precomputed_download",
+      "license_review_status": "predictions_CC_BY_4.0",
+      "note": "Prediction label is not clinical ACMG classification",
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "spliceai",
+      "role": "splice_predictor",
+      "source_refs": [
+        "M11 p13",
+        "M34 18:09"
+      ],
+      "scope": "germline",
+      "official_url": "https://github.com/Illumina/SpliceAI",
+      "access": "local_models_or_precomputed_if_license_applicable",
+      "license_review_status": "PolyForm_Strict_code_CC_BY_NC_models_academic_nonprofit_scores",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "spliceai",
+        "status": "NOT_SMALL_ACCOUNT_AND_LICENSE_GATED",
+        "release": "Official SpliceAI repository documents precomputed score files but does not identify a dated current score release on the accessed README; original package uses GENCODE v24 canonical annotations, D=50 default. Code version is not a data release.",
+        "assembly": [
+          "GRCh37",
+          "GRCh38"
+        ],
+        "files": [
+          {
+            "name": "all possible substitutions, 1-bp insertions, 1-4 bp deletions within genes (per official README)",
+            "official_size": "not stated on official download page"
+          }
+        ],
+        "official_url": "https://github.com/Illumina/SpliceAI",
+        "license_access": "Officially free for academic and not-for-profit use; commercial license from Illumina required. Precomputed downloads are linked to Illumina BaseSpace. VEP docs/community estimates are about 15.5 GB SNV + 4.5 GB indel for GRCh38, but those sizes are NOT stated by official SpliceAI source; treat as indicative only. Download may need BaseSpace account access.",
+        "adapter": "Ensembl VEP SpliceAI plugin reads local SNV and indel VCF score tables and emits DS_AG/AL/DG/DL and DP_*; pin exact model/release/masking, validate GRCh38/reference and versioned controls. Avoid remote API variant calls.",
+        "why_not_now": "Not a small package, account-mediated and license-restricted; resource version and exact official byte size need resolution before approval. Existing core cache has no SpliceAI files.",
+        "primary_sources": [
+          "https://github.com/Illumina/SpliceAI",
+          "https://github.com/Ensembl/VEP_plugins/blob/release/116/SpliceAI.pm"
+        ]
+      }
+    },
+    {
+      "id": "varity",
+      "role": "missense_predictor",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": null,
+      "access": "pending_authoritative_source",
+      "license_review_status": "unverified",
+      "coverage_mode": "separate_installation_profile_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "mt_abbreviation",
+      "display_name": "MT",
+      "role": "predictor_label_unresolved",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "unresolved",
+      "official_url": null,
+      "access": "unresolved",
+      "license_review_status": "unverified",
+      "note": "Do not silently expand to MutationTaster",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "mut_assessor_label",
+      "display_name": "MUT Assessor",
+      "role": "predictor_label",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": null,
+      "access": "pending_name_and_source_verification",
+      "license_review_status": "unverified",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "cadd_uncertain",
+      "display_name": "Cart / possibly CADD",
+      "role": "fourth_predictor_uncertain_ASR",
+      "source_refs": [
+        "V1 04:51-05:58"
+      ],
+      "scope": "unresolved",
+      "official_url": null,
+      "access": "not_required_until_resolved",
+      "license_review_status": "unverified",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "cadd",
+        "status": "NOT_MASSIVE_BULK",
+        "release": "v1.7, currently the latest supported/downloadable production release on official download page; CADD-Splice v1.6 separately",
+        "assembly": [
+          "GRCh38",
+          "GRCh37"
+        ],
+        "files": [
+          {
+            "name": "GRCh38 all possible SNVs",
+            "size": "81G + 2.6M tabix index"
+          },
+          {
+            "name": "SNVs incl all annotations",
+            "size": "625G"
+          },
+          {
+            "name": "gnomAD r4.0 genome indels to initiate local setup",
+            "size": "1.2G + 1.8M tabix index"
+          },
+          {
+            "name": "all GRCh38 annotations for offline install",
+            "size": "336G"
+          }
+        ],
+        "official_url": "https://cadd.bihealth.org/download",
+        "license_access": "Official page: freely available for non-commercial use; commercial application requires license. No account stated.",
+        "adapter": "Ensembl VEP CADD plugin exists; local tabix file and CADD-specific cache/annotation setup required. Pin score release and distinguish CADD raw/PHRED; indel subset is gnomAD genomes r4.0 and not exhaustive universal indels.",
+        "why_not_now": "81G even for pre-scored SNVs (and 336G supporting annotation bundle for offline recomputation); explicitly too large for the small supplement/budget window. Older 81.5 GiB approximation is essentially confirmed as 81G by official page.",
+        "primary_sources": [
+          "https://cadd.bihealth.org/download",
+          "https://cadd.gs.washington.edu/static/ReleaseNotes_CADD_v1.7.pdf",
+          "https://github.com/Ensembl/VEP_plugins/blob/release/116/CADD.pm"
+        ]
+      }
+    },
+    {
+      "id": "alphafold_prior_work",
+      "role": "prior_work_context_only",
+      "source_refs": [
+        "V1 08:02-08:43"
+      ],
+      "scope": "manual",
+      "official_url": null,
+      "access": "not_a_new_modelling_requirement",
+      "license_review_status": "not_applicable",
+      "coverage_mode": "historical_superseded_no_legacy_reuse",
+      "actual_status": "NOT_REUSED_NOT_REQUIRED_MODELING"
+    },
+    {
+      "id": "hpo",
+      "role": "phenotype_ontology_and_associations",
+      "source_refs": [
+        "M08 p14-17",
+        "M32"
+      ],
+      "scope": "phenotype",
+      "official_url": "https://hpo.jax.org/",
+      "access": "official_ontology_annotation_release",
+      "license_review_status": "ontology_and_annotation_terms_separately_review",
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "orphanet",
+      "role": "rare_disease_phenotype",
+      "source_refs": [
+        "M32"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.orpha.net/",
+      "access": "manual_or_authorised_Orphadata_release",
+      "license_review_status": "review_required",
+      "coverage_mode": "new_public_supplement_candidate_not_bound",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "sams",
+      "role": "HPO_matching_example",
+      "source_refs": [
+        "M08 p17"
+      ],
+      "scope": "manual",
+      "official_url": "https://genecascade.org/sams-cgi/Patients.cgi",
+      "access": "example_only_no_patient_upload",
+      "license_review_status": "review_required",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "hgnc",
+      "role": "gene_names_stable_ids_aliases",
+      "source_refs": [
+        "M07 p16-19"
+      ],
+      "scope": "all",
+      "official_url": "https://www.genenames.org/",
+      "access": "official_bulk_release",
+      "license_review_status": "review_required",
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ncbi_refseq_gene_mane",
+      "role": "gene_transcript_reference",
+      "source_refs": [
+        "M07 p25-37,48-49"
+      ],
+      "scope": "all",
+      "official_url": "https://www.ncbi.nlm.nih.gov/refseq/",
+      "access": "public_official_reference_files",
+      "license_review_status": "NCBI_terms_review",
+      "coverage_mode": "automatic_public_resource",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ensembl",
+      "role": "transcripts_consequences_TSL_MANE",
+      "source_refs": [
+        "M07 p42-49"
+      ],
+      "scope": "germline",
+      "official_url": "https://www.ensembl.org/",
+      "access": "local_vep_cache_fasta_gtf_release",
+      "license_review_status": "upstream_components_review",
+      "coverage_mode": "cache_115_waiting_verified_metadata_and_controls",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "lrg",
+      "role": "reference_identifiers",
+      "source_refs": [
+        "M07 p47,51"
+      ],
+      "scope": "nomenclature",
+      "official_url": "https://www.lrg-sequence.org/",
+      "access": "reference_context",
+      "license_review_status": "review_required",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "uniprot",
+      "role": "protein_domains_isoforms_function",
+      "source_refs": [
+        "M07 p20-21",
+        "M10 p14"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://www.uniprot.org/",
+      "access": "official_bulk_or_manual",
+      "license_review_status": "review_required",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ucsc",
+      "role": "genome_browser_tracks",
+      "source_refs": [
+        "M07 p22-24",
+        "M09 p22"
+      ],
+      "scope": "manual",
+      "official_url": "https://genome.ucsc.edu/",
+      "access": "local_downloadable_tracks_if_terms_allow",
+      "license_review_status": "track_specific_review",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "dbsnp",
+      "role": "rs_identifiers_not_pathogenicity",
+      "source_refs": [
+        "M07 p38-40"
+      ],
+      "scope": "germline",
+      "official_url": "https://www.ncbi.nlm.nih.gov/snp/",
+      "access": "public_official_bulk",
+      "license_review_status": "NCBI_terms_review",
+      "coverage_mode": "cache_115_waiting_verified_metadata_and_controls",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ncbi_variation_viewer",
+      "role": "browser",
+      "source_refs": [
+        "M07 p41"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.ncbi.nlm.nih.gov/variation/view/",
+      "access": "manual_no_patient_queries",
+      "license_review_status": "NCBI_terms_review",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ncbi_dbvar_dbgap",
+      "role": "named_catalog_context",
+      "source_refs": [
+        "M07 p26"
+      ],
+      "scope": "cnv_sv_or_controlled_research",
+      "official_url": "https://www.ncbi.nlm.nih.gov/",
+      "access": "dbVar_public_dbGaP_controlled_where_applicable",
+      "license_review_status": "resource_specific_review",
+      "note": "Mentioned in NCBI catalogue, not an order to acquire participant data",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "pubmed",
+      "role": "primary_literature_evidence",
+      "source_refs": [
+        "M07 p26",
+        "V2 08:02-08:40"
+      ],
+      "scope": "manual",
+      "official_url": "https://pubmed.ncbi.nlm.nih.gov/",
+      "access": "public_bibliography_no_patient_data",
+      "license_review_status": "abstract_fulltext_rights_vary",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "hgvs",
+      "role": "nomenclature",
+      "source_refs": [
+        "M12 p3-23"
+      ],
+      "scope": "all",
+      "official_url": "https://hgvs-nomenclature.org/stable/",
+      "access": "public_guidance_pinned_version",
+      "license_review_status": "guidance_terms_review",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "variantvalidator",
+      "role": "HGVS_validation",
+      "source_refs": [
+        "M12 p20-23"
+      ],
+      "scope": "germline",
+      "official_url": "https://variantvalidator.org/",
+      "access": "local_install_if_dependencies_prepared_else_manual_queue",
+      "license_review_status": "review_required",
+      "external_patient_queries_allowed": false,
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "mutalyzer",
+      "role": "HGVS_validation",
+      "source_refs": [
+        "M12 p20"
+      ],
+      "scope": "germline",
+      "official_url": "https://mutalyzer.nl/",
+      "access": "local_install_or_manual_queue",
+      "license_review_status": "review_required",
+      "external_patient_queries_allowed": false,
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "decipher",
+      "role": "CNV_genotype_phenotype_dosage",
+      "source_refs": [
+        "M30"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://www.deciphergenomics.org/",
+      "access": "manual_or_authorised_release",
+      "license_review_status": "access_and_redistribution_review",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "dgv",
+      "role": "structural_population_context",
+      "source_refs": [
+        "M30 opening_course_topic"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://dgv.tcag.ca/dgv/app/home",
+      "access": "official_release_if_terms_allow",
+      "license_review_status": "review_required",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "iscn",
+      "role": "cytogenomic_nomenclature",
+      "source_refs": [
+        "M13 p2,7,13"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://iscn.karger.com/",
+      "access": "manual_standard",
+      "license_review_status": "publisher_copyright",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "mitomap",
+      "role": "MT_population_and_disease_evidence",
+      "source_refs": [
+        "M14 p8,12",
+        "M35 18:15"
+      ],
+      "scope": "mitochondrial",
+      "official_url": "https://www.mitomap.org/MITOMAP",
+      "access": "official_release_or_manual_if_terms_allow",
+      "license_review_status": "review_required",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "mt_acmg_specification",
+      "role": "MT_specific_ACMG",
+      "source_refs": [
+        "M14 p9-10"
+      ],
+      "scope": "mitochondrial",
+      "official_url": "https://doi.org/10.1002/humu.24107",
+      "access": "manual_framework",
+      "license_review_status": "publication_terms",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "acmg_secondary_findings",
+      "role": "consent_dependent_secondary_findings",
+      "source_refs": [
+        "M16 p6-9"
+      ],
+      "scope": "secondary_findings",
+      "official_url": "https://search.clinicalgenome.org/kb/genes/acmgsf",
+      "access": "versioned_list_manual_review",
+      "license_review_status": "review_required",
+      "requires_consent": true,
+      "note": "Lecture mentions SFv3.3/84 genes as historical teaching version; do not silently assume current list",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "cosmic",
+      "role": "somatic_variant_evidence",
+      "source_refs": [
+        "M15 p40-45"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://cancer.sanger.ac.uk/cosmic",
+      "access": "licensed_or_account_dependent",
+      "license_review_status": "review_required",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "my_cancer_genome",
+      "role": "somatic_biomarkers",
+      "source_refs": [
+        "M15 p40-47"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.mycancergenome.org/",
+      "access": "manual",
+      "license_review_status": "review_required",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "docm",
+      "role": "curated_cancer_mutations",
+      "source_refs": [
+        "M15 p41",
+        "M40"
+      ],
+      "scope": "somatic_only",
+      "official_url": "http://docm.info/",
+      "access": "manual_pending_current_availability",
+      "license_review_status": "unverified",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "pharmgkb",
+      "role": "gene_drug_evidence",
+      "source_refs": [
+        "M15 p41"
+      ],
+      "scope": "somatic_pharmacogenomics",
+      "official_url": "https://www.pharmgkb.org/",
+      "access": "official_release_if_terms_allow",
+      "license_review_status": "review_required",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "dgidb",
+      "role": "drug_gene_interactions",
+      "source_refs": [
+        "M15 p41"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.dgidb.org/",
+      "access": "official_release_if_terms_allow",
+      "license_review_status": "upstream_sources_review",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "oncokb",
+      "role": "oncology_actionability",
+      "source_refs": [
+        "M15 p49,52-53"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.oncokb.org/",
+      "access": "manual_or_licensed_api",
+      "license_review_status": "review_required",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "jax_ckb",
+      "role": "oncology_actionability",
+      "source_refs": [
+        "M15 p49-51"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://ckb.jax.org/",
+      "access": "manual_core_or_licensed_boost",
+      "license_review_status": "review_required",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "fda_drug_labels",
+      "role": "approved_indication_context",
+      "source_refs": [
+        "M15 p27,48"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.fda.gov/",
+      "access": "manual_official_labels",
+      "license_review_status": "resource_specific_review",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "kegg_enrichment_withdrawn",
+      "role": "withdrawn_analysis",
+      "source_refs": [
+        "V1 07:21-08:01"
+      ],
+      "scope": "withdrawn",
+      "official_url": null,
+      "access": "disabled_not_a_current_requirement",
+      "license_review_status": "not_applicable",
+      "coverage_mode": "withdrawn",
+      "actual_status": "WITHDRAWN_NOT_RUN"
+    },
+    {
+      "id": "mastermind",
+      "role": "literature_search",
+      "source_refs": [
+        "M33 L119,124,202"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.genomenon.com/mastermind",
+      "access": "freemium_web_or_licensed_flat_files_api",
+      "license_review_status": "commercial_terms_review",
+      "note": "No patient queries; PubMed/manual evidence is API-free alternative",
+      "coverage_mode": "access_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "sherloc",
+      "role": "classification_refinement",
+      "source_refs": [
+        "M33 L20",
+        "M34 00:00"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://pubmed.ncbi.nlm.nih.gov/28492532/",
+      "access": "publication_framework",
+      "license_review_status": "publication_terms",
+      "note": "Teaching reference; do not combine scores with ACMG as independent evidence",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "metalr",
+      "role": "ensemble_predictor",
+      "source_refs": [
+        "M33 L136-137,271"
+      ],
+      "scope": "germline_snv",
+      "official_url": null,
+      "access": "pending_official_score_package",
+      "license_review_status": "unverified",
+      "note": "Named in Franklin example; score missing until authorised local resource exists",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "metalr",
+        "status": "NOT_STANDALONE; DBNSFP_COMPONENT",
+        "release": "MetaLR is included in dbNSFP v5.4 (2026-08-01); no separate official independent score package found.",
+        "assembly": [
+          "GRCh38",
+          "GRCh37"
+        ],
+        "files": [
+          {
+            "name": "dbNSFP full academic package containing MetaLR",
+            "size": "about 50 GB; no separate MetaLR archive"
+          }
+        ],
+        "official_url": "https://www.dbnsfp.org/license/",
+        "license_access": "Same dbNSFP academic registration/CC BY-NC-ND 4.0 or paid commercial terms plus component terms.",
+        "adapter": "dbNSFP VEP/SnpSift indexed table; preserve MetaLR score and rankscore as one correlated ensemble output, not as independent ACMG evidence.",
+        "why_not_now": "No standalone downloadable MetaLR table and only identified current source is the gated ~50 GB database.",
+        "primary_sources": [
+          "https://www.dbnsfp.org/releases/",
+          "https://www.dbnsfp.org/download/",
+          "https://www.dbnsfp.org/license/"
+        ]
+      }
+    },
+    {
+      "id": "maxentscan",
+      "role": "splice_predictor",
+      "source_refs": [
+        "M34 L130,311"
+      ],
+      "scope": "germline",
+      "official_url": null,
+      "access": "pending_authoritative_source",
+      "license_review_status": "unverified",
+      "note": "Named alongside PolyPhen/AlphaMissense/SpliceAI; no external patient query",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "maxentscan",
+        "status": "LOCAL_ALGORITHM_NOT_VERSIONED_DATASET; SOURCE_TERMS_UNCLEAR",
+        "release": "Original Yeo & Burge maximum-entropy splice-site model (2004); official MIT download URL returns 404 in audit.",
+        "assembly": "No fixed assembly release; scores sequence windows against splice donor/acceptor motifs, so an offline adapter must derive strand-aware reference and alternate windows from pinned transcript/reference context.",
+        "files": [
+          {
+            "name": "MaxEntScan archive/tables",
+            "size": "not officially stated"
+          }
+        ],
+        "official_url": "http://genes.mit.edu/burgelab/maxent/Xmaxentscan_scoreseq.html",
+        "license_access": "Current official page unavailable and package license not verifiable. Do not substitute third-party reimplementations as the official tool without review.",
+        "adapter": "Ensembl VEP MaxEntScan plugin exists; requires upstream score5/score3 tables/scripts, reference/transcript sequence windows and public variant-control tests. Keep raw REF/ALT score difference and score context, not pathogenicity class.",
+        "why_not_now": "No accessible official archive with clear terms; do not install third-party package under an assumed license.",
+        "primary_sources": [
+          "http://genes.mit.edu/burgelab/maxent/download/",
+          "https://github.com/Ensembl/VEP_plugins/blob/release/116/MaxEntScan.pm"
+        ]
+      }
+    },
+    {
+      "id": "helix_population_mt",
+      "role": "MT_population_context",
+      "source_refs": [
+        "M35 L74,126"
+      ],
+      "scope": "mitochondrial",
+      "official_url": null,
+      "access": "pending_authoritative_download_and_name",
+      "license_review_status": "unverified",
+      "note": "Label Helix in teaching frequency table; do not infer exact release or counts for current samples",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "toolst_label",
+      "role": "MT_score_label_unresolved",
+      "source_refs": [
+        "M35 L75,79,127"
+      ],
+      "scope": "mitochondrial",
+      "official_url": null,
+      "access": "unresolved",
+      "license_review_status": "unverified",
+      "note": "Keep exact label TOOLST from HTML; not silently MitoTip or another predictor",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "canvig_uk",
+      "role": "cancer_susceptibility_gene_specific_guidance",
+      "source_refs": [
+        "M24 L182-183"
+      ],
+      "scope": "cancer_germline_manual",
+      "official_url": "https://www.cangene-canvaruk.org/canvig-uk-guidance",
+      "access": "public_guidance_download",
+      "license_review_status": "publication_terms",
+      "note": "Shown BRCA1/BRCA2 example; not a universal HCM threshold",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "loinc",
+      "role": "clinical_measurement_codes",
+      "source_refs": [
+        "M32 L121,134-135,234"
+      ],
+      "scope": "phenotype_context",
+      "official_url": "https://loinc.org/",
+      "access": "manual_ontology_context",
+      "license_review_status": "review_required",
+      "note": "Named in HPO interface example; not an instruction to download clinical records",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "phenopacket",
+      "role": "structured_phenotype_format",
+      "source_refs": [
+        "M32 L138,243"
+      ],
+      "scope": "phenotype_context",
+      "official_url": "https://phenopacket-schema.readthedocs.io/",
+      "access": "local_schema_if_needed",
+      "license_review_status": "review_required",
+      "note": "Mentioned as SAMS upload option; no patient upload authorised by source",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "ncbi_ccds",
+      "role": "coding_sequence_identifiers",
+      "source_refs": [
+        "M36 L154"
+      ],
+      "scope": "nomenclature",
+      "official_url": "https://www.ncbi.nlm.nih.gov/CCDS/",
+      "access": "reference_context",
+      "license_review_status": "review_required",
+      "note": "Reference record field, not a new pathogenicity source",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "lenvar_label",
+      "role": "resource_name_uncertain_HTML",
+      "source_refs": [
+        "M29 L137"
+      ],
+      "scope": "unresolved",
+      "official_url": null,
+      "access": "unresolved",
+      "license_review_status": "unverified",
+      "note": "HTML renders LenVar in LRG discussion; may be transcription error; do not create fabricated database",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "nccn_amp_asco_cap",
+      "role": "oncology_guideline_context",
+      "source_refs": [
+        "M40"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.nccn.org/",
+      "access": "manual_guidelines_access_dependent",
+      "license_review_status": "publisher_terms_review",
+      "note": "Not germline HCM classification; no automatic therapy recommendations",
+      "coverage_mode": "separate_branch",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    },
+    {
+      "id": "1000_genomes_teaching",
+      "role": "teaching_input_context",
+      "source_refs": [
+        "G44 L7"
+      ],
+      "scope": "teaching_only",
+      "official_url": "https://www.internationalgenome.org/",
+      "access": "not_a_current_analysis_dependency",
+      "license_review_status": "not_applicable",
+      "note": "Course restricted training chromosomes do not restrict current whole-reference mapping",
+      "coverage_mode": "manual_or_offline_export_required",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO"
+    }
+  ],
+  "additional_predictor_profiles": [
+    {
+      "id": "dbnsfp",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "dbnsfp",
+        "status": "NOT_SMALL_ACCESS_REQUIRED",
+        "release": "v5.4 (2026-08-01); user-reported Analysis 1 v4.9a remains historical and is not reused in Analysis 2.",
+        "assembly": [
+          "GRCh38",
+          "GRCh37",
+          "hs1 T2T-CHM13 v2.0"
+        ],
+        "files": [
+          {
+            "name": "full academic branch",
+            "size": "about 50 GB; official page does not give exact release archive bytes"
+          },
+          {
+            "name": "single tabix-indexed BGZF table per assembly",
+            "size": "not stated; still requires gated download"
+          }
+        ],
+        "data_basis": "GENCODE 50 / Ensembl 116, newer than Analysis 2 VEP 115; transcript-version matching is required. Current v5.4 includes MetaLR, VARITY and FATHMM-XF coding (not legacy FATHMM v2.3).",
+        "official_url": "https://www.dbnsfp.org/releases/",
+        "license_access": "Academic branch CC BY-NC-ND 4.0 for academic/non-commercial use; institutional email registration and code are required. Commercial branch is paid; official tiers start at $5,000/year. Individual upstream score licenses still apply. No contract or registration accepted.",
+        "adapter": "Official page offers GRCh38 tabix-indexed BGZF variant table ready for VEP/SnpSift; use version-matched dbNSFP plugin/fields and retain transcript-specific scores. Require a current authorized release manifest and exact key validation.",
+        "why_not_now": "Whole database is ~50 GB and gated; current release is Ensembl 116 while pipeline cache is Ensembl 115. Cannot substitute the unverified old v4.9a user list or infer commercial rights.",
+        "primary_sources": [
+          "https://www.dbnsfp.org/releases/",
+          "https://www.dbnsfp.org/download/",
+          "https://www.dbnsfp.org/license/"
+        ]
+      }
+    },
+    {
+      "id": "varity_standalone",
+      "coverage_mode": "predictor_profile_not_enabled",
+      "actual_status": "MISSING_NOT_BENIGN_NOT_ZERO",
+      "installation_profile": {
+        "id": "varity_standalone",
+        "status": "NOT_VERIFIED_AS_STANDALONE_DOWNLOAD",
+        "release": "Original VARITY publication-era precomputed scores; VEP plugin references an unversioned tar.gz URL.",
+        "assembly": "VEP plugin states genomic lookups; direct official data page was inaccessible during audit, exact assembly/size/release/license not confirmed.",
+        "official_url": "https://varity.varianteffect.org/downloads/varity_all_predictions.tar.gz",
+        "license_access": "No authoritative terms could be verified from the inaccessible host. Current VARITY scores are available as a dbNSFP v5.4 score, subject to dbNSFP academic registration/commercial licensing and component terms.",
+        "adapter": "VEP VARITY plugin exists for rare missense scores; needs local sorted score file and exact transcript/protein mapping.",
+        "why_not_now": "No verified direct file metadata or current redistribution terms; use authorized dbNSFP release if later approved.",
+        "primary_sources": [
+          "https://github.com/Ensembl/VEP_plugins/blob/release/116/VARITY.pm",
+          "https://www.dbnsfp.org/license/"
+        ]
+      }
+    }
+  ],
+  "audited_sources": [
+    {
+      "id": "U01",
+      "requirements": [
+        "REQ001"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U02",
+      "requirements": [
+        "REQ002"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U03",
+      "requirements": [
+        "REQ003"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U04",
+      "requirements": [
+        "REQ004"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U05",
+      "requirements": [
+        "REQ005"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U06",
+      "requirements": [
+        "REQ006"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U07",
+      "requirements": [
+        "REQ007"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U08",
+      "requirements": [
+        "REQ008"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U09",
+      "requirements": [
+        "REQ009"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U10",
+      "requirements": [
+        "REQ010"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U11",
+      "requirements": [
+        "REQ011"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U12",
+      "requirements": [
+        "REQ012"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U13",
+      "requirements": [
+        "REQ013"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U14",
+      "requirements": [
+        "REQ014"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U15",
+      "requirements": [
+        "REQ015"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U16",
+      "requirements": [
+        "REQ016"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U17",
+      "requirements": [
+        "REQ017"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U18",
+      "requirements": [
+        "REQ018"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "U19",
+      "requirements": [
+        "REQ019"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M01",
+      "requirements": [
+        "REQ023"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M02",
+      "requirements": [
+        "REQ024"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M03",
+      "requirements": [
+        "REQ025"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M04",
+      "requirements": [
+        "REQ026"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M05",
+      "requirements": [
+        "REQ027",
+        "REQ028"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M06",
+      "requirements": [
+        "REQ029",
+        "REQ030",
+        "REQ031"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M07",
+      "requirements": [
+        "REQ032",
+        "REQ033",
+        "REQ034"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M08",
+      "requirements": [
+        "REQ036"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M09",
+      "requirements": [
+        "REQ037"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M10",
+      "requirements": [
+        "REQ038",
+        "REQ039",
+        "REQ040",
+        "REQ041"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M11",
+      "requirements": [
+        "REQ041",
+        "REQ042",
+        "REQ043"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M12",
+      "requirements": [
+        "REQ034",
+        "REQ035"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M13",
+      "requirements": [
+        "REQ044"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M14",
+      "requirements": [
+        "REQ045"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M15",
+      "requirements": [
+        "REQ046"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M16",
+      "requirements": [
+        "REQ047"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M17",
+      "requirements": [
+        "REQ048"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M18",
+      "requirements": [
+        "REQ049"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M19",
+      "requirements": [
+        "REQ031",
+        "REQ050"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M20",
+      "requirements": [
+        "REQ028",
+        "REQ051"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M21",
+      "requirements": [
+        "REQ023"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M22",
+      "requirements": [
+        "REQ049"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M23",
+      "requirements": [
+        "REQ031",
+        "REQ050"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M24",
+      "requirements": [
+        "REQ048",
+        "REQ058"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M25",
+      "requirements": [
+        "REQ026"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M26",
+      "requirements": [],
+      "status": "EMPTY_FAILED_NOTES_NO_REQUIREMENT_INFERRED"
+    },
+    {
+      "id": "M27",
+      "requirements": [
+        "REQ029",
+        "REQ030"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M28",
+      "requirements": [
+        "REQ028",
+        "REQ051"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M29",
+      "requirements": [
+        "REQ032",
+        "REQ060"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M30",
+      "requirements": [
+        "REQ044"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M31",
+      "requirements": [
+        "REQ041",
+        "REQ042"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M32",
+      "requirements": [
+        "REQ036",
+        "REQ059"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M33",
+      "requirements": [
+        "REQ037",
+        "REQ043",
+        "REQ054",
+        "REQ055",
+        "REQ056"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M34",
+      "requirements": [
+        "REQ038",
+        "REQ039",
+        "REQ040",
+        "REQ043",
+        "REQ054",
+        "REQ056"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M35",
+      "requirements": [
+        "REQ045",
+        "REQ057"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M36",
+      "requirements": [
+        "REQ034",
+        "REQ035",
+        "REQ060"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M37",
+      "requirements": [
+        "REQ024"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M38",
+      "requirements": [
+        "REQ027"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M39",
+      "requirements": [
+        "REQ047"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M40",
+      "requirements": [
+        "REQ046",
+        "REQ061"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "M41",
+      "requirements": [
+        "REQ025"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "G42",
+      "requirements": [
+        "REQ032",
+        "REQ045",
+        "REQ052"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "G43",
+      "requirements": [
+        "REQ053"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "G44",
+      "requirements": [
+        "REQ052",
+        "REQ061"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "USER01",
+      "requirements": [
+        "REQ020"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "USER02",
+      "requirements": [
+        "REQ021"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    },
+    {
+      "id": "USER03",
+      "requirements": [
+        "REQ022"
+      ],
+      "status": "AUDITED_REQUIREMENTS_REGISTERED"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ001",
+      "source_refs": [
+        "U01"
+      ],
+      "source_locator": "U01 V1 00:00–00:14, 00:55–01:48",
+      "requirement": "Пообразцовые таблицы и общая таблица ведущих кандидатов",
+      "required_output": "Нормализованный variant key, ген, транскрипт, GT/DP/AD/GQ, эффект, источники; основная таблица отдельно от полного приложения",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ002",
+      "source_refs": [
+        "U02"
+      ],
+      "source_locator": "U02 V1 00:25–00:52; V2 00:28–01:28",
+      "requirement": "Пересечения между 2, 3 и 4 образцами",
+      "required_output": "Матрица присутствия, число носителей, множество образцов; отдельно пересечения вариантов и генов; пропуски/низкое покрытие не считать REF",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ003",
+      "source_refs": [
+        "U03"
+      ],
+      "source_locator": "U03 V1 01:49–02:18, 10:08–10:44",
+      "requirement": "Анализ кардиогенов / ГКМП",
+      "required_output": "Новый версионированный набор генов из актуального источника, HGNC ID, дата, disease/mechanism; индивидуальный клинический контекст указывается отдельно",
+      "policy": "SNV / U + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ004",
+      "source_refs": [
+        "U04"
+      ],
+      "source_locator": "U04 V1 03:59–04:45; V2 09:39–09:48",
+      "requirement": "ClinVar для конкретных вариантов, различать P и LP",
+      "required_output": "Allele/Variation ID, significance, condition, review stars, conflict, evaluation date, release; отсутствие записи отдельно",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ005",
+      "source_refs": [
+        "U05"
+      ],
+      "source_locator": "U05 V1 04:51–05:58",
+      "requirement": "Сопоставить предикторы аминокислотных замен",
+      "required_output": "SIFT, PolyPhen, FATHMM: score/prediction/version/missing; четвёртое название «Cart» может быть CADD, **не подтверждено**; concordance как описание, не 3–4 независимых ACMG-критерия",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ006",
+      "source_refs": [
+        "U06"
+      ],
+      "source_locator": "U06 V1 06:08–07:21; V2 09:49–10:14",
+      "requirement": "Отдельно stop-gain и stop-loss, положение изменения",
+      "required_output": "HGVSg/c/p, strand, exon, CDS/protein position/length, relative position, NMD assessment, start-loss/frameshift/splice отдельно; stop-loss не автоматически LoF/PVS1",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ007",
+      "source_refs": [
+        "U07"
+      ],
+      "source_locator": "U07 V1 07:21–08:01",
+      "requirement": "Enrichment/KEGG сначала предложено, затем снято",
+      "required_output": "Не запускать по умолчанию; вернуть только при отдельном новом поручении",
+      "policy": "WITHDRAWN",
+      "category": "withdrawn",
+      "actual_status": "WITHDRAWN_NOT_RUN"
+    },
+    {
+      "id": "REQ008",
+      "source_refs": [
+        "U08"
+      ],
+      "source_locator": "U08 V1 08:02–08:43; уточнение пользователя 2026-11-05",
+      "requirement": "Историческое упоминание AlphaFold/AlphaMissense; текущую задачу задаёт USER02",
+      "required_output": "Прежние результаты не используются и не сравниваются. AlphaMissense применяется заново к новым вариантам по USER02 с версиями источников и проверкой идентичности. Моделирование AlphaFold не является обязательным этапом",
+      "policy": "Исторический источник / USER OVERRIDE",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ009",
+      "source_refs": [
+        "U09"
+      ],
+      "source_locator": "U09 V1 08:53–09:08, 09:31–09:42",
+      "requirement": "Сначала таблицы, затем гистограммы типов вариантов",
+      "required_output": "Типы/число на образец, одинаковый набор фильтров, легенда, значения, знаменатель; SNV/indel и consequence не смешивать",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ010",
+      "source_refs": [
+        "U10"
+      ],
+      "source_locator": "U10 V1 10:08–10:44; V2 01:28–04:21",
+      "requirement": "ACMG для приоритетного короткого списка",
+      "required_output": "По критерию: применён/не применён/неизвестно, сила, доказательство/PMID/дата, конфликт, экспертное заключение; не классифицировать автоматически тысячи сырых вызовов",
+      "policy": "SNV / U + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ011",
+      "source_refs": [
+        "U11"
+      ],
+      "source_locator": "U11 V2 01:28–04:21",
+      "requirement": "Платформа классификации, если доступна, иначе вручную",
+      "required_output": "Название похоже на VarSome, **неуверенно**; независимая локальная evidence table обязательна, платная API не предпосылка",
+      "policy": "SNV / U + лицензия",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ012",
+      "source_refs": [
+        "U12"
+      ],
+      "source_locator": "U12 V1 10:54–12:24",
+      "requirement": "Частоты в других популяциях и повторяющиеся значимые кандидаты ГКМП",
+      "required_output": "AF/AC/AN/Hom, ancestry/population и release, max/popmax с определением, cohort carrier count отдельно; 4 образца не доказывают биомаркер",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ013",
+      "source_refs": [
+        "U13"
+      ],
+      "source_locator": "U13 V2 00:00–00:24",
+      "requirement": "Указывать варианты и позиции, а не только гены",
+      "required_output": "Build+CHROM+POS+REF+ALT; rsID при наличии; HGVS с версией транскрипта",
+      "policy": "SNV / U",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ014",
+      "source_refs": [
+        "U14"
+      ],
+      "source_locator": "U14 V2 04:29–06:33, 06:57–07:24, 08:42–09:14",
+      "requirement": "Клинические характеристики когорты и критерии включения",
+      "required_output": "Предоставленные диагноз/анамнез/ЭКГ/эхо/биохимия и критерии; отсутствующие сведения = unknown; клиническое приложение и Materials/Methods; сейчас можно готовить результаты",
+      "policy": "MANUAL / U, ожидание данных",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ015",
+      "source_refs": [
+        "U15"
+      ],
+      "source_locator": "U15 V1 03:31–03:59; V2 07:26–07:55",
+      "requirement": "Рукопись Word по шаблону журнала",
+      "required_output": "Introduction, Materials and Methods, Results, Discussion, tables/supplements; шаблон/журнал пока не определён",
+      "policy": "U + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ016",
+      "source_refs": [
+        "U16"
+      ],
+      "source_locator": "U16 V2 08:02–08:40",
+      "requirement": "Обсудить основные/повторяющиеся варианты по литературе",
+      "required_output": "PMID/DOI, variant-specific evidence, disease/mechanism, ограничения; не обсуждать каждый сырой вызов",
+      "policy": "U + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ017",
+      "source_refs": [
+        "U17"
+      ],
+      "source_locator": "U17 V1 03:31–03:59; V2 10:21–10:30",
+      "requirement": "Совместное редактирование / материал для комментариев",
+      "required_output": "Подготовленный документ/рабочая версия; загрузка в Google Drive и адресаты — отдельный шаг, без автоматической внешней отправки",
+      "policy": "U + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ018",
+      "source_refs": [
+        "U18"
+      ],
+      "source_locator": "U18 V1 03:05–03:21",
+      "requirement": "Навигация: основные гены, интерпретация, пересечения, связанные находки, сердечный скрининг",
+      "required_output": "Индекс результатов/листы с описанием области; secondary findings зависят от согласия, не из самого упоминания",
+      "policy": "U + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ019",
+      "source_refs": [
+        "U19"
+      ],
+      "source_locator": "U19 V1 12:44–12:53",
+      "requirement": "Неясная завершающая реплика",
+      "required_output": "Неразрешённая неоднозначность; новое требование не придумано",
+      "policy": "MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ020",
+      "source_refs": [
+        "USER01"
+      ],
+      "source_locator": "USER01 последнее прямое поручение",
+      "requirement": "Top 10 и Top 20 на образец и когорту, отдельными таблицами",
+      "required_output": "Прозрачный rank/score components/QC/source completeness; не дополнять пустоту слабыми кандидатами до квоты; ranking не pathogenicity classification",
+      "policy": "SNV / USER MUST",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ021",
+      "source_refs": [
+        "USER02"
+      ],
+      "source_locator": "USER02 новое прямое поручение пользователя",
+      "requirement": "AlphaMissense обязателен в таблицах и интерпретации",
+      "required_output": "Score/class, источник/release, transcript.version и protein variant, статус точного сопоставления; для non-missense — not applicable, для отсутствующего/несопоставимого score — missing reason. Отдельный исследовательский показатель; не автоматическая ACMG-классификация. Требование относится к AlphaMissense и не меняет исторический смысл U08 или объём AlphaFold-моделирования",
+      "policy": "SNV / USER MUST",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ022",
+      "source_refs": [
+        "USER03"
+      ],
+      "source_locator": "USER03 новые прямые поручения пользователя",
+      "requirement": "Собрать понятные результаты на сервере и в папке проекта, затем один ZIP",
+      "required_output": "Локально: 4 BAM+BAI, принятый общий VCF+index, QC/reports/code/settings; индивидуальные gVCF остаются на сервере. Новые backup-файлы проверяются по завершению/размеру с явной меткой size_only; ранее полученная SHA-история сохраняется. Базы/кэши и raw в архив не входят. ZIP собирается локально только после принятого cohort VCF",
+      "policy": "Операционный результат / USER MUST",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ023",
+      "source_refs": [
+        "M01",
+        "M21"
+      ],
+      "source_locator": "M01/M21, PDF 4–9",
+      "requirement": "Сначала определить цель, объём и ограничения анализа",
+      "required_output": "Research/diagnostic scope, claimed WGS versus observed coverage, negative-result limitations; не гарантировать исключение болезни",
+      "policy": "M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ024",
+      "source_refs": [
+        "M02",
+        "M37"
+      ],
+      "source_locator": "M02/M37, PDF 7–27",
+      "requirement": "Эффект зависит от структуры гена, изоформы, ткани, псевдогенов и альтернативного сплайсинга",
+      "required_output": "Transcript/version, CDS/exon/strand, tissue relevance, paralog/pseudogene ambiguity",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ025",
+      "source_refs": [
+        "M03",
+        "M41"
+      ],
+      "source_locator": "M03/M41, PDF 4–31",
+      "requirement": "Сохранять типы вариантов и последствия раздельно",
+      "required_output": "SNV/indel/CNV/SV/repeat; synonymous/missense/nonsense/splice/start/stop/frameshift; multi-consequence per transcript",
+      "policy": "SNV + SEPARATE",
+      "category": "separate_branch",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ026",
+      "source_refs": [
+        "M04",
+        "M25"
+      ],
+      "source_locator": "M04/M25, PDF 3–19",
+      "requirement": "Наследование и механизм болезни не выводятся из одного GT",
+      "required_output": "AD/AR/X/MT/digenic, cis/trans/phase, de novo unknown, penetrance/expressivity/imprinting/anticipation/mosaicism",
+      "policy": "MANUAL / M",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ027",
+      "source_refs": [
+        "M05",
+        "M38"
+      ],
+      "source_locator": "M05/M38, PDF 5–19",
+      "requirement": "Контроль исходных данных и границ технологии",
+      "required_output": "Pairing, read quality, adapter/library information when known, depth **и breadth**, uneven coverage; не маркировать WES/WGS только по названию файла",
+      "policy": "M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ028",
+      "source_refs": [
+        "M05",
+        "M20",
+        "M28"
+      ],
+      "source_locator": "M05 PDF 19–37; M20/M28",
+      "requirement": "Невидимые SNV-пайплайну классы и иной биоматериал",
+      "required_output": "Ограничения CNV/SV/repeats/methylation/imprinting/LOH/mosaicism; MLPA/qPCR/CMA/FISH/Sanger/Hi-C/fragment analysis как возможное подтверждение, не автоматический заказ лаборатории",
+      "policy": "SEPARATE + MANUAL",
+      "category": "separate_branch",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ029",
+      "source_refs": [
+        "M06",
+        "M27"
+      ],
+      "source_locator": "M06/M27, PDF 3–17",
+      "requirement": "Прослеживаемая цепочка FASTQ→BAM→VCF→annotation",
+      "required_output": "Checksums, full reference lock, tools/commands/container, read groups, duplicate flags, QC, caller/filter policy",
+      "policy": "M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ030",
+      "source_refs": [
+        "M06",
+        "M27"
+      ],
+      "source_locator": "M06/M27, PDF 18–44",
+      "requirement": "Фильтры по DP/GQ/AD/AB, частоте, эффекту и качеству поддержки",
+      "required_output": "Raw annotations сохранены, explicit thresholds/config, pass/fail/reason, missing≠benign, FORMAT versus INFO DP; FILTER `.` = not filtered",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ031",
+      "source_refs": [
+        "M06",
+        "M19",
+        "M23"
+      ],
+      "source_locator": "M06 PDF 10,35–44; M19/M23",
+      "requirement": "Визуальная проверка в IGV",
+      "required_output": "Build/reference match, strand/read position/mapQ/baseQ/duplicates/soft clips/nearby indel, manual-review state; отсутствие проверки не PASS",
+      "policy": "SNV / MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ032",
+      "source_refs": [
+        "M07",
+        "M29",
+        "G42"
+      ],
+      "source_locator": "M07/M29, PDF 2–14; G42 3–12",
+      "requirement": "Зафиксировать точный референс",
+      "required_output": "Assembly accession, FASTA+SHA, ALT/decoy/masking, contig dictionary/aliases; не смешивать hg19/hg38/T2T",
+      "policy": "M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ033",
+      "source_refs": [
+        "M07"
+      ],
+      "source_locator": "M07 PDF 16–49",
+      "requirement": "Единые идентификаторы генов/транскриптов/белков",
+      "required_output": "HGNC+aliases, NCBI Gene, RefSeq, Ensembl, MANE, LRG, UniProt; MANE Select/Plus Clinical и другие изоформы; TSL не clinical proof",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ034",
+      "source_refs": [
+        "M07",
+        "M12",
+        "M36"
+      ],
+      "source_locator": "M07 PDF 50–57; M12/M36",
+      "requirement": "Уникально и корректно обозначить вариант",
+      "required_output": "Нормализация left-aligned VCF и allele split; HGVS 3′-правило отдельно; build, accession.version, c./g./p.; protein-only и rsID-only недостаточны",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ035",
+      "source_refs": [
+        "M12",
+        "M36"
+      ],
+      "source_locator": "M12 PDF 20–23; M36 24:20–29:15",
+      "requirement": "Валидировать HGVS",
+      "required_output": "VariantValidator/Mutalyzer; offline code/resources если подготовлены, иначе manual queue; не отправлять варианты пациента в веб автоматически",
+      "policy": "SNV / M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ036",
+      "source_refs": [
+        "M08",
+        "M32"
+      ],
+      "source_locator": "M08/M32, PDF 5–17",
+      "requirement": "Сопоставить клинику и фенотип",
+      "required_output": "Анамнез/дебют/течение/исследования/родословная, HPO present/absent/unknown, OMIM/GeneReviews/ClinGen/HPO/Orphanet; SAMS показан как пример, без загрузки пациентов",
+      "policy": "MANUAL / M",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ037",
+      "source_refs": [
+        "M09",
+        "M33"
+      ],
+      "source_locator": "M09/M33, PDF 3–33",
+      "requirement": "Клиническая запись не равна диагнозу",
+      "required_output": "ClinVar/LOVD variant-condition assertions, stars/conflicts/submitter/date; phenotype and inheritance; VarSome/Franklin вспомогательные агрегаторы",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ038",
+      "source_refs": [
+        "M10",
+        "M34"
+      ],
+      "source_locator": "M10/M34, PDF 3–28",
+      "requirement": "Все 5 классов ACMG/AMP и все категории доказательств",
+      "required_output": "P/LP/VUS/LB/B; codes PVS1, PS1–4, PM1–6, PP1–5, BA1, BS1–4, BP1–7; состояние/сила/доказательство отдельно, unknown допустимо",
+      "policy": "SNV / M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ039",
+      "source_refs": [
+        "M10",
+        "M34"
+      ],
+      "source_locator": "M10 PDF 8–11; M34 05:04–07:35",
+      "requirement": "Частота в контексте болезни",
+      "required_output": "gnomAD, RuSeq, All of Us (HTML); BA1/BS1 disease-specific, PM2 с актуальной ClinGen силой; отсутствие в БД не само доказательство P; ExAC исторический источник",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ040",
+      "source_refs": [
+        "M10",
+        "M34"
+      ],
+      "source_locator": "M10 PDF 10–19; M34 07:35–21:35",
+      "requirement": "Сегрегация, de novo, phase, функциональные и вычислительные данные",
+      "required_output": "PS2/PM6 требует parental evidence; PM3 cis/trans; PS3/BS3 assay validity; PS4 case enrichment не из 4 выбранных образцов; PP4 phenotype specificity",
+      "policy": "SNV / M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ041",
+      "source_refs": [
+        "M10",
+        "M11",
+        "M31"
+      ],
+      "source_locator": "M10 PDF 27–50; M11/M31",
+      "requirement": "ClinGen ген-/болезнь-/критерий-специфичные рекомендации",
+      "required_output": "Ссылка+версия VCEP/criteria specification, gene validity; не применять устаревшее PP5/BP6 как независимое ClinVar-доказательство; не считать коррелированные предикторы независимыми",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ042",
+      "source_refs": [
+        "M11",
+        "M31"
+      ],
+      "source_locator": "M11 PDF 3–21; M31",
+      "requirement": "PVS1 не равен consequence HIGH",
+      "required_output": "Established LoF mechanism, biologically relevant transcript/exon, NMD/last exon/last 50bp penultimate exon, lost protein fraction/domain, splice rescue/in-frame exon skipping, alternative start; strength reduction / not applicable / unknown",
+      "policy": "SNV / M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ043",
+      "source_refs": [
+        "M11",
+        "M33",
+        "M34"
+      ],
+      "source_locator": "M11 PDF 13; M33 50:00; M34 18:09",
+      "requirement": "Контролировать применимость предикторов",
+      "required_output": "SpliceAI для сплайсинга; SIFT/PolyPhen/FATHMM/REVEL/AlphaMissense/Varity; `MT` и `MUT Assessor` показаны такими сокращениями — не переименованы по догадке",
+      "policy": "SNV / M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ044",
+      "source_refs": [
+        "M13",
+        "M30"
+      ],
+      "source_locator": "M13; M30 00:00–конец",
+      "requirement": "CNV/SV требуют своего caller/QC/классификации",
+      "required_output": "Coordinates+uncertainty+SVTYPE/CN/end/size, support split/discordant/depth, genes/exons, HI/TS ClinGen, DECIPHER/DGV/gnomAD constraint, pLI/LOEUF/pHaplo/pTriplo; ISCN/HGVS по доступной точности",
+      "policy": "CNV/SV / SEPARATE",
+      "category": "separate_branch",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ045",
+      "source_refs": [
+        "M14",
+        "M35",
+        "G42"
+      ],
+      "source_locator": "M14/M35, PDF 2–20; G42 9–10",
+      "requirement": "MT — особая референсная и интерпретационная ветка",
+      "required_output": "rCRS NC_012920.1, circular/shifted-reference policy, NUMTs, heteroplasmy/DP/AF/detection limit, haplogroup/tissue, MITOMAP, MT-specific ACMG (humu.24107), MT genetic code; не применять ядерный NMD автоматически",
+      "policy": "MT / SEPARATE",
+      "category": "separate_branch",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ046",
+      "source_refs": [
+        "M15",
+        "M40"
+      ],
+      "source_locator": "M15/M40, PDF 25–55",
+      "requirement": "Не смешивать герминальную классификацию с опухолевой онкогенностью/ответом терапии",
+      "required_output": "Tumour type/purity, matched normal, VAF, cis/trans, assay sensitivity; AMP/tier/actionability; COSMIC/My Cancer Genome/DoCM/PharmGKB/DGIdb/OncoKB/JAX-CKB/FDA; нет опухолевых входов — disabled",
+      "policy": "SOMATIC / SEPARATE + лицензия",
+      "category": "separate_branch",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ047",
+      "source_refs": [
+        "M16",
+        "M39"
+      ],
+      "source_locator": "M16/M39, PDF 3–13",
+      "requirement": "Случайные и вторичные находки — отдельная область согласия",
+      "required_output": "Consent/age/scope, versioned ACMG SF list, disease+inheritance and P/LP; список SF не ограничивает весь ACMG-анализ 57 генами",
+      "policy": "MANUAL / SEPARATE",
+      "category": "separate_branch",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ048",
+      "source_refs": [
+        "M17",
+        "M24"
+      ],
+      "source_locator": "M17/M24, PDF 7–58",
+      "requirement": "Пенетрантность, возраст и экспрессивность",
+      "required_output": "Gene–disease validity, phenotype/age of relatives, mosaicism; healthy carrier не автоматический benign; ClinVar P при слабой связи гена с болезнью не окончательный вывод",
+      "policy": "SNV / M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ049",
+      "source_refs": [
+        "M18",
+        "M22"
+      ],
+      "source_locator": "M18/M22, PDF 2–14",
+      "requirement": "Заключение объясняет интерпретацию и ограничения",
+      "required_output": "Methods/reference/resources/dates/QC, genotype+classification+phenotype fit, alternatives, findings withheld/unknown, reanalysis triggers; VUS не клиническое решение",
+      "policy": "M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ050",
+      "source_refs": [
+        "M19",
+        "M23"
+      ],
+      "source_locator": "M19/M23, PDF 3–13",
+      "requirement": "План подтверждения и реклассификации",
+      "required_output": "Technical-review queue, phase/segregation/functional evidence missing, alternative second allele; лабораторные действия только как рекомендации, не контакт/заказ",
+      "policy": "MANUAL / M",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ051",
+      "source_refs": [
+        "M20",
+        "M28"
+      ],
+      "source_locator": "M20/M28, PDF 2–30",
+      "requirement": "Выбор метода и переанализ зависят от клиники/материала",
+      "required_output": "Variant-class limitations, appropriate tissue, prior tests, updated resources/new phenotype; отрицательное NGS не исключает генетическую причину",
+      "policy": "M + MANUAL",
+      "category": "expert_or_missing_input",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ052",
+      "source_refs": [
+        "G42",
+        "G44"
+      ],
+      "source_locator": "G42 13–18; G44 32:00–99:00",
+      "requirement": "Управляемое распараллеливание и воспроизводимость",
+      "required_output": "Dry-run, explicit resources, readgroup SM/RG/LB/PL provenance, idempotence, logs/resume; не выравнивать full-genome reads только на chr1",
+      "policy": "M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ053",
+      "source_refs": [
+        "G43"
+      ],
+      "source_locator": "G43 2–8",
+      "requirement": "Caller/BQSR/cohort policy и CPU/GPU версии",
+      "required_output": "Варианты Parabricks/GATK/DeepVariant — альтернативы; BQSR/known-sites policy и совместимые версии фиксировать, совместимость не равна точному совпадению всех версий; small cohort ≠ автоматически VQSR",
+      "policy": "M",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ054",
+      "source_refs": [
+        "M33",
+        "M34"
+      ],
+      "source_locator": "M33 L20, M34 L30",
+      "requirement": "Sherloc",
+      "required_output": "Уточнённая система классификации; ручное сопоставление правил, не второй независимый голос рядом с ACMG. [Авторская публикация](https://pubmed.ncbi.nlm.nih.gov/28492532/).",
+      "policy": "Уточнённая система классификации; ручное сопоставление правил, не второй независимый голос рядом с ACMG. [Авторская публикация](https://pubmed.ncbi.nlm.nih.gov/28492532/).",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ055",
+      "source_refs": [
+        "M33"
+      ],
+      "source_locator": "M33 L119/124/202",
+      "requirement": "Mastermind",
+      "required_output": "Поиск публикаций по варианту, доступ/лицензия отдельно; local evidence worksheet с PMID/DOI. [Авторский продукт](https://www.genomenon.com/mastermind) указывает freemium и лицензируемые API/flat files. Бесплатный полный dump не предполагается.",
+      "policy": "Поиск публикаций по варианту, доступ/лицензия отдельно; local evidence worksheet с PMID/DOI. [Авторский продукт](https://www.genomenon.com/mastermind) указывает freemium и лицензируемые API/flat files. Бесплатный полный dump не предполагается.",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ056",
+      "source_refs": [
+        "M33",
+        "M34"
+      ],
+      "source_locator": "M33 L136–137/271; M34 L130/311",
+      "requirement": "MetaLR, MaxEntScan",
+      "required_output": "Предикторы из примеров Franklin/ACMG; версия/score/applicability/missing сохраняются, включение только с допустимым локальным источником.",
+      "policy": "Предикторы из примеров Franklin/ACMG; версия/score/applicability/missing сохраняются, включение только с допустимым локальным источником.",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ057",
+      "source_refs": [
+        "M35"
+      ],
+      "source_locator": "M35 L74–79/126–127",
+      "requirement": "Helix, `TOOLST`",
+      "required_output": "MT-популяционная таблица и показатель в конспекте. Точный продукт/release и расшифровка TOOLST не установлены; не подставлять MitoTip по догадке.",
+      "policy": "MT-популяционная таблица и показатель в конспекте. Точный продукт/release и расшифровка TOOLST не установлены; не подставлять MitoTip по догадке.",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ058",
+      "source_refs": [
+        "M24"
+      ],
+      "source_locator": "M24 L182–183",
+      "requirement": "CanVIG-UK, gene-specific BRCA1/BRCA2 guidance",
+      "required_output": "Пример ген-специфичных порогов, не общий порог для ГКМП. [Официальная guidance](https://www.cangene-canvaruk.org/canvig-uk-guidance).",
+      "policy": "Пример ген-специфичных порогов, не общий порог для ГКМП. [Официальная guidance](https://www.cangene-canvaruk.org/canvig-uk-guidance).",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ059",
+      "source_refs": [
+        "M32"
+      ],
+      "source_locator": "M32 L121/134–138/234/243",
+      "requirement": "LOINC, Phenopacket",
+      "required_output": "Кодирование измерений и формат структурированного фенотипа, показанные в HPO/SAMS; не разрешение загружать пациента.",
+      "policy": "Кодирование измерений и формат структурированного фенотипа, показанные в HPO/SAMS; не разрешение загружать пациента.",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ060",
+      "source_refs": [
+        "M36",
+        "M29"
+      ],
+      "source_locator": "M36 L154; M29 L137",
+      "requirement": "CCDS; `LenVar`",
+      "required_output": "CCDS — поле референсного coding sequence; LenVar — неясное имя в HTML при обсуждении LRG, вероятная ошибка конспекта; точную БД не выдумывать.",
+      "policy": "CCDS — поле референсного coding sequence; LenVar — неясное имя в HTML при обсуждении LRG, вероятная ошибка конспекта; точную БД не выдумывать.",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    },
+    {
+      "id": "REQ061",
+      "source_refs": [
+        "M40",
+        "G44"
+      ],
+      "source_locator": "M40; G44 L7",
+      "requirement": "NCCN/AMP/ASCO/CAP; 1000 Genomes",
+      "required_output": "Онкологические руководства — отдельная ветка; 1000 Genomes в GATK — источник учебных данных, не обязанность менять исходные 4 образца.",
+      "policy": "Онкологические руководства — отдельная ветка; 1000 Genomes в GATK — источник учебных данных, не обязанность менять исходные 4 образца.",
+      "category": "research_output_required",
+      "actual_status": "NOT_PROVEN_COMPLETE_BY_RESOURCE_AVAILABILITY"
+    }
+  ],
+  "mandatory_research_outputs": [
+    "separate stop_gained",
+    "separate stop_lost",
+    "start_lost",
+    "frameshift",
+    "splice",
+    "per-transcript consequences/positions/HGVS/version",
+    "top10 and top20 per sample and cohort",
+    "AlphaMissense exact transcript/protein mapping; N/A vs missing",
+    "carrier/intersection matrices",
+    "raw and quality evidence"
+  ],
+  "interpretation_gates": [
+    "No automatic ACMG/PVS1/LoF/GoF assignment",
+    "No KEGG enrichment reinstatement",
+    "No legacy candidate reuse",
+    "Missing is not benign or AF zero",
+    "Public gene evidence is not a patient diagnosis",
+    "No patient variant APIs",
+    "Sealed annotation runtime approval/binding unchanged; candidate requires root review"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "bundle_id": "revel-source-only-v1",
+  "resource": "REVEL",
+  "version": "1.3",
+  "discovery_url": "https://sites.google.com/site/revelgenomics/downloads",
+  "publisher_record": "https://zenodo.org/records/7072866",
+  "url": "https://zenodo.org/records/7072866/files/revel-v1.3_all_chromosomes.zip",
+  "file": "revel-v1.3_all_chromosomes.zip",
+  "expected_bytes": 667102707,
+  "publisher_md5": "3ea2bc33e6b5455fc7e9899da863b5fe",
+  "max_bytes": 700000000,
+  "deadline_utc": "2026-11-06T03:46:48.046025+00:00",
+  "license": "Free for non-commercial use per official REVEL downloads page; contact authors for other uses",
+  "project_noncommercial_purpose_confirmed": false,
+  "download_authorized_source_only": true,
+  "enable_variant_scores": false,
+  "assembly": "Original GRCh37 coordinates plus lifted GRCh38 coordinate column; no guessed liftover",
+  "adapter_status": "NOT_IMPLEMENTED_OR_VALIDATED; no patient scores enabled",
+  "before_use": ["Confirm project purpose complies with original author terms", "Pin a plugin compatible with VEP115, not unreviewed VEP116", "Validate exact GRCh38 REF/ALT, transcript/protein match and missing lifted positions", "Build local sorted/indexed score tables and pass public controls", "Separate candidate review before annotation queue binding"],
+  "attribution": "Ioannidis et al. REVEL; official REVEL authors; Zenodo record 7072866; accessed 2026-11-05",
+  "size_note": "Legacy downloads landing page advertises 526 MB; linked Zenodo record and actual HEAD report 667,102,707 bytes. Actual bytes govern the ceiling."
+}
