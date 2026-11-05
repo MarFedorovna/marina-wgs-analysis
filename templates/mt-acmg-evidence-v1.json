@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "template_id": "mt-acmg-evidence-v1",
+  "record_status": "UNASSESSED_TEMPLATE",
+  "scope": "research manual mtDNA evidence review; no automatic class or criterion strength",
+  "patient_data_in_template": false,
+  "rule_source": {
+    "official_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7717623/",
+    "doi": "10.1002/humu.24107",
+    "pmid": "32906214",
+    "current_guidance_check": "REQUIRED_BEFORE_USE",
+    "local_cspec_document": null,
+    "specification_version": null,
+    "document_sha256": null,
+    "gene_category_applicability_reviewed": false
+  },
+  "identity": {
+    "local_sample_id": null,
+    "reference_accession": "NC_012920.1",
+    "reference_fasta_sha256": null,
+    "normalized_allele_key": null,
+    "hgvsm": null,
+    "gene": null,
+    "gene_category": null,
+    "allowed_gene_categories": ["protein_coding", "tRNA", "rRNA", "noncoding"]
+  },
+  "technical_evidence": {
+    "source_vcf_and_sha256": null,
+    "source_bam_and_index": null,
+    "tissue": null,
+    "collection_age": null,
+    "depth": null,
+    "ref_count": null,
+    "alt_count": null,
+    "heteroplasmy_fraction": null,
+    "heteroplasmy_uncertainty": null,
+    "caller_filter_and_warnings": [],
+    "read_review_record": null,
+    "numt_boundary_assessment": "UNASSESSED",
+    "haplochecker_flag": null,
+    "contamination_confirmation": "UNASSESSED",
+    "haplogroup_and_tool_version": null,
+    "clinical_detection_limit_validated": false,
+    "low_fraction_claim": "Do not transfer a lecture or publication detection limit to this workflow"
+  },
+  "population_evidence": {
+    "mitomap_record_release_and_status": null,
+    "helixmt_release": null,
+    "gnomad_mt_release": null,
+    "homoplasmic_ac_an": null,
+    "heteroplasmic_ac_an": null,
+    "haplogroup_specific_counts": null,
+    "population_filters_and_detection_limits": null,
+    "reference_and_indel_representation_matched": false,
+    "missing_is_zero": false
+  },
+  "clinical_family_evidence": {
+    "phenotype_hpo_present_absent_unknown": [],
+    "onset_and_cardiac_findings": null,
+    "maternal_family_history": null,
+    "maternity_evidence": null,
+    "maternal_tissues_tested_and_assay_limits": [],
+    "affected_relatives_tissues_heteroplasmy": [],
+    "independent_probands_and_haplogroups": [],
+    "nuclear_and_mt_alternative_causes_review": null
+  },
+  "functional_literature_evidence": {
+    "records": [],
+    "record_fields": ["pmid_or_doi", "variant_identity", "assay_model", "controls", "mutant_load", "replication", "effect_size", "gene_category", "independence", "applicability", "limitations"],
+    "computational_scores_are_functional_assays": false,
+    "protein_predictors_applicable_to_trna_rrna": false,
+    "nuclear_nmd_or_splicing_rule_applicable_to_mt": false
+  },
+  "criterion_record_fields": ["code", "state", "strength", "specification_version", "evidence_refs", "rationale", "counterevidence", "independence_check", "reviewer", "review_date"],
+  "criterion_state_enum": ["unknown", "applied", "not_applied", "not_applicable"],
+  "criteria_to_review": ["PVS1", "PS1", "PS2", "PS3", "PS4", "PM1", "PM2", "PM3", "PM4", "PM5", "PM6", "PP1", "PP2", "PP3", "PP4", "PP5", "BA1", "BS1", "BS2", "BS3", "BS4", "BP1", "BP2", "BP3", "BP4", "BP5", "BP6", "BP7"],
+  "criteria": [],
+  "final_review": {
+    "research_classification": null,
+    "combination_rule_version": null,
+    "independent_evidence_double_counting_reviewed": false,
+    "expert_reviewer": null,
+    "date": null,
+    "limitations": [],
+    "clinical_diagnosis_or_negative_test": false
+  }
+}
