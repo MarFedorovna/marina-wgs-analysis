@@ -4,7 +4,7 @@ Private repository for reproducible server setup, data transfer utilities, and a
 
 ## Selected environment
 
-The deployment prepared in Brev uses Lambda `gpu_1x_a100_sxm4`: one NVIDIA A100 with 40 GB VRAM, 30 vCPU, 200 GiB system RAM, and a fixed 512 GiB SSD. The console quoted **$2.39/hour including storage** on 2026-11-05; verify the current quote before deployment. Provisioning and processing have not been measured by this repository.
+The selected Brev environment uses Lambda `gpu_1x_a100_sxm4`: one NVIDIA A100 with 40 GB VRAM, 30 vCPU, 200 GiB quoted system RAM, and a fixed 512 GiB SSD. The console quoted **$2.39/hour including storage** on 2026-11-05; verify the current quote before any new deployment. Docker, NVIDIA Container Toolkit and the Parabricks image are installed, and hardware/container exposure and tool-version checks passed. See [runtime validation](docs/runtime-validation.md) for observed hardware, installed versions and the immutable image digest. No FASTQ alignment or variant calling has been run by these setup checks, and analysis time has not been measured.
 
 This Brev offering is marked **pre-release** and has **no stop/start**. Charges continue until termination. Brev warns that exhausted organization credits cause the instance and its data to be deleted. Keep original inputs locally, download verified completed outputs during the run, and finish with a budget reserve. A planned budget is not a provider-enforced spending cap.
 
@@ -15,14 +15,14 @@ This Brev offering is marked **pre-release** and has **no stop/start**. Charges 
 3. Transfer the selected data over SSH/SFTP and verify SHA-256 on the server.
 4. Supply a fixed reference FASTA, indexes, known-sites resources and sample/read-group metadata in local configuration. Do not infer the reference or sample metadata from filenames.
 5. Process each sample through the same pinned pipeline: alignment, coordinate sorting, duplicate marking, BQSR when configured, and HaplotypeCaller gVCF generation.
-6. Complete cohort genotyping and explicit filtering with a compatible, pinned workflow, then review technical QC before annotation or interpretation.
+6. Subsequent stage (not implemented by this runner): cohort joint genotyping, explicit filtering, annotation and interpretation.
 7. Download outputs and logs, verify their checksums locally, and terminate the paid VM after confirming the retained copies.
 
 One GPU is shared through a controlled queue. Four input samples do not imply that four memory-heavy GPU jobs run simultaneously. The scheduler must account for CPU threads, system RAM, GPU memory and scratch disk together.
 
 ## Software and reproducibility
 
-The planned Parabricks container is `nvcr.io/nvidia/clara/clara-parabricks:4.8.0-1`. Record the resolved image digest, actual driver/tool versions, reference/resource checksums, command lines and QC metrics with each run. Docker packages the analysis tools; Kubernetes is not required for this single-server workload. Server and transfer instructions are added alongside their respective scripts.
+The pinned Parabricks container is `nvcr.io/nvidia/clara/clara-parabricks:4.8.0-1`; the pulled immutable digest is recorded in [runtime validation](docs/runtime-validation.md). Record the resolved image digest, actual driver/tool versions, reference/resource checksums, command lines and QC metrics with each run. Docker packages the analysis tools; Kubernetes is not required for this single-server workload. Follow the [server instructions](docs/server-setup.md) and [verified transfer instructions](transfer/README.md) alongside their respective scripts.
 
 Parabricks 4.8 documents GATK 4.3.0.0 and BWA-MEM 0.7.17 as compatibility baselines. Do not equate this with running an arbitrary newer GATK version on a GPU. Small output differences are documented, so compare normalized variants and genotypes rather than expecting identical compressed files. Technical rerunning cannot replace missing sequencing coverage.
 
@@ -32,7 +32,7 @@ Copy only the reviewed code to the Linux VM and follow [server setup](docs/serve
 
 ```bash
 sudo bash scripts/bootstrap-server.sh /srv/marina
-bash scripts/preflight-server.sh /srv/marina
+sudo bash scripts/preflight-server.sh /srv/marina
 ```
 
 Create the private run configuration from the generic examples, using `/srv/marina/private/` for real sample details. Inspect generated commands before execution:
@@ -54,6 +54,8 @@ The default is a dry run. Add `--execute` only after supplying and checking the 
 ## Documentation
 
 - [Server setup and analysis commands](docs/server-setup.md)
+- [Observed runtime validation](docs/runtime-validation.md)
+- [Verified data transfer](transfer/README.md)
 - [Operations and budget](docs/operations.md)
 - [Official Parabricks installation requirements](https://docs.nvidia.com/clara/parabricks/get-started/installation-requirements)
 - [Parabricks compatibility baselines](https://docs.nvidia.com/clara/parabricks/about-parabricks/software-overview/output-accuracy-and-compatible-cpu-software-versions)
