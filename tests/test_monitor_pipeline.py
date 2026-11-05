@@ -15,6 +15,31 @@ spec.loader.exec_module(m)
 
 
 class MonitorTests(unittest.TestCase):
+    def test_reviewed_controller_supersedes_stopped_historical_queue(self):
+        with tempfile.TemporaryDirectory() as temp:
+            private = Path(temp)
+            (private / 'annotation-queue-status.json').write_text(json.dumps({'status': 'STOPPED_VM_ALLOWANCE_OR_CANCEL'}))
+            folder = private / 'annotation-reference-controller-v1'; folder.mkdir()
+            (folder / 'controller-status.json').write_text(json.dumps({'status': 'WAITING_ORIGINAL_VEP_CORE_PASS_NO_APPROVAL_NO_QUEUE', 'rule_sha256': 'a' * 64, 'pid': 123}))
+            result = m.annotation_status(private, private / 'no-proc')
+            self.assertEqual(result['source'], 'reviewed_reference_v2_controller')
+            self.assertEqual(result['status'], 'WAITING_ORIGINAL_VEP_CORE_PASS_NO_APPROVAL_NO_QUEUE')
+            self.assertEqual(result['historical_queue_status'], 'STOPPED_VM_ALLOWANCE_OR_CANCEL')
+            self.assertFalse(result['controller']['verified_active'])
+            queue = private / 'annotation-public-hcm-v2-review'; queue.mkdir()
+            (queue / 'queue-status.json').write_text(json.dumps({'status': 'PUBLIC_CONTROLS_PASS_PATIENT_ANNOTATION_RUNNING'}))
+            result = m.annotation_status(private, private / 'no-proc')
+            self.assertEqual(result['source'], 'reviewed_reference_v2_queue')
+            self.assertEqual(result['status'], 'PUBLIC_CONTROLS_PASS_PATIENT_ANNOTATION_RUNNING')
+
+    def test_invalid_controller_receipt_does_not_hide_original_queue(self):
+        with tempfile.TemporaryDirectory() as temp:
+            private = Path(temp)
+            (private / 'annotation-queue-status.json').write_text(json.dumps({'status': 'WAITING_VEP_RESOURCES'}))
+            folder = private / 'annotation-reference-controller-v1'; folder.mkdir()
+            (folder / 'controller-status.json').write_text('{"status":"COMPLETE","rule_sha256":"invalid"}')
+            self.assertEqual(m.annotation_status(private, private / 'no-proc')['source'], 'original_queue')
+
     def test_sparse_size_does_not_count_as_verified(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / 'sparse'
