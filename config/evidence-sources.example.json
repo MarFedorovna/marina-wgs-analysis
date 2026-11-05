@@ -1,0 +1,911 @@
+{
+  "schema_version": 1,
+  "purpose": "Requirements registry; not an executable runtime annotation configuration",
+  "audited_on": "2026-11-05",
+  "external_patient_queries_allowed": false,
+  "defaults": {
+    "enabled": false,
+    "release": null,
+    "assembly": null,
+    "local_path": null,
+    "sha256": null,
+    "downloaded": false
+  },
+  "required_resource_lock_fields": [
+    "resource_id",
+    "release",
+    "retrieved_utc",
+    "source_url",
+    "sha256",
+    "size_bytes",
+    "assembly",
+    "license_url",
+    "license_review_status"
+  ],
+  "missing_policy": "Record missing/unavailable/not_applicable; never synthesize evidence or benign status",
+  "resources": [
+    {
+      "id": "clinvar",
+      "role": "variant-condition assertions",
+      "source_refs": [
+        "V1 03:59-04:45",
+        "M09 p13-14"
+      ],
+      "scope": "germline_snv_indel",
+      "official_url": "https://www.ncbi.nlm.nih.gov/clinvar/",
+      "download_url": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/",
+      "access": "public_bulk_xml_vcf_tsv",
+      "license_review_status": "preserve_NCBI_and_submitter_terms",
+      "fields": [
+        "variation_id",
+        "allele_id",
+        "significance",
+        "condition",
+        "review_status",
+        "conflict",
+        "last_evaluated",
+        "release"
+      ],
+      "note": "VCF is summary and excludes imprecise locations; use submissions XML/TSV for detailed review"
+    },
+    {
+      "id": "clingen_gene_validity",
+      "role": "gene-disease validity",
+      "source_refs": [
+        "M08 p13",
+        "M32"
+      ],
+      "scope": "germline",
+      "official_url": "https://search.clinicalgenome.org/kb/downloads",
+      "access": "public_bulk_csv",
+      "license_review_status": "review_required",
+      "fields": [
+        "gene_id",
+        "disease",
+        "inheritance",
+        "classification",
+        "curation_date",
+        "expert_panel"
+      ]
+    },
+    {
+      "id": "clingen_dosage",
+      "role": "HI_TS",
+      "source_refs": [
+        "M30 26.10.2026"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://search.clinicalgenome.org/kb/downloads",
+      "access": "public_bulk_csv_tsv_bed",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "clingen_vcep_cspec",
+      "role": "variant_evidence_and_criteria_specification",
+      "source_refs": [
+        "M10 p27-50",
+        "M11 p2"
+      ],
+      "scope": "germline",
+      "official_url": "https://clinicalgenome.org/tools/clingen-variant-classification-guidance",
+      "access": "public_guidance_and_downloads",
+      "license_review_status": "review_required",
+      "fields": [
+        "specification_version",
+        "gene_disease",
+        "criterion",
+        "strength",
+        "rationale",
+        "pmid"
+      ]
+    },
+    {
+      "id": "acmg_amp",
+      "role": "classification_framework",
+      "source_refs": [
+        "V2 01:28-04:21",
+        "M10 p3-28"
+      ],
+      "scope": "germline",
+      "official_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4544753/",
+      "access": "manual_evidence_framework",
+      "license_review_status": "publication_terms",
+      "criteria": [
+        "PVS1",
+        "PS1",
+        "PS2",
+        "PS3",
+        "PS4",
+        "PM1",
+        "PM2",
+        "PM3",
+        "PM4",
+        "PM5",
+        "PM6",
+        "PP1",
+        "PP2",
+        "PP3",
+        "PP4",
+        "PP5",
+        "BA1",
+        "BS1",
+        "BS2",
+        "BS3",
+        "BS4",
+        "BP1",
+        "BP2",
+        "BP3",
+        "BP4",
+        "BP5",
+        "BP6",
+        "BP7"
+      ],
+      "note": "Use current ClinGen specifications; deprecated PP5/BP6 and correlated predictor votes must not be blindly counted"
+    },
+    {
+      "id": "gnomad",
+      "role": "population_AF_AC_AN_Hom_and_constraint",
+      "source_refs": [
+        "V1 10:54-12:24",
+        "M09 p19",
+        "M30"
+      ],
+      "scope": "germline_and_cnv",
+      "official_url": "https://gnomad.broadinstitute.org/",
+      "access": "official_release_bulk_if_terms_accepted",
+      "license_review_status": "review_required",
+      "fields": [
+        "AF",
+        "AC",
+        "AN",
+        "nhomalt",
+        "population",
+        "popmax_definition",
+        "filter",
+        "coverage",
+        "release",
+        "pLI",
+        "LOEUF"
+      ]
+    },
+    {
+      "id": "exac",
+      "role": "historical_population_context",
+      "source_refs": [
+        "M27",
+        "M33"
+      ],
+      "scope": "historical",
+      "official_url": "https://gnomad.broadinstitute.org/",
+      "access": "historical_only",
+      "license_review_status": "review_required",
+      "note": "Not a substitute for a current pinned gnomAD release"
+    },
+    {
+      "id": "ruseq",
+      "role": "population_context",
+      "source_refs": [
+        "M10 p9",
+        "M34 05:04"
+      ],
+      "scope": "germline",
+      "official_url": "https://ruseq.ru/",
+      "access": "manual_pending_official_download_and_terms_verification",
+      "license_review_status": "unverified"
+    },
+    {
+      "id": "all_of_us",
+      "role": "population_context",
+      "source_refs": [
+        "M34 05:04"
+      ],
+      "scope": "germline",
+      "official_url": "https://www.researchallofus.org/",
+      "access": "manual_access_dependent",
+      "license_review_status": "review_required",
+      "note": "Named in HTML lecture; participant data are not assumed publicly downloadable"
+    },
+    {
+      "id": "omim",
+      "role": "gene_disease_mechanism_inheritance",
+      "source_refs": [
+        "M09 p4-8",
+        "M08 p11"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://omim.org/",
+      "access": "web_manual_or_registered_permitted_downloads",
+      "license_review_status": "restricted_registration_commercial_redistribution_terms",
+      "note": "No scraping or unrestricted full dump assumed"
+    },
+    {
+      "id": "genereviews",
+      "role": "phenotype_mechanism_penetrance",
+      "source_refs": [
+        "M09 p9-12",
+        "M17"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.ncbi.nlm.nih.gov/books/NBK1116/",
+      "access": "public_reading",
+      "license_review_status": "chapter_reuse_terms_review"
+    },
+    {
+      "id": "lovd",
+      "role": "locus_specific_variant_evidence",
+      "source_refs": [
+        "M09 p15-18"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://databases.lovd.nl/shared/",
+      "access": "locus_specific_manual_or_permitted_export",
+      "license_review_status": "database_specific_review"
+    },
+    {
+      "id": "varsome",
+      "role": "secondary_aggregator",
+      "source_refs": [
+        "M09 p20-25",
+        "V2 platform_name_uncertain"
+      ],
+      "scope": "manual",
+      "official_url": "https://varsome.com/",
+      "access": "manual_web_api_subscription",
+      "license_review_status": "commercial_api_terms",
+      "note": "Not required for offline pipeline; no patient queries"
+    },
+    {
+      "id": "franklin",
+      "role": "secondary_aggregator",
+      "source_refs": [
+        "M09 p26-33",
+        "M33 50:00"
+      ],
+      "scope": "manual",
+      "official_url": "https://franklin.genoox.com/",
+      "access": "manual_account_terms",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "sift",
+      "role": "missense_predictor",
+      "source_refs": [
+        "V1 04:51-05:58",
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://sift.bii.a-star.edu.sg/",
+      "access": "local_precomputed_vep_cache",
+      "license_review_status": "component_terms_review"
+    },
+    {
+      "id": "polyphen2",
+      "role": "missense_predictor",
+      "source_refs": [
+        "V1 04:51-05:58",
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "http://genetics.bwh.harvard.edu/pph2/",
+      "access": "local_precomputed_vep_cache",
+      "license_review_status": "component_terms_review"
+    },
+    {
+      "id": "fathmm",
+      "role": "missense_predictor",
+      "source_refs": [
+        "V1 04:51-05:58",
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://fathmm.biocompute.org.uk/downloads.html",
+      "access": "local_software_or_authorised_scores",
+      "license_review_status": "software_GPLv3_score_package_review",
+      "note": "Inherited-disease model; HGMD training set is not redistributable"
+    },
+    {
+      "id": "revel",
+      "role": "ensemble_missense_predictor",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://sites.google.com/site/revelgenomics/downloads",
+      "access": "precomputed_download",
+      "license_review_status": "package_terms_review"
+    },
+    {
+      "id": "alphamissense",
+      "role": "missense_predictor",
+      "source_refs": [
+        "M33 50:00",
+        "M34 18:09"
+      ],
+      "scope": "germline_snv",
+      "official_url": "https://github.com/google-deepmind/alphamissense",
+      "access": "public_precomputed_download",
+      "license_review_status": "predictions_CC_BY_4.0",
+      "note": "Prediction label is not clinical ACMG classification"
+    },
+    {
+      "id": "spliceai",
+      "role": "splice_predictor",
+      "source_refs": [
+        "M11 p13",
+        "M34 18:09"
+      ],
+      "scope": "germline",
+      "official_url": "https://github.com/Illumina/SpliceAI",
+      "access": "local_models_or_precomputed_if_license_applicable",
+      "license_review_status": "PolyForm_Strict_code_CC_BY_NC_models_academic_nonprofit_scores"
+    },
+    {
+      "id": "varity",
+      "role": "missense_predictor",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": null,
+      "access": "pending_authoritative_source",
+      "license_review_status": "unverified"
+    },
+    {
+      "id": "mt_abbreviation",
+      "display_name": "MT",
+      "role": "predictor_label_unresolved",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "unresolved",
+      "official_url": null,
+      "access": "unresolved",
+      "license_review_status": "unverified",
+      "note": "Do not silently expand to MutationTaster"
+    },
+    {
+      "id": "mut_assessor_label",
+      "display_name": "MUT Assessor",
+      "role": "predictor_label",
+      "source_refs": [
+        "M33 50:00"
+      ],
+      "scope": "germline_snv",
+      "official_url": null,
+      "access": "pending_name_and_source_verification",
+      "license_review_status": "unverified"
+    },
+    {
+      "id": "cadd_uncertain",
+      "display_name": "Cart / possibly CADD",
+      "role": "fourth_predictor_uncertain_ASR",
+      "source_refs": [
+        "V1 04:51-05:58"
+      ],
+      "scope": "unresolved",
+      "official_url": null,
+      "access": "not_required_until_resolved",
+      "license_review_status": "unverified"
+    },
+    {
+      "id": "alphafold_prior_work",
+      "role": "prior_work_context_only",
+      "source_refs": [
+        "V1 08:02-08:43"
+      ],
+      "scope": "manual",
+      "official_url": null,
+      "access": "not_a_new_modelling_requirement",
+      "license_review_status": "not_applicable"
+    },
+    {
+      "id": "hpo",
+      "role": "phenotype_ontology_and_associations",
+      "source_refs": [
+        "M08 p14-17",
+        "M32"
+      ],
+      "scope": "phenotype",
+      "official_url": "https://hpo.jax.org/",
+      "access": "official_ontology_annotation_release",
+      "license_review_status": "ontology_and_annotation_terms_separately_review"
+    },
+    {
+      "id": "orphanet",
+      "role": "rare_disease_phenotype",
+      "source_refs": [
+        "M32"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.orpha.net/",
+      "access": "manual_or_authorised_Orphadata_release",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "sams",
+      "role": "HPO_matching_example",
+      "source_refs": [
+        "M08 p17"
+      ],
+      "scope": "manual",
+      "official_url": "https://genecascade.org/sams-cgi/Patients.cgi",
+      "access": "example_only_no_patient_upload",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "hgnc",
+      "role": "gene_names_stable_ids_aliases",
+      "source_refs": [
+        "M07 p16-19"
+      ],
+      "scope": "all",
+      "official_url": "https://www.genenames.org/",
+      "access": "official_bulk_release",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "ncbi_refseq_gene_mane",
+      "role": "gene_transcript_reference",
+      "source_refs": [
+        "M07 p25-37,48-49"
+      ],
+      "scope": "all",
+      "official_url": "https://www.ncbi.nlm.nih.gov/refseq/",
+      "access": "public_official_reference_files",
+      "license_review_status": "NCBI_terms_review"
+    },
+    {
+      "id": "ensembl",
+      "role": "transcripts_consequences_TSL_MANE",
+      "source_refs": [
+        "M07 p42-49"
+      ],
+      "scope": "germline",
+      "official_url": "https://www.ensembl.org/",
+      "access": "local_vep_cache_fasta_gtf_release",
+      "license_review_status": "upstream_components_review"
+    },
+    {
+      "id": "lrg",
+      "role": "reference_identifiers",
+      "source_refs": [
+        "M07 p47,51"
+      ],
+      "scope": "nomenclature",
+      "official_url": "https://www.lrg-sequence.org/",
+      "access": "reference_context",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "uniprot",
+      "role": "protein_domains_isoforms_function",
+      "source_refs": [
+        "M07 p20-21",
+        "M10 p14"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://www.uniprot.org/",
+      "access": "official_bulk_or_manual",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "ucsc",
+      "role": "genome_browser_tracks",
+      "source_refs": [
+        "M07 p22-24",
+        "M09 p22"
+      ],
+      "scope": "manual",
+      "official_url": "https://genome.ucsc.edu/",
+      "access": "local_downloadable_tracks_if_terms_allow",
+      "license_review_status": "track_specific_review"
+    },
+    {
+      "id": "dbsnp",
+      "role": "rs_identifiers_not_pathogenicity",
+      "source_refs": [
+        "M07 p38-40"
+      ],
+      "scope": "germline",
+      "official_url": "https://www.ncbi.nlm.nih.gov/snp/",
+      "access": "public_official_bulk",
+      "license_review_status": "NCBI_terms_review"
+    },
+    {
+      "id": "ncbi_variation_viewer",
+      "role": "browser",
+      "source_refs": [
+        "M07 p41"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.ncbi.nlm.nih.gov/variation/view/",
+      "access": "manual_no_patient_queries",
+      "license_review_status": "NCBI_terms_review"
+    },
+    {
+      "id": "ncbi_dbvar_dbgap",
+      "role": "named_catalog_context",
+      "source_refs": [
+        "M07 p26"
+      ],
+      "scope": "cnv_sv_or_controlled_research",
+      "official_url": "https://www.ncbi.nlm.nih.gov/",
+      "access": "dbVar_public_dbGaP_controlled_where_applicable",
+      "license_review_status": "resource_specific_review",
+      "note": "Mentioned in NCBI catalogue, not an order to acquire participant data"
+    },
+    {
+      "id": "pubmed",
+      "role": "primary_literature_evidence",
+      "source_refs": [
+        "M07 p26",
+        "V2 08:02-08:40"
+      ],
+      "scope": "manual",
+      "official_url": "https://pubmed.ncbi.nlm.nih.gov/",
+      "access": "public_bibliography_no_patient_data",
+      "license_review_status": "abstract_fulltext_rights_vary"
+    },
+    {
+      "id": "hgvs",
+      "role": "nomenclature",
+      "source_refs": [
+        "M12 p3-23"
+      ],
+      "scope": "all",
+      "official_url": "https://hgvs-nomenclature.org/stable/",
+      "access": "public_guidance_pinned_version",
+      "license_review_status": "guidance_terms_review"
+    },
+    {
+      "id": "variantvalidator",
+      "role": "HGVS_validation",
+      "source_refs": [
+        "M12 p20-23"
+      ],
+      "scope": "germline",
+      "official_url": "https://variantvalidator.org/",
+      "access": "local_install_if_dependencies_prepared_else_manual_queue",
+      "license_review_status": "review_required",
+      "external_patient_queries_allowed": false
+    },
+    {
+      "id": "mutalyzer",
+      "role": "HGVS_validation",
+      "source_refs": [
+        "M12 p20"
+      ],
+      "scope": "germline",
+      "official_url": "https://mutalyzer.nl/",
+      "access": "local_install_or_manual_queue",
+      "license_review_status": "review_required",
+      "external_patient_queries_allowed": false
+    },
+    {
+      "id": "decipher",
+      "role": "CNV_genotype_phenotype_dosage",
+      "source_refs": [
+        "M30"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://www.deciphergenomics.org/",
+      "access": "manual_or_authorised_release",
+      "license_review_status": "access_and_redistribution_review"
+    },
+    {
+      "id": "dgv",
+      "role": "structural_population_context",
+      "source_refs": [
+        "M30 opening_course_topic"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://dgv.tcag.ca/dgv/app/home",
+      "access": "official_release_if_terms_allow",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "iscn",
+      "role": "cytogenomic_nomenclature",
+      "source_refs": [
+        "M13 p2,7,13"
+      ],
+      "scope": "cnv_sv",
+      "official_url": "https://iscn.karger.com/",
+      "access": "manual_standard",
+      "license_review_status": "publisher_copyright"
+    },
+    {
+      "id": "mitomap",
+      "role": "MT_population_and_disease_evidence",
+      "source_refs": [
+        "M14 p8,12",
+        "M35 18:15"
+      ],
+      "scope": "mitochondrial",
+      "official_url": "https://www.mitomap.org/MITOMAP",
+      "access": "official_release_or_manual_if_terms_allow",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "mt_acmg_specification",
+      "role": "MT_specific_ACMG",
+      "source_refs": [
+        "M14 p9-10"
+      ],
+      "scope": "mitochondrial",
+      "official_url": "https://doi.org/10.1002/humu.24107",
+      "access": "manual_framework",
+      "license_review_status": "publication_terms"
+    },
+    {
+      "id": "acmg_secondary_findings",
+      "role": "consent_dependent_secondary_findings",
+      "source_refs": [
+        "M16 p6-9"
+      ],
+      "scope": "secondary_findings",
+      "official_url": "https://search.clinicalgenome.org/kb/genes/acmgsf",
+      "access": "versioned_list_manual_review",
+      "license_review_status": "review_required",
+      "requires_consent": true,
+      "note": "Lecture mentions SFv3.3/84 genes as historical teaching version; do not silently assume current list"
+    },
+    {
+      "id": "cosmic",
+      "role": "somatic_variant_evidence",
+      "source_refs": [
+        "M15 p40-45"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://cancer.sanger.ac.uk/cosmic",
+      "access": "licensed_or_account_dependent",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "my_cancer_genome",
+      "role": "somatic_biomarkers",
+      "source_refs": [
+        "M15 p40-47"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.mycancergenome.org/",
+      "access": "manual",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "docm",
+      "role": "curated_cancer_mutations",
+      "source_refs": [
+        "M15 p41",
+        "M40"
+      ],
+      "scope": "somatic_only",
+      "official_url": "http://docm.info/",
+      "access": "manual_pending_current_availability",
+      "license_review_status": "unverified"
+    },
+    {
+      "id": "pharmgkb",
+      "role": "gene_drug_evidence",
+      "source_refs": [
+        "M15 p41"
+      ],
+      "scope": "somatic_pharmacogenomics",
+      "official_url": "https://www.pharmgkb.org/",
+      "access": "official_release_if_terms_allow",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "dgidb",
+      "role": "drug_gene_interactions",
+      "source_refs": [
+        "M15 p41"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.dgidb.org/",
+      "access": "official_release_if_terms_allow",
+      "license_review_status": "upstream_sources_review"
+    },
+    {
+      "id": "oncokb",
+      "role": "oncology_actionability",
+      "source_refs": [
+        "M15 p49,52-53"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.oncokb.org/",
+      "access": "manual_or_licensed_api",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "jax_ckb",
+      "role": "oncology_actionability",
+      "source_refs": [
+        "M15 p49-51"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://ckb.jax.org/",
+      "access": "manual_core_or_licensed_boost",
+      "license_review_status": "review_required"
+    },
+    {
+      "id": "fda_drug_labels",
+      "role": "approved_indication_context",
+      "source_refs": [
+        "M15 p27,48"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.fda.gov/",
+      "access": "manual_official_labels",
+      "license_review_status": "resource_specific_review"
+    },
+    {
+      "id": "kegg_enrichment_withdrawn",
+      "role": "withdrawn_analysis",
+      "source_refs": [
+        "V1 07:21-08:01"
+      ],
+      "scope": "withdrawn",
+      "official_url": null,
+      "access": "disabled_not_a_current_requirement",
+      "license_review_status": "not_applicable"
+    },
+    {
+      "id": "mastermind",
+      "role": "literature_search",
+      "source_refs": [
+        "M33 L119,124,202"
+      ],
+      "scope": "manual",
+      "official_url": "https://www.genomenon.com/mastermind",
+      "access": "freemium_web_or_licensed_flat_files_api",
+      "license_review_status": "commercial_terms_review",
+      "note": "No patient queries; PubMed/manual evidence is API-free alternative"
+    },
+    {
+      "id": "sherloc",
+      "role": "classification_refinement",
+      "source_refs": [
+        "M33 L20",
+        "M34 00:00"
+      ],
+      "scope": "germline_manual",
+      "official_url": "https://pubmed.ncbi.nlm.nih.gov/28492532/",
+      "access": "publication_framework",
+      "license_review_status": "publication_terms",
+      "note": "Teaching reference; do not combine scores with ACMG as independent evidence"
+    },
+    {
+      "id": "metalr",
+      "role": "ensemble_predictor",
+      "source_refs": [
+        "M33 L136-137,271"
+      ],
+      "scope": "germline_snv",
+      "official_url": null,
+      "access": "pending_official_score_package",
+      "license_review_status": "unverified",
+      "note": "Named in Franklin example; score missing until authorised local resource exists"
+    },
+    {
+      "id": "maxentscan",
+      "role": "splice_predictor",
+      "source_refs": [
+        "M34 L130,311"
+      ],
+      "scope": "germline",
+      "official_url": null,
+      "access": "pending_authoritative_source",
+      "license_review_status": "unverified",
+      "note": "Named alongside PolyPhen/AlphaMissense/SpliceAI; no external patient query"
+    },
+    {
+      "id": "helix_population_mt",
+      "role": "MT_population_context",
+      "source_refs": [
+        "M35 L74,126"
+      ],
+      "scope": "mitochondrial",
+      "official_url": null,
+      "access": "pending_authoritative_download_and_name",
+      "license_review_status": "unverified",
+      "note": "Label Helix in teaching frequency table; do not infer exact release or counts for current samples"
+    },
+    {
+      "id": "toolst_label",
+      "role": "MT_score_label_unresolved",
+      "source_refs": [
+        "M35 L75,79,127"
+      ],
+      "scope": "mitochondrial",
+      "official_url": null,
+      "access": "unresolved",
+      "license_review_status": "unverified",
+      "note": "Keep exact label TOOLST from HTML; not silently MitoTip or another predictor"
+    },
+    {
+      "id": "canvig_uk",
+      "role": "cancer_susceptibility_gene_specific_guidance",
+      "source_refs": [
+        "M24 L182-183"
+      ],
+      "scope": "cancer_germline_manual",
+      "official_url": "https://www.cangene-canvaruk.org/canvig-uk-guidance",
+      "access": "public_guidance_download",
+      "license_review_status": "publication_terms",
+      "note": "Shown BRCA1/BRCA2 example; not a universal HCM threshold"
+    },
+    {
+      "id": "loinc",
+      "role": "clinical_measurement_codes",
+      "source_refs": [
+        "M32 L121,134-135,234"
+      ],
+      "scope": "phenotype_context",
+      "official_url": "https://loinc.org/",
+      "access": "manual_ontology_context",
+      "license_review_status": "review_required",
+      "note": "Named in HPO interface example; not an instruction to download clinical records"
+    },
+    {
+      "id": "phenopacket",
+      "role": "structured_phenotype_format",
+      "source_refs": [
+        "M32 L138,243"
+      ],
+      "scope": "phenotype_context",
+      "official_url": "https://phenopacket-schema.readthedocs.io/",
+      "access": "local_schema_if_needed",
+      "license_review_status": "review_required",
+      "note": "Mentioned as SAMS upload option; no patient upload authorised by source"
+    },
+    {
+      "id": "ncbi_ccds",
+      "role": "coding_sequence_identifiers",
+      "source_refs": [
+        "M36 L154"
+      ],
+      "scope": "nomenclature",
+      "official_url": "https://www.ncbi.nlm.nih.gov/CCDS/",
+      "access": "reference_context",
+      "license_review_status": "review_required",
+      "note": "Reference record field, not a new pathogenicity source"
+    },
+    {
+      "id": "lenvar_label",
+      "role": "resource_name_uncertain_HTML",
+      "source_refs": [
+        "M29 L137"
+      ],
+      "scope": "unresolved",
+      "official_url": null,
+      "access": "unresolved",
+      "license_review_status": "unverified",
+      "note": "HTML renders LenVar in LRG discussion; may be transcription error; do not create fabricated database"
+    },
+    {
+      "id": "nccn_amp_asco_cap",
+      "role": "oncology_guideline_context",
+      "source_refs": [
+        "M40"
+      ],
+      "scope": "somatic_only",
+      "official_url": "https://www.nccn.org/",
+      "access": "manual_guidelines_access_dependent",
+      "license_review_status": "publisher_terms_review",
+      "note": "Not germline HCM classification; no automatic therapy recommendations"
+    },
+    {
+      "id": "1000_genomes_teaching",
+      "role": "teaching_input_context",
+      "source_refs": [
+        "G44 L7"
+      ],
+      "scope": "teaching_only",
+      "official_url": "https://www.internationalgenome.org/",
+      "access": "not_a_current_analysis_dependency",
+      "license_review_status": "not_applicable",
+      "note": "Course restricted training chromosomes do not restrict current whole-reference mapping"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "bundle_id": "vep115.2-cache115-clinvar20261025-clingen20261105",
+  "assembly": "GRCh38",
+  "min_free_gib": 150,
+  "max_cache_expanded_gib": 128,
+  "analysis_reserve_gib": 80,
+  "vep": {
+    "version": "115.2",
+    "cache_version": 115,
+    "species": "homo_sapiens",
+    "image": "ensemblorg/ensembl-vep@sha256:ed6b660e278458109afc00d5e730aee240a3bf77e817796386033e1a18963152",
+    "source_tag": "release_115.2",
+    "platform": "linux/amd64",
+    "tag_metadata_url": "https://hub.docker.com/v2/repositories/ensemblorg/ensembl-vep/tags/release_115.2"
+  },
+  "resources": [
+    {
+      "name": "vep_cache", "enabled": true, "version": "Ensembl115_GRCh38",
+      "url": "https://ftp.ensembl.org/pub/release-115/variation/indexed_vep_cache/homo_sapiens_vep_115_GRCh38.tar.gz",
+      "destination": "homo_sapiens_vep_115_GRCh38.tar.gz", "bytes": 25272957721,
+      "bsd_sum": 1402, "bsd_blocks": 24680623,
+      "publisher_checksum_source": "https://ftp.ensembl.org/pub/release-115/variation/indexed_vep_cache/CHECKSUMS"
+    },
+    {
+      "name": "clinvar", "enabled": true, "version": "2026-10-25_GRCh38",
+      "url": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/archive_2.0/2026/clinvar_20261025.vcf.gz",
+      "destination": "clinvar_20261025.vcf.gz", "bytes": 200716453,
+      "md5": "da0094ec396d77359af510591fcea70c",
+      "publisher_checksum_source": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/archive_2.0/2026/clinvar_20261025.vcf.gz.md5"
+    },
+    {
+      "name": "clinvar_index", "enabled": true, "version": "2026-10-25_GRCh38",
+      "url": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/archive_2.0/2026/clinvar_20261025.vcf.gz.tbi",
+      "destination": "clinvar_20261025.vcf.gz.tbi", "max_bytes": 2097152
+    },
+    {
+      "name": "clingen_validity", "enabled": true, "version": "snapshot_2026-11-05",
+      "url": "https://search.clinicalgenome.org/kb/gene-validity/download",
+      "destination": "clingen-gene-validity-20261105.csv", "max_bytes": 5242880,
+      "required_text": ["GENE DISEASE VALIDITY", "FILE CREATED: 2026-11-05"]
+    },
+    {
+      "name": "clingen_dosage", "enabled": true, "version": "snapshot_2026-11-05",
+      "url": "https://search.clinicalgenome.org/kb/gene-dosage/download",
+      "destination": "clingen-gene-dosage-20261105.csv", "max_bytes": 5242880,
+      "required_text": ["DOSAGE SENSITIVITY", "FILE CREATED: 2026-11-05"]
+    }
+  ],
+  "optional_adapters": [
+    {"name": "gnomad", "status": "cache_versioned_AF_only_until_local_adapter_supplied", "version": "read cache info.txt; not implicitly v4.1", "note": "No full genome download. Optional normalized exact-allele TSV with version/hash, ancestry AF/AN and missingness."},
+    {"name": "FATHMM", "status": "unavailable_local_licensed_adapter_required", "version": null},
+    {"name": "CADD", "status": "unavailable_local_adapter_required_fourth_predictor_unconfirmed", "version": null},
+    {"name": "HGMD", "status": "unavailable_licensed_manual", "version": null},
+    {"name": "OMIM", "status": "unavailable_licensed_manual", "version": null},
+    {"name": "dbNSFP", "status": "unavailable_license_and_local_adapter_required", "version": null},
+    {"name": "GeneReviews", "status": "manual_review_not_bulk_loaded", "version": null},
+    {"name": "LOVD", "status": "manual_local_export_if_permitted", "version": null},
+    {"name": "Franklin", "status": "manual_no_patient_API_queries", "version": null},
+    {"name": "VarSome", "status": "manual_source_name_uncertain_no_patient_API_queries", "version": null},
+    {"name": "HPO", "status": "optional_local_phenotype_gene_adapter_not_supplied", "version": null},
+    {"name": "pathways", "status": "optional_descriptive_only_not_a_required_analysis", "version": null}
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "bundle_id": "vep115.2-cache115-clinvar20261025-clingen20261105-publicextras-v2",
+  "assembly": "GRCh38",
+  "min_free_gib": 150,
+  "max_cache_expanded_gib": 128,
+  "analysis_reserve_gib": 150,
+  "vep": {
+    "version": "115.2",
+    "cache_version": 115,
+    "species": "homo_sapiens",
+    "image": "ensemblorg/ensembl-vep@sha256:ed6b660e278458109afc00d5e730aee240a3bf77e817796386033e1a18963152",
+    "source_tag": "release_115.2",
+    "platform": "linux/amd64",
+    "tag_metadata_url": "https://hub.docker.com/v2/repositories/ensemblorg/ensembl-vep/tags/release_115.2"
+  },
+  "resources": [
+    {
+      "name": "hpo_gene",
+      "enabled": true,
+      "version": "HPO_v2026-09-01",
+      "url": "https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-09-01/genes_to_phenotype.txt",
+      "destination": "genes_to_phenotype_2026-09-01.txt",
+      "bytes": 20821704,
+      "sha256": "507a17bff9c49e6329fbd88b1f91734fa7e9fdea5c06304044c0892eb6ab248c"
+    },
+    {
+      "name": "hpo_ontology",
+      "enabled": true,
+      "version": "HPO_v2026-09-01",
+      "url": "https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-09-01/hp.obo",
+      "destination": "hp_2026-09-01.obo",
+      "bytes": 10863613,
+      "sha256": "93dace952fcb3ec4728818857f6ba76bc2d5312f4d83266519b8694b8e798f22"
+    },
+    {
+      "name": "hgnc",
+      "enabled": true,
+      "version": "HGNC_2026-10-30_generation1793369077513436",
+      "url": "https://storage.googleapis.com/storage/v1/b/public-download-files/o/hgnc%2Ftsv%2Ftsv%2Fhgnc_complete_set.txt?alt=media&generation=1793369077513436",
+      "destination": "hgnc_complete_set_20261030.tsv",
+      "bytes": 16986126,
+      "md5": "39d46ee3ced2310056ec206019b67425"
+    },
+    {
+      "name": "mane",
+      "enabled": true,
+      "version": "MANE_GRCh38_v1.4",
+      "url": "https://ftp.ncbi.nlm.nih.gov/refseq/MANE/MANE_human/release_1.4/MANE.GRCh38.v1.4.summary.txt.gz",
+      "destination": "MANE.GRCh38.v1.4.summary.txt.gz",
+      "max_bytes": 5242880
+    }
+  ],
+  "optional_adapters": [
+    {
+      "name": "gnomad",
+      "status": "cache_versioned_AF_only_until_local_adapter_supplied",
+      "version": "read cache info.txt; not implicitly v4.1",
+      "note": "No full genome download. Optional normalized exact-allele TSV with version/hash, ancestry AF/AN and missingness."
+    },
+    {
+      "name": "FATHMM",
+      "status": "unavailable_local_licensed_adapter_required",
+      "version": null
+    },
+    {
+      "name": "CADD",
+      "status": "unavailable_local_adapter_required_fourth_predictor_unconfirmed",
+      "version": null
+    },
+    {
+      "name": "HGMD",
+      "status": "unavailable_licensed_manual",
+      "version": null
+    },
+    {
+      "name": "OMIM",
+      "status": "unavailable_licensed_manual",
+      "version": null
+    },
+    {
+      "name": "dbNSFP",
+      "status": "unavailable_license_and_local_adapter_required",
+      "version": null
+    },
+    {
+      "name": "GeneReviews",
+      "status": "manual_review_not_bulk_loaded",
+      "version": null
+    },
+    {
+      "name": "LOVD",
+      "status": "manual_local_export_if_permitted",
+      "version": null
+    },
+    {
+      "name": "Franklin",
+      "status": "manual_no_patient_API_queries",
+      "version": null
+    },
+    {
+      "name": "VarSome",
+      "status": "manual_source_name_uncertain_no_patient_API_queries",
+      "version": null
+    },
+    {
+      "name": "HPO",
+      "status": "optional_local_phenotype_gene_adapter_not_supplied",
+      "version": null
+    },
+    {
+      "name": "pathways",
+      "status": "optional_descriptive_only_not_a_required_analysis",
+      "version": null
+    }
+  ],
+  "base_config": "annotation-base-resources.example.json",
+  "readiness_manifest_relative": "vep115.2-cache115-clinvar20261025-clingen20261105-publicextras-v2/resource-manifest.json"
+}
