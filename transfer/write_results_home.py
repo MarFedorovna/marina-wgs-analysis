@@ -106,7 +106,12 @@ def write_home(results,transfer_status=None):
     cards.append(card('7 · Код и подробный инвентарь',tail))
     phenotype=reports/'phenotype-hcm-rerank-v1'
     if read_json(phenotype/'manifest.json').get('status')=='PASS_FULL_TRANSCRIPT_HCM_RESEARCH_RERANK':
-        body='<p>'+link(phenotype/'HCM-review.xlsx','Excel: общий и индивидуальные HCM top-20, MT-приложение')+'</p>'
+        workbook=phenotype/'HCM-review-with-read-support.xlsx'
+        if not workbook.is_file():workbook=phenotype/'HCM-review.xlsx'
+        body='<p>'+link(workbook,'Excel: общий и индивидуальные HCM top-20, MT и доступная проверка чтений')+'</p>'
+        support=reports/'hcm-read-support-review-v1'
+        if read_json(support/'status.json').get('status')=='PASS_LOCAL_INDEXED_SNV_READ_SUPPORT_REVIEW':
+            body+='<p>'+link(support/'cohort.read-support.tsv','Поддержка чтениями: все четыре образца')+' · '+link(support/'targets.igv.bed','Позиции для ручного IGV-просмотра')+'</p>'
         body+='<p>'+link(phenotype/'index.html','Страница фенотипного отчёта')+' · '+link(phenotype/'functional-category-index.tsv','Ранжированные функциональные категории кандидатов')+'</p>'
         body+='<p><a href="'+href(phenotype/'tables')+'/">Полные очереди кандидатов и HCM top-20</a></p>'
         body+='<p class="note">ГКМП-контекст HPO/ClinGen — очередь для разбора, а не доказанный причинный вариант. Пустой общий HCM top означает отсутствие совпадений в выбранной очереди. ACMG и наследование требуют отдельной проверки.</p>'
