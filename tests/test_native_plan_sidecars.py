@@ -94,8 +94,9 @@ class NativePlanSidecarTests(unittest.TestCase):
         self.assertEqual(sum(p.endswith('.bam') for p in paths),4)
         self.assertFalse(any('.g.vcf' in p for p in paths))
         for suffix in ['table.tsv.gz','table.csv.gz','plots/overview.png','plots/overview.jpg','plots/overview.jpeg','plots/overview.svg']:
-            entry=next(x for x in plan['Files'] if x['RelativePath'].endswith(suffix))
+            entry=next(x for x in env['files'].values() if x['RelativePath'].endswith(suffix))
             self.assertTrue(env['view_rows'][entry['RelativePath']]['ViewPath'].startswith('Reports/'))
+            if suffix in ('table.tsv.gz','table.csv.gz'):self.assertNotIn(entry['RelativePath'],paths)
         self.assertTrue(all(x['Sha256']=='a'*64 for x in plan['Files'] if x['RelativePath'].endswith('.bam')))
         self.assertEqual(plan['Mode'],'COMPARE_ONLY_NO_LINKS_WRITTEN');self.assertEqual(list(self.workspace.iterdir()),[])
         for receipt in plan['Receipts']:
@@ -162,7 +163,8 @@ class NativePlanSidecarTests(unittest.TestCase):
 
     def test_combined_master_and_joined_views_provenance_recognized_without_copying_resources(self):
         folder,path=self.combined();plan,env=self.inventory();paths={x['RelativePath'] for x in plan['Files']}
-        self.assertIn('outputs/combined-annotation-master-v1/master_evidence.enriched.tsv.gz',paths)
+        self.assertNotIn('outputs/combined-annotation-master-v1/master_evidence.enriched.tsv.gz',paths)
+        self.assertIn('outputs/combined-annotation-master-v1/master_evidence.enriched.tsv.gz',env['files'])
         self.assertIn('outputs/combined-annotation-master-v1/manifest.json',paths)
         self.assertEqual(sum('/cohort-sample-views-v1/vcf/' in p for p in paths),8)
         self.assertFalse(any(p.startswith('resources/') or '/resources/' in p for p in paths))
@@ -196,9 +198,53 @@ class NativePlanSidecarTests(unittest.TestCase):
         self.json(path,views);plan,env=self.inventory()
         for branch in ['combined-annotation-master-v1','cohort-sample-views-v1']:
             source_path='outputs/'+branch+'/'+relative
-            self.assertIn(source_path,{x['RelativePath'] for x in plan['Files']});self.assertTrue(env['view_rows'][source_path]['ViewPath'].startswith('Reports/'))
+            if branch=='cohort-sample-views-v1':self.assertIn(source_path,{x['RelativePath'] for x in plan['Files']})
+            else:self.assertNotIn(source_path,{x['RelativePath'] for x in plan['Files']})
+            self.assertTrue(env['view_rows'][source_path]['ViewPath'].startswith('Reports/'))
         manifest['auxiliary_artifacts'][0]['source_upstream_receipt']['sha256']='0'*64;self.json(folder/'manifest.json',manifest)
         with self.assertRaises(RuntimeError):self.inventory()
+
+    def vcf_first(self):
+        joined,views_path=self.combined();combined=json.loads((joined/'manifest.json').read_text());folder=self.root/'outputs/fully-annotated-vcf-v1'
+        vcf=folder/'cohort.fully-annotated.vcf.gz';index=folder/'cohort.fully-annotated.vcf.gz.tbi';self.file(vcf,b'synthetic self contained evidence VCF');self.file(index,b'synthetic index')
+        codec=self.root/'private/fully-annotated-vcf-candidate-v1/scripts/embed_vcf_evidence.py';self.file(codec,b'reviewed packet codec')
+        schema=dict(v=1,codec='json-utf8+zlib+base64url-nopad',scope='cohort',sample=None,**{k:combined[k] for k in ['original_fields','appended_fields','row_count','invariant_digest']},
+            full_fields=combined['original_fields']+combined['appended_fields'],full_fields_digest='7'*64)
+        fully=dict(schema_version=1,status='PASS_FULLY_ANNOTATED_VCF',network_requests=0,primary_outputs_changed=False,
+            original_records_fields_preserved=True,packet_decode_verified=True,decoded_master_vectors_verified=True,public_header_bundle_verified=True,
+            base_vcf=self.pin(self.stage6/'annotated.vcf.gz'),master_manifest=self.pin(joined/'manifest.json'),combined_receipt=self.pin(joined/'workflow-receipt.json'),
+            master=combined['enriched_master'],enriched_vcf=self.pin(vcf),index=self.pin(index),schema=schema,producer_code_sha256={str(codec):self.pin(codec)['sha256']},
+            **{k:schema[k] for k in ['original_fields','appended_fields','full_fields','row_count','invariant_digest','full_fields_digest']})
+        self.json(folder/'manifest.json',fully)
+        self.json(folder/'workflow-receipt.json',dict(schema_version=1,status='PASS',stage='fully-annotated-vcf-v1',identity='8'*64,
+            artifacts={p.name:{k:self.pin(p)[k] for k in ('bytes','sha256')} for p in [vcf,index,folder/'manifest.json']}))
+        views=json.loads(views_path.read_text());extracted=self.root/'private/cohort-sample-views-continuation-v3'/('extraction-'+'a'*32)/'master.from-vcf.tsv.gz'
+        self.file(extracted,b'synthetic lossless full row master');views['artifacts']['masters/cohort.master.tsv.gz']=self.file(views_path.parent/'masters/cohort.master.tsv.gz',extracted.read_bytes())
+        helper=self.root/'private/reviewed-cohort-sample-views-v2-1/scripts/export_cohort_sample_views_v2.py';producer=self.root/'private/reviewed-cohort-sample-views-v3/scripts/export_cohort_sample_views_v3.py'
+        self.file(helper,b'frozen control and applied evidence helper');self.file(producer,b'VCF first view producer')
+        views.update(report_input_kind='FULLY_ANNOTATED_VCF_PACKETS_V1',fully_annotated_vcf=dict(manifest=self.pin(folder/'manifest.json'),vcf=fully['enriched_vcf'],index=fully['index'],schema=schema),
+            joined_control=dict(manifest=fully['master_manifest'],master=fully['master'],all_full_field_vectors_order_verified=True,used_as_report_input=False),
+            extracted_master=dict(self.pin(extracted),row_count=fully['row_count'],full_fields_digest=fully['full_fields_digest'],original_fields_digest=fully['invariant_digest'],source='VCF_INFO_WGS_EVIDENCE_ONLY'),
+            sample_packet_scope_verified=True,public_header_bundles_verified=True,sample_packet_checks=[dict(sample=s,scope='sample',other_sample_rows=0,original_source_ordinals_retained=True) for s in views['samples']],
+            views_v2_control_helper=dict(path=str(helper),sha256=self.pin(helper)['sha256']),packet_codec=dict(path=str(codec),sha256=self.pin(codec)['sha256']),views_v3_exporter_sha256=self.pin(producer)['sha256'],copied_applied_evidence=[])
+        for source in [folder/'manifest.json',folder/'workflow-receipt.json',vcf,index,extracted]:views['source_pins'][str(source)]={k:self.pin(source)[k] for k in ('bytes','sha256')}
+        for source,name in [(vcf,'vcf/cohort.fully-annotated.vcf.gz'),(index,'vcf/cohort.fully-annotated.vcf.gz.tbi'),
+            (folder/'manifest.json','provenance/fully-annotated-vcf-manifest.json'),(folder/'workflow-receipt.json','provenance/fully-annotated-vcf-receipt.json'),
+            (joined/'manifest.json','provenance/joined-control-manifest.json'),(joined/'workflow-receipt.json','provenance/joined-control-receipt.json')]:
+            views['artifacts'][name]=self.file(views_path.parent/name,source.read_bytes())
+        self.json(views_path,views);return folder,views_path
+
+    def test_vcf_first_final_selection_one_cohort_copy_and_sample_scope_proof(self):
+        folder,path=self.vcf_first();plan,env=self.inventory();paths={entry['RelativePath'] for entry in plan['Files']}
+        self.assertIn('outputs/cohort-sample-views-v1/vcf/cohort.fully-annotated.vcf.gz',paths)
+        self.assertNotIn('outputs/fully-annotated-vcf-v1/cohort.fully-annotated.vcf.gz',paths)
+        self.assertIn('outputs/fully-annotated-vcf-v1/cohort.fully-annotated.vcf.gz',env['files'])
+        self.assertEqual(sum('/cohort-sample-views-v1/vcf/' in p for p in paths),10)
+        self.assertIn('outputs/cohort-sample-views-v1/masters/cohort.master.tsv.gz',paths)
+        self.assertNotIn('outputs/workflow-v1/stages/07_report/master_evidence.tsv.gz',paths)
+        self.assertEqual(sum(p.endswith('.bam') for p in paths),4)
+        views=json.loads(path.read_text());views['sample_packet_checks'][0]['other_sample_rows']=1;self.json(path,views)
+        with self.assertRaisesRegex(RuntimeError,'packet pruning'):self.inventory()
 
 
 if __name__=='__main__':unittest.main()
