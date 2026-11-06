@@ -4,7 +4,7 @@ import { Workbook, SpreadsheetFile } from '@oai/artifact-tool';
 
 // Bundled artifact-tool dependency is supplied by the documented runtime loader.
 // Patient input JSON and resulting workbooks stay outside the code repository.
-const [input, output, previewDir, mtReviewPath] = process.argv.slice(2);
+const [input, output, previewDir, mtReviewPath, readReviewPath] = process.argv.slice(2);
 if (!input || !output || !previewDir) throw new Error('Usage: node build_phenotype_workbook.mjs workbook-data.json output.xlsx preview-directory');
 const data = JSON.parse(await fs.readFile(input, 'utf8'));
 const wb = Workbook.create();
@@ -78,6 +78,18 @@ if (mtReviewPath) {
   for(let c=8;c<head.length;c+=2)sh.getRangeByIndexes(1,c,rows.length,1).setNumberFormat('0.########');
   overviewRows.push(['MT контекст',mt.summary.unique_literal_PASS_alleles,null,'Отдельный описательный разбор site-PASS; AF сопоставлен точному ALT. HL сохраняется как пропуск. Ранг и ACMG не назначаются.']);
 }
+if (readReviewPath) {
+  const review=JSON.parse(await fs.readFile(readReviewPath,'utf8'));
+  if(review.status!=='PASS_LOCAL_INDEXED_SNV_READ_SUPPORT_REVIEW') throw new Error('Completed indexed read-support report required');
+  const selected=review.results.filter(r=>JSON.parse(r.source_membership.eligible_samples_json).includes(r.sample));
+  const headers=['Образец','Ген','Вариант GRCh38','Исходный GT','Исходный AD','Исходный DP','REF чтения','ALT чтения','REF шаблоны','ALT шаблоны','ALT вперёд','ALT обратно','Доля ALT чтений','Флаги просмотра'];
+  const matrix=[headers,...selected.map(r=>{const c=r.counts;const total=c.reads_REF+c.reads_ALT+c.reads_OTHER;
+    return [r.sample,r.gene,`${r.chrom}:${r.pos}:${r.ref}:${r.alt}`,r.source_call.GT,r.source_call.AD,scalar(r.source_call.DP,'int'),c.reads_REF,c.reads_ALT,c.templates_REF,c.templates_ALT,c.reads_ALT_forward,c.reads_ALT_reverse,total?c.reads_ALT/total:null,r.descriptive_flags.join('; ')||'Нет описательных флагов'];})];
+  const sh=wb.worksheets.add('Чтения кандидатов');formatSheet(sh,matrix,[20,16,35,18,20,18,17,17,19,19,18,18,20,65],'Candidate_Read_Support');
+  if(selected.length) sh.getRangeByIndexes(1,12,selected.length,1).setNumberFormat('0.0%');
+  overviewRows.push(['Проверка чтений',selected.length,null,`MAPQ≥${review.parameters.mapq}, BaseQ≥${review.parameters.baseq}; повторяющиеся перекрывающиеся mates учтены по шаблонам. Полные четыре образца находятся в read-support TSV/JSON.`],
+    ['Ограничение подсчёта',null,null,'Это отдельный фильтрованный подсчёт без BAQ и локальной сборки. Он не обязан совпадать с GATK DP/AD; описательные флаги не являются решением об артефакте или патогенности.']);
+}
 overviewRows.push(['Источники',null,null,'HPO 2026-09-01; ClinGen Gene–Disease Validity snapshot 2026-11-05; аннотации исходного завершённого набора.'],
  ['HPO документация',null,null,'https://obophenotype.github.io/human-phenotype-ontology/annotations/introduction/'],
  ['Термин ГКМП',null,null,'https://www.ncbi.nlm.nih.gov/medgen/2881'],
@@ -92,9 +104,9 @@ const inspect=await wb.inspect({kind:'table',range:"'Общий топ20'!A1:I6"
 await fs.writeFile(path.join(previewDir,'inspection.ndjson'),inspect.ndjson);
 const errors=await wb.inspect({kind:'match',searchTerm:'#REF!|#DIV/0!|#VALUE!|#NAME\\?|#NUM!|#SPILL!|#CALC!',options:{useRegex:true,maxResults:20},maxChars:2000});
 await fs.writeFile(path.join(previewDir,'errors.ndjson'),errors.ndjson);
-for(const name of ['Обзор',...Object.values(names),...(mtReviewPath?['MT контекст']:[])]) {
+for(const name of ['Обзор',...Object.values(names),...(mtReviewPath?['MT контекст']:[]),...(readReviewPath?['Чтения кандидатов']:[])]) {
  const blob=await wb.render({sheetName:name,range:name==='Обзор'?'A1:D11':'A1:F8',scale:1,format:'png'});
  await fs.writeFile(path.join(previewDir,name+'.png'),new Uint8Array(await blob.arrayBuffer()));
 }
 await (await SpreadsheetFile.exportXlsx(wb)).save(output);
-console.log(JSON.stringify({status:'EXPORTED_PHENOTYPE_REVIEW_WORKBOOK',sheets:mtReviewPath?9:8,output}));
+console.log(JSON.stringify({status:'EXPORTED_PHENOTYPE_REVIEW_WORKBOOK',sheets:8+Number(Boolean(mtReviewPath))+Number(Boolean(readReviewPath)),output}));
