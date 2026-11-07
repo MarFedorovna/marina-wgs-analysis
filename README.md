@@ -86,7 +86,7 @@
 
 X/Y представлены полным QC-набором и отдельными списками по образцам; MT — отдельными PASS-вызовами и списками по образцам. Для каждой строки сохраняются носители, вариант, транскрипт, показатели качества и доступные аннотации. В таблицах общих вариантов метрики относятся к явно названному образцу.
 
-Опубликованные ниже скрипты создают исходные этапы и промежуточные представления. Сборщик последнего полного отчёта в этот список пока не входит; для точного повторения финального рейтинга необходимо опубликовать и проверить переносимый сборщик с приватными входными путями.
+Итоговый сборщик опубликован: `scripts/prepare_full_cvd_views.py` готовит полные списки, а `scripts/write_full_cvd_xlsx.py` формирует Excel. Команды и необходимые приватные входы описаны ниже.
 
 Основные скрипты: `continue_cohort_sample_views_v3.py`, `export_cohort_sample_views_v3.py`, `export_consequence_tables.py`, `prepare_mt_xy_annotation_inputs.py`, `audit_opencravat_result.py`.
 
@@ -128,6 +128,28 @@ python3 scripts/review_candidate_snv_reads.py --help
 ```
 
 На практике shell-файлы запускаются через `bash`, а Python — через `python3`. Перед полным запуском нужно проверить `--help` конкретной версии скрипта и записать версии всех инструментов.
+
+## Сборка полных списков и Excel
+
+Нужны Python 3 и `openpyxl` (`python -m pip install openpyxl`). Пути и идентификаторы в примере замените своими приватными значениями. Сборщик использует готовые входы, не выполняет вызов вариантов или новую аннотацию.
+
+```bash
+python scripts/prepare_full_cvd_views.py \
+  --vcf-qc /private/cohort.quality.vcf.gz \
+  --opencravat-sqlite /private/opencravat.sqlite \
+  --clingen-validity-csv /private/clingen.csv \
+  --vep-tables /private/cohort-tables \
+  --supplementary-json /private/supplementary.json \
+  --xy-quality-vcf /private/XY.quality.vcf \
+  --samples SAMPLE1 SAMPLE2 SAMPLE3 SAMPLE4 \
+  --exclusions /private/exclusions.json \
+  --output-json /private/full-views.json
+python scripts/write_full_cvd_xlsx.py --input-json /private/full-views.json --output-xlsx /private/report.xlsx
+```
+
+`--samples` указывается в точном порядке образцов VCF, и этот порядок проверяется в обоих VCF. VEP-каталог должен содержать функциональные TSV.GZ с ожидаемыми столбцами. `supplementary.json` — заранее подготовленный приватный JSON с массивом `sheets`, элементами `name`, `headers`, `values` и листами `Все_исходные_кандидаты`, `X_Y_все`, `MT_все` и `MT_<имя образца>` для каждого образца. Создание этого промежуточного JSON из сырых данных в данный сборщик не входит. Лист с исходными кандидатами дополняет доступные частоты; X/Y и MT переносятся из подготовленных ранее результатов.
+
+Необязательный `--exclusions` — приватный JSON-массив ключей `CHROM:POS:REF:ALT`, которые по результатам отдельной проверки исключены из сопоставления. Если в OpenCRAVAT отсутствует подходящая запись прошедшего QC варианта, сборщик останавливается; нельзя автоматически считать отсутствие безопасным. Входы, исключения, JSON и Excel содержат данные исследования и в публичный репозиторий не помещаются.
 
 ## Ограничения
 
